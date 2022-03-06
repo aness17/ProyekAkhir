@@ -95,7 +95,7 @@
                 <i class="bi bi-list mobile-nav-toggle d-none"></i>
             </nav><!-- .navbar -->
 
-            <a class="btn-getstarted scrollto" href=<?= base_url('index.php/login/') ?>>Login</a>
+            <a class="btn-getstarted scrollto" href=<?= base_url('index.php/auth/login/') ?>>Login</a>
 
         </div>
     </header><!-- End Header -->

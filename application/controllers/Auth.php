@@ -49,10 +49,10 @@ class Auth extends CI_Controller
     {
         $this->load->view('auth/login');
     }
-    public function login_act()
-    {
-        $this->load->view('user/login');
-    }
+    // public function login_act()
+    // {
+    //     $this->load->view('user/login');
+    // }
     // public function pesan()
     // {
     //     $ci = get_instance();
