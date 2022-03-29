@@ -21,29 +21,27 @@ class Login extends CI_Controller
         if (isset($user)) {
             // var_dump($user);
             // die;
-            if (password_verify($passwd, $user['password_pelanggan'])) {
-                var_dump($user);
-                die;
+            if ($passwd == $user['password_pelanggan']) {
+                // var_dump($user);
+                // die;
                 $this->session->set_userdata('id', $user['id_pelanggan']);
                 $this->session->set_userdata('username', $user['username_pelanggan']);
                 $this->session->set_userdata('id_role', $user['fk_role']);
                 if ($user['fk_role'] == '1') {
-                    echo "<script>location.href='" . base_url('index.php/admin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
-                    // echo "<script>location.href='" . base_url('index.php/auth/dashboard') . "';alert('Anda Berhasil Masuk');</script>";
+                    echo "<script>location.href='" . base_url('admin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
+                    // echo "<script>location.href='" . base_url('auth/dashboard') . "';alert('Anda Berhasil Masuk');</script>";
                 } else if ($user['fk_role'] == '2') {
-                    echo "<script>location.href='" . base_url('index.php/outlet') . "';alert('Anda Berhasil Masuk Sebagai Outlet');</script>";
-                } else if ($user['fk_role'] == '3') {
-                    echo "<script>location.href='" . base_url('index.php/superadmin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
+                    echo "<script>location.href='" . base_url('owner') . "';alert('Anda Berhasil Masuk Sebagai Owner');</script>";
                 } else {
-                    echo "<script>location.href='" . base_url('index.php/agen') . "';alert('Anda Berhasil Masuk Sebagai Agen');</script>";
+                    echo "<script>location.href='" . base_url('auth/dashboard') . "';alert('Anda Berhasil Masuk Sebagai Customer');</script>";
                 }
             } else {
                 // var_dump($user);
                 // die;
-                echo "<script>location.href='" . base_url('index.php/auth/login') . "';alert('Password Salah');</script>";
+                echo "<script>location.href='" . base_url('auth/login') . "';alert('Password Salah');</script>";
             }
         } else {
-            redirect('index.php/auth/login');
+            redirect('auth/login');
         }
     }
 
@@ -73,10 +71,10 @@ class Login extends CI_Controller
                 } else {
                     $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
                 }
-                echo "<script>location.href='" . base_url('index.php/login') . "';alert('Daftar Berhasil');</script>";
+                echo "<script>location.href='" . base_url('login') . "';alert('Daftar Berhasil');</script>";
             }
         } else {
-            echo "<script>location.href='" . base_url('index.php/login/formregister') . "';alert('Anda gagal Registrasi');</script>";
+            echo "<script>location.href='" . base_url('login/formregister') . "';alert('Anda gagal Registrasi');</script>";
         }
     }
     public function formregister()
@@ -94,14 +92,14 @@ class Login extends CI_Controller
             $this->session->unset_userdata('id_role');
             $this->session->unset_userdata('nama');
             echo "<script>alert('Anda Telah Keluar');</script>";
-            redirect('index.php/auth/');
+            redirect('auth/');
         } else {
             $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been logged out'));
             $this->session->unset_userdata('id');
             $this->session->unset_userdata('id_role');
             $this->session->unset_userdata('nama');
             echo "<script>alert('Anda Telah Keluar');</script>";
-            redirect('index.php/auth/login');
+            redirect('auth/login');
         }
     }
 

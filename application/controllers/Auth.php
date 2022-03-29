@@ -16,15 +16,15 @@ class Auth extends CI_Controller
      * Index Page for this controller.
      *
      * Maps to the following URL
-     * 		http://example.com/index.php/welcome
+     * 		http://example.com/welcome
      *	- or -
-     * 		http://example.com/index.php/welcome/index
+     * 		http://example.com/welcome/index
      *	- or -
      * Since this controller is set as the default controller in
      * config/routes.php, it's displayed at http://example.com/
      *
      * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
+     * map to /welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
     public function index()
@@ -34,11 +34,11 @@ class Auth extends CI_Controller
         $this->load->view('templates/user/footer');
         // $ci = get_instance();
         // if ($ci->session->userdata('id_role') == '1') {
-        //     redirect('index.php/superadmin/');
+        //     redirect('superadmin/');
         // } elseif ($ci->session->userdata('id_role') == '4') {
-        //     redirect('index.php/agen/');
+        //     redirect('agen/');
         // } elseif ($ci->session->userdata('id_role') == '2') {
-        //     redirect('index.php/outlet/');
+        //     redirect('outlet/');
         // } else {
         //     $this->load->view('templates/user/header2');
         //     $this->load->view('user/index');
@@ -49,6 +49,12 @@ class Auth extends CI_Controller
     {
         $this->load->view('auth/login');
     }
+    public function dashboard()
+    {
+        $this->load->view('templates/user/header2');
+        $this->load->view('user/dashboard');
+        $this->load->view('templates/user/footer');
+    }
     // public function login_act()
     // {
     //     $this->load->view('user/login');
@@ -57,7 +63,7 @@ class Auth extends CI_Controller
     // {
     //     $ci = get_instance();
     //     if (!$ci->session->userdata('id')) {
-    //         redirect('index.php/auth/login');
+    //         redirect('auth/login');
     //     } elseif ($ci->session->userdata('id') == '8'  || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
     //         echo "Akses di blokir";
     //     } else {
@@ -105,11 +111,11 @@ class Auth extends CI_Controller
     //                 if ($this->Transaksi_model->createPesanan($db) > 0) {
     //                     $this->session->set_flashdata('message', $this->flasher('success', 'Pesanan anda telah berhasil'));
     //                     echo "berhasil";
-    //                     redirect('index.php/auth/detail_pemesanan');
+    //                     redirect('auth/detail_pemesanan');
     //                 } else {
     //                     echo "gagal";
     //                     $this->session->set_flashdata('message', $this->flasher('danger', 'Pesanan anda gagal'));
-    //                     redirect('index.php/auth/pesan');
+    //                     redirect('auth/pesan');
     //                 }
     //             } else {
 
@@ -158,14 +164,14 @@ class Auth extends CI_Controller
     //                     }
     //                 }
     //                 if ($this->Transaksi_model->createPesanan($db) > 0) {
-    //                     echo "<script>location.href='" . base_url('index.php/auth.hasil_pesanan') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
+    //                     echo "<script>location.href='" . base_url('auth.hasil_pesanan') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
     //                     $this->session->set_flashdata('message', $this->flasher('success', 'Pesanan anda telah berhasil'));
     //                     echo "berhasil";
-    //                     redirect('index.php/auth/detail_pemesanan');
+    //                     redirect('auth/detail_pemesanan');
     //                 } else {
     //                     echo "gagal";
     //                     $this->session->set_flashdata('message', $this->flasher('danger', 'Pesanan anda gagal'));
-    //                     redirect('index.php/auth/pesan');
+    //                     redirect('auth/pesan');
     //                 }
     //             } else {
     //                 //$this->load->view('templates/user/header');
@@ -180,7 +186,7 @@ class Auth extends CI_Controller
     // {
     //     $ci = get_instance();
     //     if (!$ci->session->userdata('id')) {
-    //         redirect('index.php/auth/login');
+    //         redirect('auth/login');
     //     } elseif ($ci->session->userdata('id') == '8'  || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
     //         echo "Akses di blokir";
     //     } else {
@@ -200,7 +206,7 @@ class Auth extends CI_Controller
     // {
     //     $ci = get_instance();
     //     if (!$ci->session->userdata('id')) {
-    //         redirect('index.php/auth/login');
+    //         redirect('auth/login');
     //     } elseif ($ci->session->userdata('id') == '8' || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
     //         echo "Akses di blokir";
     //     } else {
@@ -223,7 +229,7 @@ class Auth extends CI_Controller
 
     //     $ci = get_instance();
     //     if (!$ci->session->userdata('id')) {
-    //         redirect('index.php/auth/login');
+    //         redirect('auth/login');
     //     } elseif ($ci->session->userdata('id') == '8' || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
     //         echo "Akses di blokir";
     //     } else {
@@ -243,7 +249,7 @@ class Auth extends CI_Controller
     // {
     //     $ci = get_instance();
     //     if (!$ci->session->userdata('id')) {
-    //         redirect('index.php/auth/login');
+    //         redirect('auth/login');
     //     } elseif ($ci->session->userdata('id') == '8'  || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
     //         echo "Akses di blokir";
     //     } else {
@@ -267,11 +273,11 @@ class Auth extends CI_Controller
     //             if ($this->User_model->update($db, $id) > 0) {
     //                 $this->session->set_flashdata('message', $this->flasher('success', 'Profil Anda telah diperbarui'));
     //                 echo "berhasil";
-    //                 redirect('index.php/auth/profil');
+    //                 redirect('auth/profil');
     //             } else {
     //                 echo "gagal";
     //                 $this->session->set_flashdata('message', $this->flasher('danger', 'Profil Anda gagal diperbarui'));
-    //                 redirect('index.php/auth/editprofile');
+    //                 redirect('auth/editprofile');
     //             }
     //         } else {
     //             $this->load->view('templates/user/header');
@@ -294,11 +300,11 @@ class Auth extends CI_Controller
     //         echo "Anda login menggunakan akun " . $this->session->userdata('nama') . ". Anda akan dialihkan ke halaman " . $this->session->userdata('nama');
 
     //         if ($this->session->userdata('nama') == 'admin') {
-    //             redirect('index.php/superadmin/');
+    //             redirect('superadmin/');
     //         } elseif ($this->session->userdata('id_role') == '4') {
-    //             redirect('index.php/agen/');
+    //             redirect('agen/');
     //         } elseif ($this->session->userdata('id_role') == '2') {
-    //             redirect('index.php/outlet/');
+    //             redirect('outlet/');
     //         }
     //     } else {
     //         $this->load->view('templates/user/header');
