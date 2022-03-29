@@ -14,21 +14,22 @@ class Login extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[4]');
 
         $username = $this->input->post('username');
-        $passwd_cs = $this->input->post('passwd');
+        $passwd = $this->input->post('passwd');
 
         $user = $this->db->get_where('pelanggan', ['username_pelanggan' => $username])->row_array();
 
-
         if (isset($user)) {
-
-            if (password_verify($passwd_cs, $user['passwd_cs'])) {
-                // var_dump($user);
-                // die;
-                $this->session->set_userdata('id', $user['id_cs']);
-                $this->session->set_userdata('nama', $user['nama_cs']);
+            // var_dump($user);
+            // die;
+            if (password_verify($passwd, $user['password_pelanggan'])) {
+                var_dump($user);
+                die;
+                $this->session->set_userdata('id', $user['id_pelanggan']);
+                $this->session->set_userdata('username', $user['username_pelanggan']);
                 $this->session->set_userdata('id_role', $user['fk_role']);
                 if ($user['fk_role'] == '1') {
-                    echo "<script>location.href='" . base_url('index.php/auth/dashboard') . "';alert('Anda Berhasil Masuk');</script>";
+                    echo "<script>location.href='" . base_url('index.php/admin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
+                    // echo "<script>location.href='" . base_url('index.php/auth/dashboard') . "';alert('Anda Berhasil Masuk');</script>";
                 } else if ($user['fk_role'] == '2') {
                     echo "<script>location.href='" . base_url('index.php/outlet') . "';alert('Anda Berhasil Masuk Sebagai Outlet');</script>";
                 } else if ($user['fk_role'] == '3') {
@@ -37,6 +38,8 @@ class Login extends CI_Controller
                     echo "<script>location.href='" . base_url('index.php/agen') . "';alert('Anda Berhasil Masuk Sebagai Agen');</script>";
                 }
             } else {
+                // var_dump($user);
+                // die;
                 echo "<script>location.href='" . base_url('index.php/auth/login') . "';alert('Password Salah');</script>";
             }
         } else {

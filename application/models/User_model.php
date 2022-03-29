@@ -6,7 +6,7 @@ class User_model extends CI_Model
     private $table = 'pelanggan';
     private $primary = 'id_pelanggan';
 
-    public function createpelangga($data)
+    public function createpelanggan($data)
     {
         return $this->db->insert($this->table, $data);
     }

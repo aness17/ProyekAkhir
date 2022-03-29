@@ -50,8 +50,8 @@
                                     </div>
                                     <form method="POST" action="<?= base_url('index.php/login') ?>">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Alamat Email">
-                                            <?= form_error('nama', '<small class="form-text text-danger">', '</small>'); ?>
+                                            <input type="username" class="form-control form-control-user" name="username" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username">
+                                            <?= form_error('username', '<small class="form-text text-danger">', '</small>'); ?>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" name="passwd" id="exampleInputPassword" placeholder="Kata Sandi">

@@ -33,7 +33,7 @@ class Auth extends CI_Controller
         $this->load->view('user/index');
         $this->load->view('templates/user/footer');
         // $ci = get_instance();
-        // if ($ci->session->userdata('id_role') == '3') {
+        // if ($ci->session->userdata('id_role') == '1') {
         //     redirect('index.php/superadmin/');
         // } elseif ($ci->session->userdata('id_role') == '4') {
         //     redirect('index.php/agen/');
