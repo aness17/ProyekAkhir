@@ -26,7 +26,7 @@ class Admin extends CI_Controller
 
         $this->load->model('User_model');
         // $this->load->model('Jenis_model');
-        // $this->load->model('Layanan_model');
+        $this->load->model('Produk_model');
         // $this->load->model('Transaksi_model');
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
@@ -129,25 +129,25 @@ class Admin extends CI_Controller
         }
     }
 
-    public function datalayanan()
+    public function dataproduk()
     {
-        $layanan = $this->Layanan_model->selectAll();
-        $jenis = $this->Jenis_model->selectAll();
+        $produk = $this->Produk_model->selectAll();
+        // $jenis = $this->Jenis_model->selectAll();
 
         $data = [
-            'layanan' => $layanan,
-            'jenis' => $jenis
+            'produk' => $produk
+            // 'jenis' => $jenis
         ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datalayanan', $data);
-            $this->load->view('templates/admin/footer');
-        }
+        // $ci = get_instance();
+        // if ($ci->session->userdata('id') != '8') {
+        //     redirect('superadmin/');
+        // } else {
+        $this->load->view('templates/admin/header');
+        $this->load->view('templates/admin/sidebar');
+        // $this->load->view('templates/admin/navbar');
+        $this->load->view('admin/dataproduk', $data);
+        $this->load->view('templates/admin/footer');
+        // }
     }
     public function datapemesanan()
     {

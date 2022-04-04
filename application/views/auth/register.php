@@ -59,38 +59,30 @@
                                         <h5 class="card-title text-center pb-0 fs-4">Registrasi</h5>
                                     </div>
 
-                                    <form method="POST" action="<?= base_url('login/register') ?>" class="row g-3 needs-validation" novalidate>
+                                    <form method="POST" action="<?= base_url('auth/register') ?>" class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
                                             <label for="Nama" class="form-label">Nama</label>
                                             <input type="text" name="nama" class="form-control" id="yourName" required>
-                                            <div class="invalid-feedback">Please, enter your name!</div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="Email" class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control" id="yourEmail" required>
-                                            <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                            <?= form_error('nama', '<small class="form-text text-danger">', '</small>'); ?>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="Username" class="form-label">Username</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                                <div class="invalid-feedback">Please choose a username.</div>
+                                                <?= form_error('username', '<small class="form-text text-danger">', '</small>'); ?>
                                             </div>
                                         </div>
-
                                         <div class="col-12">
                                             <label for="Password" class="form-label">Password</label>
                                             <input type="password" name="passwd" class="form-control" id="yourPassword" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            <?= form_error('passwd', '<small class="form-text text-danger">', '</small>'); ?>
                                         </div>
                                         <div class="col-12">
                                             <label for="Konfirmasi Password" class="form-label">Konfirmasi Password</label>
                                             <input type="password" name="passwd" class="form-control" id="yourPassword" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            <?= form_error('passwd', '<small class="form-text text-danger">', '</small>'); ?>
                                         </div>
-
 
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Buat Akun</button>

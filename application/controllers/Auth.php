@@ -47,8 +47,102 @@ class Auth extends CI_Controller
     }
     public function login()
     {
-        $this->load->view('auth/login');
+        $this->form_validation->set_rules('username', 'Username');
+        $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[4]');
+
+        $username = $this->input->post('username');
+        $passwd = $this->input->post('passwd');
+
+        $user = $this->db->get_where('pelanggan', ['username_pelanggan' => $username])->row_array();
+
+        if ($this->form_validation->run()) {
+            if (isset($user)) {
+                // var_dump($user);
+                // die;
+                if (password_verify($passwd, $user['password_pelanggan'])) {
+                    // var_dump($user);
+                    // die;
+                    $this->session->set_userdata('id', $user['id_pelanggan']);
+                    $this->session->set_userdata('username', $user['username_pelanggan']);
+                    $this->session->set_userdata('id_role', $user['fk_role']);
+                    if ($user['fk_role'] == '1') {
+                        echo "<script>location.href='" . base_url('admin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
+                        // echo "<script>location.href='" . base_url('auth/dashboard') . "';alert('Anda Berhasil Masuk');</script>";
+                    } else if ($user['fk_role'] == '2') {
+                        echo "<script>location.href='" . base_url('owner') . "';alert('Anda Berhasil Masuk Sebagai Owner');</script>";
+                    } else {
+                        echo "<script>location.href='" . base_url('auth/dashboard') . "';alert('Anda Berhasil Masuk Sebagai Customer');</script>";
+                    }
+                } else {
+                    // var_dump($user);
+                    // die;
+                    echo "<script>location.href='" . base_url('auth/login') . "';alert('Password Salah');</script>";
+                }
+            } else {
+                echo "<script>location.href='" . base_url('auth/login') . "';alert('User Tidak Ada');</script>";
+            }
+        } else {
+            // var_dump($user);
+            // die;
+            $this->load->view('auth/login');
+        }
     }
+
+    public function register()
+    {
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[pelanggan.username_pelanggan]');
+        $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[6]');
+
+
+        if ($this->form_validation->run()) {
+            // $email = $this->input->post('email');
+            // $pos = strpos($email, "@gmail.com") ? "ada" : "tidak ada";
+            // if ($pos == "tidak ada") {
+            //     echo "<script>alert('harus gugel bund');history.go(-1);</script>";
+            //     $this->session->set_flashdata('message_login', $this->flasher('danger', 'HARUS AKUN GUGEL'));
+            // } else {
+            $db = [
+                'nama_pelanggan' => $this->input->post('nama'),
+                'username_pelanggan' => $this->input->post('username'),
+                'password_pelanggan' => password_hash($this->input->post('passwd'), PASSWORD_DEFAULT),
+                'fk_role' => '3'
+            ];
+            // var_dump($db);
+            // die;
+            if ($this->User_model->createpelanggan($db) > 0) {
+                $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
+                echo "<script>location.href='" . base_url('auth/login') . "';alert('Daftar Berhasil');</script>";
+            } else {
+                $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
+            }
+        } else {
+            $this->load->view('auth/register');
+            // echo "<script>location.href='" . base_url('login/formregister') . "';alert('Anda gagal Registrasi');</script>";
+        }
+    }
+
+    public function logout()
+    {
+        $id = $this->session->userdata('id_role');
+        if ($id == '1') {
+            $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been logged out'));
+            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('id_role');
+            $this->session->unset_userdata('nama');
+            echo "<script>alert('Anda Telah Keluar');</script>";
+            redirect('auth/');
+        } else {
+            $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been logged out'));
+            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('id_role');
+            $this->session->unset_userdata('nama');
+            echo "<script>alert('Anda Telah Keluar');</script>";
+            redirect('auth/login');
+        }
+    }
+
     public function dashboard()
     {
         $this->load->view('templates/user/header2');
