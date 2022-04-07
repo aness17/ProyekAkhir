@@ -139,7 +139,7 @@ class Auth extends CI_Controller
             $this->session->unset_userdata('id_role');
             $this->session->unset_userdata('nama');
             echo "<script>alert('Anda Telah Keluar');</script>";
-            redirect('auth/login');
+            redirect('auth/');
         }
     }
 

@@ -25,7 +25,7 @@ class Admin extends CI_Controller
         parent::__construct();
 
         $this->load->model('User_model');
-        // $this->load->model('Jenis_model');
+        $this->load->model('Umkm_model');
         $this->load->model('Produk_model');
         // $this->load->model('Transaksi_model');
         // $this->load->library('Pdf');
@@ -149,23 +149,22 @@ class Admin extends CI_Controller
         $this->load->view('templates/admin/footer');
         // }
     }
-    public function datapemesanan()
+    public function dataumkm()
     {
-        $pemesanan = $this->Transaksi_model->selectAll();
+        $umkm = $this->Umkm_model->selectAll();
         $data = [
-            'pemesanan' => $pemesanan
+            'umkm' => $umkm
         ];
 
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datapemesanan', $data);
-            $this->load->view('templates/admin/footer');
-        }
+        // $ci = get_instance();
+        // if ($ci->session->userdata('id') != '8') {
+        //     redirect('superadmin/');
+        // } else {
+        $this->load->view('templates/admin/header');
+        $this->load->view('templates/admin/sidebar');
+        $this->load->view('admin/dataumkm', $data);
+        $this->load->view('templates/admin/footer');
+        // }
     }
 
     public function datapemesananagen()
