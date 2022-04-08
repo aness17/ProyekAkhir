@@ -402,43 +402,47 @@ class Admin extends CI_Controller
             }
         }
     }
-    public function addjenis()
+    public function addproduk()
     {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('satuan', 'Satuan', 'required');
-            $this->form_validation->set_rules('estimasi', 'Estimasi Waktu', 'required');
-            $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
-            $this->form_validation->set_rules('harga', 'Harga', 'required');
+        // $ci = get_instance();
+        // if ($ci->session->userdata('id') != '8') {
+        //     redirect('superadmin/');
+        // } else {
+        $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
+        $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
+        $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
+        $this->form_validation->set_rules('stokproduk', 'Stok Produk', 'required');
+        $this->form_validation->set_rules('fotoproduk', 'Foto Produk', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori Produk', 'required');
+        $this->form_validation->set_rules('umkm', 'UMKM Produk', 'required');
 
-            if ($this->form_validation->run() == true) {
-                $db = [
-                    'nama_jenis' => $this->input->post('nama'),
-                    'satuan_jenis' => $this->input->post('satuan'),
-                    'estimasi_waktu_jenis' => $this->input->post('estimasi'),
-                    'keterangan' => $this->input->post('keterangan'),
-                    'harga_jenis' => $this->input->post('harga')
-                ];
 
-                // var_dump($db);
+        if ($this->form_validation->run() == true) {
+            $db = [
+                'nama_produk' => $this->input->post('namaproduk'),
+                'keterangan_produk' => $this->input->post('keteranganproduk'),
+                'harga_produk' => $this->input->post('hargaproduk'),
+                'stok_produk' => $this->input->post('stokproduk'),
+                'foto_produk' => $this->input->post('fotoproduk'),
+                'fk_kategori' => $this->input->post('kategori'),
+                'fk_umkm' => $this->input->post('umkm')
+            ];
 
-                if ($this->Jenis_model->create($db) > 0) {
-                    $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
-                } else {
-                    $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
-                }
-                redirect('superadmin/datalayanan');
+            // var_dump($db);
+
+            if ($this->Produk_model->create($db) > 0) {
+                $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
             } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/jenis/add');
-                $this->load->view('templates/admin/footer');
+                $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
             }
+            redirect('admin/dataproduk');
+        } else {
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('admin/tambahproduk');
+            $this->load->view('templates/admin/footer');
         }
+        // }
     }
     public function addlayanan()
     {

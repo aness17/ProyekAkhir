@@ -5,7 +5,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard/') ?>">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Data Produk</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -16,6 +16,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Data Produk</h5>
+                    <a href="<?= base_url('admin/addproduk') ?>" type="button" class="btn btn-success text-white btn-sm">
+                        Tambah
+                    </a>
 
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
