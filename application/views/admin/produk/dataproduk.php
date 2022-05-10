@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Data Produk</h5>
-                    <a href="<?= base_url('admin/addproduk') ?>" type="button" class="btn btn-success text-white btn-sm">
+                    <a href="<?= base_url('produk/addproduk') ?>" type="button" class="btn btn-success text-white btn-sm">
                         Tambah
                     </a>
 
@@ -32,6 +32,7 @@
                                 <th scope="col">Foto Produk</th>
                                 <th scope="col">Kategori</th>
                                 <th scope="col">UMKM</th>
+                                <th scope="col">AKSI</th>
                             </tr>
                         </thead>
                         <tbody class="list">
@@ -44,14 +45,14 @@
                                     <td><?= $produks['keterangan_produk'] ?></td>
                                     <td><?= $produks['harga_produk'] ?></td>
                                     <td><?= $produks['stok_produk'] ?></td>
-                                    <td><?= $produks['foto_produk'] ?></td>
+                                    <td><img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" alt=""></td>
                                     <td><?= $produks['fk_kategori'] ?></td>
                                     <td><?= $produks['fk_umkm'] ?></td>
 
                                     <td class="text-center">
-                                        <a href="<?= base_url('index.php/superadmin/edit/' . $produks['id_produk']) ?>" type="button" class="fas fa-edit" style="color:limegreen">
+                                        <a href="<?= base_url('produk/edit/' . $produks['id_produk']) ?>" type="button" class="fas fa-edit" style="color:limegreen">Ubah
                                         </a>
-                                        <a href="<?= base_url('index.php/superadmin/delete/' . $produks['id_produk']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">
+                                        <a href="<?= base_url('produk/delete/' . $produks['id_produk']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
                                         </a>
                                     </td>
                                 </tr>

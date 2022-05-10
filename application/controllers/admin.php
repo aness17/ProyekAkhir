@@ -27,6 +27,8 @@ class Admin extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Umkm_model');
         $this->load->model('Produk_model');
+        $this->load->model('Kategori_model');
+
         // $this->load->model('Transaksi_model');
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
@@ -129,43 +131,8 @@ class Admin extends CI_Controller
         }
     }
 
-    public function dataproduk()
-    {
-        $produk = $this->Produk_model->selectAll();
-        // $jenis = $this->Jenis_model->selectAll();
-
-        $data = [
-            'produk' => $produk
-            // 'jenis' => $jenis
-        ];
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        $this->load->view('templates/admin/header');
-        $this->load->view('templates/admin/sidebar');
-        // $this->load->view('templates/admin/navbar');
-        $this->load->view('admin/dataproduk', $data);
-        $this->load->view('templates/admin/footer');
-        // }
-    }
-    public function dataumkm()
-    {
-        $umkm = $this->Umkm_model->selectAll();
-        $data = [
-            'umkm' => $umkm
-        ];
-
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        $this->load->view('templates/admin/header');
-        $this->load->view('templates/admin/sidebar');
-        $this->load->view('admin/dataumkm', $data);
-        $this->load->view('templates/admin/footer');
-        // }
-    }
+   
+    
 
     public function datapemesananagen()
     {
@@ -201,40 +168,40 @@ class Admin extends CI_Controller
             $this->load->view('templates/admin/footer');
         }
     }
-    public function pesanandiproses()
-    {
-        $datajemput = $this->Transaksi_model->selectwhere('Pesanan Diproses');
-        $data = [
-            'datajemput' => $datajemput
-        ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datapesanandiproses', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
-    public function pesanandiantar()
-    {
-        $datajemput = $this->Transaksi_model->selectwhere('Pesanan Diantar');
-        $data = [
-            'datajemput' => $datajemput
-        ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datapesanandiantar', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
+    // public function pesanandiproses()
+    // {
+    //     $datajemput = $this->Transaksi_model->selectwhere('Pesanan Diproses');
+    //     $data = [
+    //         'datajemput' => $datajemput
+    //     ];
+    //     $ci = get_instance();
+    //     if ($ci->session->userdata('id') != '8') {
+    //         redirect('superadmin/');
+    //     } else {
+    //         $this->load->view('templates/admin/header');
+    //         $this->load->view('templates/admin/sidebar');
+    //         $this->load->view('templates/admin/navbar');
+    //         $this->load->view('admin/datapesanandiproses', $data);
+    //         $this->load->view('templates/admin/footer');
+    //     }
+    // }
+    // public function pesanandiantar()
+    // {
+    //     $datajemput = $this->Transaksi_model->selectwhere('Pesanan Diantar');
+    //     $data = [
+    //         'datajemput' => $datajemput
+    //     ];
+    //     $ci = get_instance();
+    //     if ($ci->session->userdata('id') != '8') {
+    //         redirect('superadmin/');
+    //     } else {
+    //         $this->load->view('templates/admin/header');
+    //         $this->load->view('templates/admin/sidebar');
+    //         $this->load->view('templates/admin/navbar');
+    //         $this->load->view('admin/datapesanandiantar', $data);
+    //         $this->load->view('templates/admin/footer');
+    //     }
+    // }
 
     public function datatransaksi()
     {
@@ -402,100 +369,9 @@ class Admin extends CI_Controller
             }
         }
     }
-    public function addproduk()
-    {
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
-        $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
-        $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
-        $this->form_validation->set_rules('stokproduk', 'Stok Produk', 'required');
-        $this->form_validation->set_rules('fotoproduk', 'Foto Produk', 'required');
-        $this->form_validation->set_rules('kategori', 'Kategori Produk', 'required');
-        $this->form_validation->set_rules('umkm', 'UMKM Produk', 'required');
-
-
-        if ($this->form_validation->run() == true) {
-            $db = [
-                'nama_produk' => $this->input->post('namaproduk'),
-                'keterangan_produk' => $this->input->post('keteranganproduk'),
-                'harga_produk' => $this->input->post('hargaproduk'),
-                'stok_produk' => $this->input->post('stokproduk'),
-                'foto_produk' => $this->input->post('fotoproduk'),
-                'fk_kategori' => $this->input->post('kategori'),
-                'fk_umkm' => $this->input->post('umkm')
-            ];
-
-            // var_dump($db);
-
-            if ($this->Produk_model->create($db) > 0) {
-                $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
-            } else {
-                $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
-            }
-            redirect('admin/dataproduk');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('admin/tambahproduk');
-            $this->load->view('templates/admin/footer');
-        }
-        // }
-    }
-    public function addlayanan()
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('estimasi', 'Estimasi Waktu', 'required');
-            $this->form_validation->set_rules('harga', 'Harga', 'required');
-
-            if ($this->form_validation->run() == true) {
-                $db = [
-                    'nama_layanan' => $this->input->post('nama'),
-                    'estimasi_waktu_layanan' => $this->input->post('estimasi'),
-                    'harga_layanan' => $this->input->post('harga')
-                ];
-
-                // var_dump($db);
-
-                if ($this->Layanan_model->create($db) > 0) {
-                    $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
-                } else {
-                    $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
-                }
-                redirect('superadmin/datalayanan');
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/layanan/add');
-                $this->load->view('templates/admin/footer');
-            }
-        }
-    }
-    public function deletejenis($id)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            if ($id) {
-                if ($this->Jenis_model->delete($id) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
-                }
-            } else {
-                $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
-            }
-            redirect('superadmin/datalayanan');
-        }
-    }
+    
+    
+    
     public function deletelayanan($id)
     {
         $ci = get_instance();
@@ -515,48 +391,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function editjenis($id)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('satuan', 'Satuan', 'required');
-            $this->form_validation->set_rules('estimasi', 'Estimasi Waktu', 'required');
-            $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
-            $this->form_validation->set_rules('harga', 'Harga', 'required');
-
-            $jenis = $this->Jenis_model->getUserById($id);
-            $data = [
-                'jenis' => $jenis
-            ];
-            // if ($id == "") {
-            if ($this->form_validation->run() == true) {
-                $db = [
-                    'id_jenis' => $id,
-                    'nama_jenis' => $this->input->post('nama'),
-                    'satuan_jenis' => $this->input->post('satuan'),
-                    'estimasi_waktu_jenis' => $this->input->post('estimasi'),
-                    'keterangan' => $this->input->post('keterangan'),
-                    'harga_jenis' => $this->input->post('harga')
-                ];
-
-                if ($this->Jenis_model->update($db) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
-                }
-                redirect('superadmin/datalayanan');
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/jenis/edit', $data);
-                $this->load->view('templates/admin/footer');
-            }
-        }
-    }
+    
     public function editlayanan($id)
     {
         $ci = get_instance();
