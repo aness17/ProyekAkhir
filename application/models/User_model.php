@@ -11,7 +11,7 @@ class User_model extends CI_Model
         return $this->db->insert($this->table, $data);
     }
 
-    public function getpelanggaById($id)
+    public function getpelangganById($id)
     {
         $this->db->select('*');
         $this->db->from('pelanggan');
@@ -62,7 +62,7 @@ class User_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('pelanggan');
-        $this->db->order_by('id_cs', 'ASC');
+        $this->db->order_by('id_pelanggan', 'ASC');
         return $this->db->get()->result_array();
     }
     public function sumcs()
@@ -71,31 +71,11 @@ class User_model extends CI_Model
         $this->db->where('fk_role', 1);
         return $this->db->get()->num_rows();
     }
-    public function sumagen()
-    {
-        $this->db->from('pelanggan');
-        $this->db->where('fk_role', 4);
-        return $this->db->get()->num_rows();
-    }
-    public function sumoutlet()
-    {
-        $this->db->from('pelanggan');
-        $this->db->where('fk_role', 2);
-        return $this->db->get()->num_rows();
-    }
-    public function sumcsagen($where)
-    {
-        return $this->db->get_where('pelanggan', $where)->num_rows();
-    }
-    public function sumcsoutlet($where)
-    {
-        return $this->db->get_where('pelanggan', $where)->num_rows();
-    }
     public function selectadm($where)
     {
         $this->db->from('pelanggan');
         $this->db->where('fk_role', $where);
-        $this->db->order_by('id_cs', 'ASC');
+        $this->db->order_by('id_pelanggan', 'ASC');
         return $this->db->get()->result_array();
     }
 
@@ -103,7 +83,7 @@ class User_model extends CI_Model
     {
         $this->db->from('pelanggan');
         $this->db->where($where);
-        $this->db->order_by('id_cs', 'ASC');
+        $this->db->order_by('id_pelanggan', 'ASC');
         return $this->db->get()->result_array();
     }
     public function sumpemesanan()

@@ -226,111 +226,7 @@ class Admin extends CI_Controller
         $this->session->unset_userdata('id');
         redirect('auth/login');
     }
-    public function add()
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email_cs]');
-            $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[6]');
-            $this->form_validation->set_rules('nohp', 'No Handphone', 'required');
-            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-            $this->form_validation->set_rules('id_role', 'Role', 'required');
-
-            if ($this->form_validation->run() == true) {
-                $email = $this->input->post('email');
-                $pos = strpos($email, "@gmail.com") ? "ada" : "tidak ada";
-                if ($pos == "tidak ada") {
-                    echo "<script>alert('harus gugel bund');history.go(-1);</script>";
-                    $this->session->set_flashdata('message_login', $this->flasher('danger', 'HARUS AKUN GUGEL'));
-                } else {
-                    $db = [
-                        'nama_cs' => $this->input->post('nama'),
-                        'email_cs' => $this->input->post('email'),
-                        'passwd_cs' => password_hash($this->input->post('passwd'), PASSWORD_DEFAULT),
-                        'nohp_cs' => $this->input->post('nohp'),
-                        'alamat_cs' => $this->input->post('alamat'),
-                        'catatan' => 'input by superadmin',
-                        'fk_role' => $this->input->post('id_role')
-                    ];
-
-                    // var_dump($db);
-
-                    if ($this->User_model->createUser($db) > 0) {
-                        $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
-                    } else {
-                        $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
-                    }
-
-                    if ($db['fk_role' == '1']) {
-                        redirect('superadmin/datacs');
-                    } else {
-                        redirect('superadmin/datadmin');
-                    }
-                }
-                redirect('superadmin/addadmin');
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/addadmin');
-                $this->load->view('templates/admin/footer');
-            }
-        }
-    }
-
-    public function edit($id)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-            $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[6]');
-            $this->form_validation->set_rules('nohp', 'No Handphone', 'required');
-            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-            $this->form_validation->set_rules('id_role', 'Role', 'required');
-
-            $users = $this->User_model->getUserById($id);
-            $data = [
-                'users' => $users
-            ];
-            if ($this->form_validation->run() == true) {
-
-                $db = [
-                    'id_cs' => $id,
-                    'nama_cs' => $this->input->post('nama'),
-                    'email_cs' => $this->input->post('email'),
-                    'passwd_cs' => password_hash($this->input->post('passwd'), PASSWORD_DEFAULT),
-                    'nohp_cs' => $this->input->post('nohp'),
-                    'alamat_cs' => $this->input->post('alamat'),
-                    'catatan' => 'input by superadmin',
-                    'fk_role' => $this->input->post('id_role')
-                ];
-
-                if ($this->User_model->updateUser($db) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
-                }
-
-                if ($db['fk_role'] == '1') {
-                    redirect('superadmin/datacs');
-                } else {
-                    redirect('superadmin/datadmin');
-                }
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/edit', $data);
-                $this->load->view('templates/admin/footer');
-            }
-        }
-    }
+    
 
     public function delete($id)
     {
@@ -370,65 +266,7 @@ class Admin extends CI_Controller
         }
     }
     
-    
-    
-    public function deletelayanan($id)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            if ($id) {
-                if ($this->Layanan_model->delete($id) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
-                }
-            } else {
-                $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
-            }
-            redirect('superadmin/datalayanan');
-        }
-    }
-
-    
-    public function editlayanan($id)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('estimasi', 'Estimasi Waktu', 'required');
-            $this->form_validation->set_rules('harga', 'Harga', 'required');
-
-            $layanan = $this->Layanan_model->getUserById($id);
-            $data = [
-                'layanan' => $layanan
-            ];
-            if ($this->form_validation->run() == true) {
-
-                $db = [
-                    'id_layanan' => $id,
-                    'nama_layanan' => $this->input->post('nama'),
-                    'estimasi_waktu_layanan' => $this->input->post('estimasi'),
-                    'harga_layanan' => $this->input->post('harga')
-                ];
-                if ($this->Layanan_model->update($db) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
-                }
-                redirect('superadmin/datalayanan');
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/layanan/edit', $data);
-                $this->load->view('templates/admin/footer');
-            }
-        }
-    }
+ 
 
     public function flasher($class, $message)
     {
@@ -480,6 +318,7 @@ class Admin extends CI_Controller
             redirect('superadmin/datapemesanan');
         }
     }
+
     public function laporan()
     {
         $ci = get_instance();

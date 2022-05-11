@@ -11,12 +11,12 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('admin/datacustomer/') ?>">
+            <a class="nav-link collapsed" href="<?= base_url('customer/datacustomer/') ?>">
                 <i class="bi bi-layout-text-window-reverse"></i><span>Data Customer</span><i></i>
             </a>
         </li><!-- End Tables Nav -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('admin/datatransaksi/') ?>">
+            <a class="nav-link collapsed" href="<?= base_url('transaksi/datatransaksi/') ?>">
                 <i class="bi bi-layout-text-window-reverse"></i><span>Data Transaksi</span><i></i>
             </a>
         </li><!-- End Tables Nav -->
