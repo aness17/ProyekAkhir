@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Customer extends CI_Controller
+class Pelanggan extends CI_Controller
 {
 
     /**
@@ -38,11 +38,11 @@ class Customer extends CI_Controller
         // }
 
     }
-    public function datacustomer()
+    public function data()
     {
-        $customer = $this->User_model->selectAll();
+        $pelanggan = $this->User_model->selectAll();
         $data = [
-            'customer' => $customer
+            'pelanggan' => $pelanggan
         ];
 
         // $ci = get_instance();
@@ -51,21 +51,21 @@ class Customer extends CI_Controller
         // } else {
         $this->load->view('templates/admin/header');
         $this->load->view('templates/admin/sidebar');
-        $this->load->view('admin/customer/datacustomer', $data);
+        $this->load->view('admin/pelanggan/datapelanggan', $data);
         $this->load->view('templates/admin/footer');
         // }
     }
-    public function addcustomer()
+    public function add()
     {
         // $ci = get_instance();
         // if ($ci->session->userdata('id') != '8') {
         //     redirect('superadmin/');
         // } else {
         $this->form_validation->set_rules('namapelanggan', 'Nama Pelanggan', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'xss_clean|is_unique[pelanggan.username_pelanggan]');
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[pelanggan.username_pelanggan]');
         // $this->form_validation->set_rules('username', 'Username', 'required|valid_username|is_unique[pelanggan.username_pelanggan]');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('nohp', 'No. Telp', 'required');
+        $this->form_validation->set_rules('notelp', 'No. Telp', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_rules('role', 'Role', 'required');
 
@@ -83,27 +83,28 @@ class Customer extends CI_Controller
                 'nama_pelanggan' => $this->input->post('namapelanggan'),
                 'username_pelanggan' => $this->input->post('username'),
                 'password_pelanggan' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'nohp_pelanggan' => $this->input->post('nohp'),
+                'nohp_pelanggan' => $this->input->post('notelp'),
                 'alamat_pelanggan' => $this->input->post('alamat'),
-                'fk_role' => $this->input->post('id_role')
+                'fk_role' => $this->input->post('role')
             ];
 
             // var_dump($db);
 
-            if ($this->User_model->createUser($db) > 0) {
+            if ($this->User_model->createpelanggan($db) > 0) {
                 $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
+                redirect('pelanggan/data');
             } else {
+                echo "Failed to create User";
+                die;
                 $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
             }
 
-            redirect('customer/datacustomer');
-
             // }
-            // redirect('admin/customer/tambahcustomer');
+            // redirect('admin/pelanggan/tambahpelanggan');
         } else {
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/sidebar');
-            $this->load->view('admin/customer/tambahcustomer');
+            $this->load->view('admin/pelanggan/tambahpelanggan');
             $this->load->view('templates/admin/footer');
         }
         // }
@@ -111,53 +112,61 @@ class Customer extends CI_Controller
 
     public function edit($id)
     {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-            $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[6]');
-            $this->form_validation->set_rules('nohp', 'No Handphone', 'required');
-            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-            $this->form_validation->set_rules('id_role', 'Role', 'required');
+        // $ci = get_instance();
+        // if ($ci->session->userdata('id') != '8') {
+        //     redirect('superadmin/');
+        // } else {
+        $this->form_validation->set_rules('namapelanggan', 'Nama Pelanggan', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('notelp', 'No. Telp', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('role', 'Role', 'required');
 
-            $users = $this->User_model->getUserById($id);
-            $data = [
-                'users' => $users
+        $pelanggan = $this->User_model->getpelangganById($id);
+        $data = [
+            'pelanggan' => $pelanggan
+        ];
+        if ($this->form_validation->run() == true) {
+
+            $db = [
+                "id_pelanggan" => $id,
+                'nama_pelanggan' => $this->input->post('namapelanggan'),
+                'username_pelanggan' => $this->input->post('username'),
+                'nohp_pelanggan' => $this->input->post('notelp'),
+                'alamat_pelanggan' => $this->input->post('alamat'),
+                'fk_role' => $this->input->post('role')
             ];
-            if ($this->form_validation->run() == true) {
 
-                $db = [
-                    'id_cs' => $id,
-                    'nama_cs' => $this->input->post('nama'),
-                    'email_cs' => $this->input->post('email'),
-                    'passwd_cs' => password_hash($this->input->post('passwd'), PASSWORD_DEFAULT),
-                    'nohp_cs' => $this->input->post('nohp'),
-                    'alamat_cs' => $this->input->post('alamat'),
-                    'catatan' => 'input by superadmin',
-                    'fk_role' => $this->input->post('id_role')
-                ];
-
-                if ($this->User_model->updateUser($db) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
-                }
-
-                if ($db['fk_role'] == '1') {
-                    redirect('superadmin/datacs');
-                } else {
-                    redirect('superadmin/datadmin');
-                }
+            if ($this->User_model->updatepelanggan($db) > 0) {
+                $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
             } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('templates/admin/navbar');
-                $this->load->view('admin/edit', $data);
-                $this->load->view('templates/admin/footer');
+                $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
             }
+            redirect('pelanggan/data');
+        } else {
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('admin/pelanggan/editpelanggan', $data);
+            $this->load->view('templates/admin/footer');
         }
+    }
+    // }
+    public function delete($id)
+    {
+        // $ci = get_instance();
+        // if ($ci->session->userdata('id') != '8') {
+        //     redirect('superadmin/');
+        // } else {
+        if ($id) {
+            if ($this->User_model->delete($id) > 0) {
+                $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
+            } else {
+                $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
+            }
+        } else {
+            $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
+        }
+        redirect('pelanggan/datapelanggan');
     }
     public function flasher($class, $message)
     {

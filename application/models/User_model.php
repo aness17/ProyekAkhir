@@ -60,10 +60,10 @@ class User_model extends CI_Model
     }
     public function selectAll()
     {
-        $this->db->select('*');
-        $this->db->from('pelanggan');
+        $this->db->join('roles B', 'A.fk_role=B.id_role');
         $this->db->order_by('id_pelanggan', 'ASC');
-        return $this->db->get()->result_array();
+
+        return $this->db->get($this->table . " as A")->result_array();
     }
     public function sumcs()
     {

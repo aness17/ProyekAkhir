@@ -11,8 +11,8 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('customer/datacustomer/') ?>">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Data Customer</span><i></i>
+            <a class="nav-link collapsed" href="<?= base_url('pelanggan/data/') ?>">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Data Pelanggan</span><i></i>
             </a>
         </li><!-- End Tables Nav -->
         <li class="nav-item">

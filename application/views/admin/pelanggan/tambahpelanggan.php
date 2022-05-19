@@ -14,7 +14,7 @@
         <div class="card-body">
 
             <!-- Vertical Form -->
-            <form method="POST" action="<?= base_url('customer/addcustomer') ?>" class="row g-3" enctype="multipart/form-data">
+            <form method="POST" action="<?= base_url('pelanggan/add') ?>" class="row g-3" enctype="multipart/form-data">
                 <div class="col-12">
                     <label for="inputNanme4" class="form-label">Nama Pelanggan</label>
                     <input type="text" name="namapelanggan" class="form-control" id="namapelanggan">
