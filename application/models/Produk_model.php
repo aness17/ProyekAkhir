@@ -17,9 +17,10 @@ class Produk_model extends CI_Model
     }
     public function selectAll()
     {
-        $this->db->select('*');
-        $this->db->from('produk');
-        return $this->db->get()->result_array();
+
+        $this->db->join('kategori B', 'A.fk_kategori=B.id_kategori');
+        $this->db->join('umkm C', 'A.fk_umkm=C.id_umkm');
+        return $this->db->get($this->table . " as A")->result_array();
     }
     public function delete($id)
     {

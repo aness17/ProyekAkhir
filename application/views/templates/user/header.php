@@ -62,7 +62,7 @@
 
                     <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     </li>
-                    <li class="dropdown"><a href="#"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             <li><a href="#">Brownies</a></li>
                             <li><a href="#">Minuman</a></li>

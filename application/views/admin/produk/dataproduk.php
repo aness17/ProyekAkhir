@@ -46,8 +46,8 @@
                                     <td><?= $produks['harga_produk'] ?></td>
                                     <td><?= $produks['stok_produk'] ?></td>
                                     <td><img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" alt=""></td>
-                                    <td><?= $produks['fk_kategori'] ?></td>
-                                    <td><?= $produks['fk_umkm'] ?></td>
+                                    <td><?= $produks['nama_kategori'] ?></td>
+                                    <td><?= $produks['nama_umkm'] ?></td>
 
                                     <td class="text-center">
                                         <a href="<?= base_url('produk/edit/' . $produks['id_produk']) ?>" type="button" class="fas fa-edit" style="color:limegreen">Ubah

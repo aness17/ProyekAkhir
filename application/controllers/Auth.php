@@ -8,6 +8,8 @@ class Auth extends CI_Controller
         parent::__construct();
 
         $this->load->model('User_model');
+        $this->load->model('Produk_model');
+
         // $this->load->model('Transaksi_model');
         // $this->load->model('Jenis_model');
         // $this->load->model('Layanan_model');
@@ -147,6 +149,17 @@ class Auth extends CI_Controller
     {
         $this->load->view('templates/user/header2');
         $this->load->view('user/dashboard');
+        $this->load->view('templates/user/footer');
+    }
+    public function produk()
+    {
+        $produk = $this->Produk_model->selectAll();
+
+        $data = [
+            'produk' => $produk
+        ];
+        $this->load->view('templates/user/header');
+        $this->load->view('user/produk', $data);
         $this->load->view('templates/user/footer');
     }
     // public function login_act()
