@@ -28,6 +28,8 @@ class Admin extends CI_Controller
         $this->load->model('Umkm_model');
         $this->load->model('Produk_model');
         $this->load->model('Kategori_model');
+        $this->load->model('Transaksi_model');
+
 
         // $this->load->model('Transaksi_model');
         // $this->load->library('Pdf');
@@ -41,7 +43,7 @@ class Admin extends CI_Controller
     public function index()
     {
 
-        // $ci = get_instance();
+        $ci = get_instance();
         // if ($ci->session->userdata('id_role') == '2') {
         //     redirect('outlet/');
         // } elseif ($ci->session->userdata('id_role') == '4') {
@@ -49,35 +51,34 @@ class Admin extends CI_Controller
         // } elseif ($ci->session->userdata('id_role') == '3') {
 
 
-        //     $mp = $this->Transaksi_model->selectwhere('Menunggu Penjemputan');
-        //     $datacs = $this->User_model->sumcs();
+        $datacs = $this->User_model->sumcs();
         //     $dataagen = $this->User_model->sumagen();
         //     $dataoutlet = $this->User_model->sumoutlet();
         //     $datajemput = $this->Transaksi_model->select('Menunggu Penjemputan');
         //     $dataproses = $this->Transaksi_model->select('Pesanan Diproses');
         //     $datadiantar = $this->Transaksi_model->select('Pesanan Diantar');
         //     $dataselesai = $this->Transaksi_model->select('selesai');
-        //     $datatrans = $this->Transaksi_model->selecttrans();
-        //     $pendapatan = $this->Transaksi_model->sumharga()[0]->harga;
+        $datatrans = $this->Transaksi_model->selecttrans();
+        $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
         //     $pendapatanproses = $this->Transaksi_model->sumhargaproses()[0]->harga;
         //     $pendapatantotal = $this->Transaksi_model->sumhargatotal()[0]->harga;
 
 
-        //     $data = [
-        //         'datacs' => $datacs,
-        //         'dataagen' => $dataagen,
-        //         'dataoutlet' => $dataoutlet,
-        //         'datajemput' => $datajemput,
-        //         'dataproses' => $dataproses,
-        //         'datadiantar' => $datadiantar,
-        //         'dataselesai' => $dataselesai,
-        //         'datatrans' => $datatrans,
-        //         'mp' => $mp,
-        //         'pendapatan' => $pendapatan,
-        //         'pendapatanproses' => $pendapatanproses,
-        //         'pendapatantotal' => $pendapatantotal
+        $data = [
+            'datacs' => $datacs,
+            //         'dataagen' => $dataagen,
+            //         'dataoutlet' => $dataoutlet,
+            //         'datajemput' => $datajemput,
+            //         'dataproses' => $dataproses,
+            //         'datadiantar' => $datadiantar,
+            //         'dataselesai' => $dataselesai,
+            'datatrans' => $datatrans,
+            //         'mp' => $mp,
+            'pendapatan' => $pendapatan,
+            //         'pendapatanproses' => $pendapatanproses,
+            //         'pendapatantotal' => $pendapatantotal
 
-        //     ];
+        ];
         //     $this->load->view('templates/admin/header');
         //     $this->load->view('templates/admin/sidebar');
         //     $this->load->view('templates/admin/navbar');
@@ -86,7 +87,7 @@ class Admin extends CI_Controller
         // } else {
         $this->load->view('templates/admin/header');
         $this->load->view('templates/admin/sidebar');
-        $this->load->view('admin/index');
+        $this->load->view('admin/index', $data);
         $this->load->view('templates/admin/footer');
         // redirect('auth/login');
         // }
@@ -131,8 +132,8 @@ class Admin extends CI_Controller
         }
     }
 
-   
-    
+
+
 
     public function datapemesananagen()
     {
@@ -226,7 +227,7 @@ class Admin extends CI_Controller
         $this->session->unset_userdata('id');
         redirect('auth/login');
     }
-    
+
 
     public function delete($id)
     {
@@ -265,8 +266,8 @@ class Admin extends CI_Controller
             }
         }
     }
-    
- 
+
+
 
     public function flasher($class, $message)
     {

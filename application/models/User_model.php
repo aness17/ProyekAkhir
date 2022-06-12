@@ -68,7 +68,7 @@ class User_model extends CI_Model
     public function sumcs()
     {
         $this->db->from('pelanggan');
-        $this->db->where('fk_role', 1);
+        $this->db->where('fk_role', 3);
         return $this->db->get()->num_rows();
     }
     public function selectadm($where)
