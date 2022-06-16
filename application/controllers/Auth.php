@@ -9,10 +9,9 @@ class Auth extends CI_Controller
 
         $this->load->model('User_model');
         $this->load->model('Produk_model');
-
-        // $this->load->model('Transaksi_model');
-        // $this->load->model('Jenis_model');
-        // $this->load->model('Layanan_model');
+        $this->load->model('Keranjang_model');
+        $this->load->model('Transaksi_model');
+        $this->load->model('DetailTransaksi_model');
     }
     /**
      * Index Page for this controller.
@@ -31,7 +30,11 @@ class Auth extends CI_Controller
      */
     public function index()
     {
-        $this->load->view('templates/user/header');
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }
         $this->load->view('user/index');
         $this->load->view('templates/user/footer');
         // $ci = get_instance();
@@ -151,6 +154,7 @@ class Auth extends CI_Controller
         $this->load->view('user/dashboard');
         $this->load->view('templates/user/footer');
     }
+
     public function produk()
     {
         $produk = $this->Produk_model->selectAll();
@@ -158,267 +162,122 @@ class Auth extends CI_Controller
         $data = [
             'produk' => $produk
         ];
-        $this->load->view('templates/user/header');
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }
         $this->load->view('user/produk', $data);
         $this->load->view('templates/user/footer');
     }
-    // public function login_act()
-    // {
-    //     $this->load->view('user/login');
-    // }
-    // public function pesan()
-    // {
-    //     $ci = get_instance();
-    //     if (!$ci->session->userdata('id')) {
-    //         redirect('auth/login');
-    //     } elseif ($ci->session->userdata('id') == '8'  || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
-    //         echo "Akses di blokir";
-    //     } else {
 
-    //         $this->form_validation->set_rules('jenis', 'Pilihan Laundry',  'required');
-    //         if ($this->input->post('jenis') == 'kiloan') {
-    //             $this->form_validation->set_rules('tgl_kiloan', 'Tanggal Penjemputan',  'required');
-    //             $this->form_validation->set_rules('kiloan', 'Jasa',  'required');
-    //             $layanan = $this->Layanan_model->getLayanan();
-    //             $jenis = $this->Jenis_model->getJenis();
+    public function deskripsi_produk($id)
+    {
+        $produk = $this->Produk_model->getProdukById($id);
 
-    //             $data = [
-    //                 "layanan" => $layanan,
-    //                 "jenis" => $jenis
-    //             ];
-    //             if ($this->form_validation->run() == true) {
-    //                 $d = date("Y-m-d");
-    //                 $type = $this->input->post('jenis');
+        $data = [
+            'produk' => $produk,
+        ];
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }
+        $this->load->view('user/deskripsi_produk', $data);
+        $this->load->view('templates/user/footer');
+    }
 
-    //                 $q = $this->Transaksi_model->selectAll();
-    //                 foreach ($q as $r) {
-    //                     if ($type == "kiloan") {
-    //                         $db = [
-    //                             'id_cs' => $this->session->userdata('id'),
-    //                             'id_jenis' => 4,
-    //                             'id_layanan' => $this->input->post('kiloan'),
-    //                             'tgl_order' => $d,
-    //                             'tgl_pickup' => $this->input->post('tgl_kiloan'),
-    //                             'harga' => 0,
-    //                             'status' => "Menunggu Penjemputan"
-    //                         ];
-    //                     } else {
-    //                         $db = [
-    //                             'id_cs' => $this->session->userdata('id'),
-    //                             'id_jenis' => $this->input->post('satuan'),
-    //                             'id_layanan' => 2,
-    //                             'tgl_order' => $d,
-    //                             'tgl_pickup' => $this->input->post('tgl_satuan'),
-    //                             'ket_jumlah' => $this->input->post('jumlah'),
-    //                             'harga' => $r['harga_jenis'] * $this->input->post('jumlah'),
-    //                             'status' => "Menunggu Penjemputan"
-    //                         ];
-    //                     }
-    //                 }
-    //                 if ($this->Transaksi_model->createPesanan($db) > 0) {
-    //                     $this->session->set_flashdata('message', $this->flasher('success', 'Pesanan anda telah berhasil'));
-    //                     echo "berhasil";
-    //                     redirect('auth/detail_pemesanan');
-    //                 } else {
-    //                     echo "gagal";
-    //                     $this->session->set_flashdata('message', $this->flasher('danger', 'Pesanan anda gagal'));
-    //                     redirect('auth/pesan');
-    //                 }
-    //             } else {
+    public function keranjang()
+    {
+        $keranjang = $this->Keranjang_model->selectAll();
 
-    //                 $this->load->view('templates/user/header');
-    //                 $this->load->view('user/pesan', $data);
-    //                 $this->load->view('templates/user/footer2');
-    //             }
-    //         } else {
-    //             $this->form_validation->set_rules('tgl_satuan', 'Tanggal Penjemputan',  'required');
-    //             $this->form_validation->set_rules('jumlah', 'Jumlah',  'required');
+        $data = [
+            'keranjang' => $keranjang
+        ];
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }
+        $this->load->view('user/keranjang', $data);
+        $this->load->view('templates/user/footer');
+    }
 
-    //             $layanan = $this->Layanan_model->getLayanan();
-    //             $jenis = $this->Jenis_model->getJenis();
+    public function tambah_keranjang()
+    {
+        $data = [
+            "id_produk" => $this->input->post("id"),
+            "ket_jumlah" => $this->input->post("jumlah"),
+            "id_pelanggan" => $this->session->userdata('id')
+        ];
+        $this->Keranjang_model->create($data);
+        echo "<script>location.href='" . base_url('auth/produk') . "';alert('Anda telah berhasil memasukkan produk ke keranjang');</script>";
+    }
 
-    //             $data = [
-    //                 "layanan" => $layanan,
-    //                 "jenis" => $jenis
-    //             ];
-    //             if ($this->form_validation->run() == true) {
-    //                 $d = date("Y-m-d");
-    //                 $type = $this->input->post('jenis');
+    public function ubah_keranjang()
+    {
+        $jumlah = $this->input->post("jumlah");
+        $id = $this->input->post("id");
+        if ($jumlah > 0) {
+            $data = [
+                "id_keranjang" => $id,
+                "ket_jumlah" => $jumlah,
+            ];
+            $this->Keranjang_model->update($data);
+            echo "<script>location.href='" . base_url('auth/keranjang') . "';alert('Anda telah berhasil mengubah produk di keranjang');</script>";
+        } else {
+            $this->Keranjang_model->delete($id);
+            echo "<script>location.href='" . base_url('auth/keranjang') . "';alert('Anda telah berhasil menghapus produk di keranjang');</script>";
+        }
+    }
 
-    //                 $q = $this->Transaksi_model->selectAll();
-    //                 foreach ($q as $r) {
-    //                     if ($type == "kiloan") {
-    //                         $db = [
-    //                             'id_cs' => $this->session->userdata('id'),
-    //                             'id_jenis' => 4,
-    //                             'id_layanan' => $this->input->post('kiloan'),
-    //                             'tgl_order' => $d,
-    //                             'tgl_pickup' => $this->input->post('tgl_kiloan'),
-    //                             'harga' => 0,
-    //                             'status' => "Menunggu Penjemputan"
-    //                         ];
-    //                     } else {
-    //                         $db = [
-    //                             'id_cs' => $this->session->userdata('id'),
-    //                             'id_jenis' => $this->input->post('satuan'),
-    //                             'id_layanan' => 2,
-    //                             'tgl_order' => $d,
-    //                             'tgl_pickup' => $this->input->post('tgl_satuan'),
-    //                             'ket_jumlah' => $this->input->post('jumlah'),
-    //                             'harga' => $r['harga_jenis'] * $this->input->post('jumlah'),
-    //                             'status' => "Menunggu Penjemputan"
-    //                         ];
-    //                     }
-    //                 }
-    //                 if ($this->Transaksi_model->createPesanan($db) > 0) {
-    //                     echo "<script>location.href='" . base_url('auth.hasil_pesanan') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
-    //                     $this->session->set_flashdata('message', $this->flasher('success', 'Pesanan anda telah berhasil'));
-    //                     echo "berhasil";
-    //                     redirect('auth/detail_pemesanan');
-    //                 } else {
-    //                     echo "gagal";
-    //                     $this->session->set_flashdata('message', $this->flasher('danger', 'Pesanan anda gagal'));
-    //                     redirect('auth/pesan');
-    //                 }
-    //             } else {
-    //                 //$this->load->view('templates/user/header');
-    //                 $this->load->view('templates/user/header');
-    //                 $this->load->view('user/pesan', $data);
-    //                 $this->load->view('templates/user/footer2');
-    //             }
-    //         }
-    //     }
-    // }
-    // public function hasil_pesanan()
-    // {
-    //     $ci = get_instance();
-    //     if (!$ci->session->userdata('id')) {
-    //         redirect('auth/login');
-    //     } elseif ($ci->session->userdata('id') == '8'  || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
-    //         echo "Akses di blokir";
-    //     } else {
-    //         $id = $this->session->userdata('id');
-    //         $user = $this->Transaksi_model->selecthasil($id);
+    public function checkout()
+    {
+        $keranjang = $this->Keranjang_model->selectAll();
+        $total = 0;
+        foreach ($keranjang as $k) {
+            $total += intval($k["ket_jumlah"] * $k['harga_produk']);
+        }
+        $data = [
+            'id_pelanggan' => $this->session->userdata('id'),
+            'total_harga' => $total,
+            'status' => "Diproses"
+        ];
+        $this->Transaksi_model->createPesanan($data);
 
-    //         $data = [
-    //             'user' => $user
-    //         ];
+        $id = $this->Transaksi_model->getLastId()["id_transaksi"];
+        foreach ($keranjang as $k) {
+            $id_produk = $k["id_produk"];
+            $data = [
+                'id_transaksi' => $id,
+                'id_produk' => $id_produk,
+                'ket_jumlah' => $k["ket_jumlah"],
+            ];
+            $this->DetailTransaksi_model->create($data);
 
-    //         $this->load->view('templates/user/header');
-    //         $this->load->view('user/hasil_pesanan', $data);
-    //         $this->load->view('templates/user/footer2');
-    //     }
-    // }
-    // public function detail_pemesanan()
-    // {
-    //     $ci = get_instance();
-    //     if (!$ci->session->userdata('id')) {
-    //         redirect('auth/login');
-    //     } elseif ($ci->session->userdata('id') == '8' || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
-    //         echo "Akses di blokir";
-    //     } else {
-    //         $id = $this->session->userdata('id');
-    //         $user = $this->Transaksi_model->struk($id);
+            $p = $this->Produk_model->getProdukById($id_produk);
+            $data = [
+                "id_produk" => $id_produk,
+                "stok_produk" => intval($p["stok_produk"]) - $k["ket_jumlah"]
+            ];
+            $this->Produk_model->update($data);
 
-    //         $data = [
-    //             'user' => $user
-    //         ];
-    //         $this->load->view('templates/user/header');
-    //         $this->load->view('user/detail_pemesanan', $data);
-    //         $this->load->view('templates/user/footer2');
-    //     }
-    // }
+            $this->Keranjang_model->delete($k["id_keranjang"]);
+        }
+        echo "<script>location.href='" . base_url('auth/riwayat') . "';alert('Anda telah berhasil mengcheckout keranjang');</script>";
+    }
 
+    public function riwayat()
+    {
+        $riwayat = $this->DetailTransaksi_model->riwayat();
 
-
-    // public function profil()
-    // {
-
-    //     $ci = get_instance();
-    //     if (!$ci->session->userdata('id')) {
-    //         redirect('auth/login');
-    //     } elseif ($ci->session->userdata('id') == '8' || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
-    //         echo "Akses di blokir";
-    //     } else {
-    //         $id = $this->session->userdata('id');
-    //         $users = $this->User_model->getUserById($id);
-    //         $data = [
-    //             'users' => $users
-    //         ];
-    //         $this->load->view('templates/user/header');
-    //         $this->load->view('user/profile', $data);
-    //         $this->load->view('templates/user/footer2');
-    //     }
-    // }
-
-
-    // public function editprofil($id)
-    // {
-    //     $ci = get_instance();
-    //     if (!$ci->session->userdata('id')) {
-    //         redirect('auth/login');
-    //     } elseif ($ci->session->userdata('id') == '8'  || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('id_role') == '2') {
-    //         echo "Akses di blokir";
-    //     } else {
-    //         $this->form_validation->set_rules('nama', 'Nama', 'required');
-    //         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-    //         $this->form_validation->set_rules('nohp', 'No Hp', 'required');
-
-    //         $users = $this->User_model->getUserById($id);
-    //         $data = [
-    //             'users' => $users
-    //         ];
-
-    //         if ($this->form_validation->run() == true) {
-    //             $db = [
-
-    //                 'nama_cs' => $this->input->post('nama'),
-    //                 'nohp_cs' => $this->input->post('nohp'),
-    //                 'alamat_cs' => $this->input->post('alamat')
-    //             ];
-
-    //             if ($this->User_model->update($db, $id) > 0) {
-    //                 $this->session->set_flashdata('message', $this->flasher('success', 'Profil Anda telah diperbarui'));
-    //                 echo "berhasil";
-    //                 redirect('auth/profil');
-    //             } else {
-    //                 echo "gagal";
-    //                 $this->session->set_flashdata('message', $this->flasher('danger', 'Profil Anda gagal diperbarui'));
-    //                 redirect('auth/editprofile');
-    //             }
-    //         } else {
-    //             $this->load->view('templates/user/header');
-    //             $this->load->view('user/editprofile', $data);
-    //             $this->load->view('templates/user/footer2');
-    //         }
-    //     }
-    // }
-
-    // public function dashboard()
-    // {
-    //     $ci = get_instance();
-    //     $id = $this->session->userdata('id');
-    //     if (!$ci->session->userdata('id')) {
-
-    //         $this->load->view('templates/user/header2');
-    //         $this->load->view('user/dashboard');
-    //         $this->load->view('templates/user/footer');
-    //     } elseif ($ci->session->userdata('id') == '8' || $ci->session->userdata('id_role') == '4' || $ci->session->userdata('outlet') == '2') {
-    //         echo "Anda login menggunakan akun " . $this->session->userdata('nama') . ". Anda akan dialihkan ke halaman " . $this->session->userdata('nama');
-
-    //         if ($this->session->userdata('nama') == 'admin') {
-    //             redirect('superadmin/');
-    //         } elseif ($this->session->userdata('id_role') == '4') {
-    //             redirect('agen/');
-    //         } elseif ($this->session->userdata('id_role') == '2') {
-    //             redirect('outlet/');
-    //         }
-    //     } else {
-    //         $this->load->view('templates/user/header');
-    //         $this->load->view('user/dashboard');
-    //         $this->load->view('templates/user/footer2');
-    //     }
-    // }
+        $data = [
+            'riwayat' => $riwayat
+        ];
+        $this->load->view('templates/user/header2');
+        $this->load->view('user/riwayat_pesanan', $data);
+        $this->load->view('templates/user/footer');
+    }
 
     public function flasher($class, $message)
     {

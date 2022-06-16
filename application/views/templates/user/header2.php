@@ -20,9 +20,9 @@
 
     <!-- Vendor CSS Files -->
     <link href=<?= base_url('assets/pelanggan/assets/vendor/bootstrap/css/bootstrap.min.css') ?> rel="stylesheet">
-    <link href=<?= base_url('assets/pelangganassets/vendor/bootstrap-icons/bootstrap-icons.css') ?> rel="stylesheet">
-    <link href=<?= base_url('assets/pelangganassets/vendor/aos/aos.css') ?> rel="stylesheet">
-    <link href=<?= base_url('assets/pelangganassets/vendor/glightbox/css/glightbox.min.css') ?> rel="stylesheet">
+    <link href=<?= base_url('assets/pelanggan/assets/vendor/bootstrap-icons/bootstrap-icons.css') ?> rel="stylesheet">
+    <link href=<?= base_url('assets/pelanggan/assets/vendor/aos/aos.css') ?> rel="stylesheet">
+    <link href=<?= base_url('assets/pelanggan/assets/vendor/glightbox/css/glightbox.min.css') ?> rel="stylesheet">
     <link href=<?= base_url('assets/pelanggan/assets/vendor/swiper/swiper-bundle.min.css') ?> rel="stylesheet">
 
     <!-- Variables CSS Files. Uncomment your preferred color scheme -->
@@ -63,7 +63,7 @@
                     <li class="dropdown"><a href="<?= base_url('auth/') ?>"><span>Home</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     </li>
 
-                    <li class="dropdown"><a href="#"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             <li><a href="#">Brownies</a></li>
                             <li><a href="#">Minuman</a></li>
@@ -71,7 +71,7 @@
                             <li><a href="#">Dessert</a></li>
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="index.html#contact">Riwayat Pesanan</a></li>
+                    <li><a class="nav-link scrollto" href="<?= base_url('auth/riwayat') ?>">Riwayat Pesanan</a></li>
                     <li><a class="nav-link scrollto" href="index.html#about">Tentang</a></li>
                     <li><a class="nav-link scrollto" href="index.html#portfolio">Alamat</a></li>
                     <li><a class="nav-link scrollto" href="index.html#contact">Kontak</a></li>

@@ -15,6 +15,16 @@ class Transaksi_model extends CI_Model
         $this->db->where('id_pelanggan', $id);
         return $this->db->delete("transaksi");
     }
+    public function getWhere($where)
+    {
+        $this->db->where($where);
+        return $this->db->get($this->table)->row_array();
+    }
+    public function getLastId()
+    {
+        $this->db->select_max('id_transaksi');
+        return $this->db->get($this->table)->row_array();
+    }
     public function selectedit($id)
     {
         // SELECT * FROM `transaksi` A, user B, jenisld C,layananld D where A.id_cs = B.id_cs and A.id_jenis=C.id_jenis and A.id_layanan=D.id_layanan

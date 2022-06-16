@@ -1,26 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Produk_model extends CI_Model
+class DetailTransaksi_model extends CI_Model
 {
-    private $table = 'produk';
-    private $primary = 'id_produk';
+    private $table = 'detail_transaksi';
+    private $primary = 'id_detail';
 
     public function create($data)
     {
         return $this->db->insert($this->table, $data);
     }
-
-    public function getLayanan()
-    {
-        return $this->db->get($this->table)->result_array();
-    }
     public function selectAll()
     {
-
-        $this->db->join('kategori B', 'A.fk_kategori=B.id_kategori');
-        $this->db->join('umkm C', 'A.fk_umkm=C.id_umkm');
-        return $this->db->get($this->table . " as A")->result_array();
+        return $this->db->get($this->table)->result_array();
     }
     public function delete($id)
     {
@@ -37,9 +29,13 @@ class Produk_model extends CI_Model
         $this->db->where($this->primary, $id);
         return $this->db->get($this->table)->row_array();
     }
-    public function getLastId()
+
+    public function riwayat()
     {
-        $this->db->select_max('id_produk');
-        return $this->db->get($this->table)->row_array();
+        $this->db->where('transaksi.id_pelanggan', $this->session->userdata('id'));
+        $this->db->join('transaksi', 'detail_transaksi.id_transaksi = transaksi.id_transaksi');
+        $this->db->join('produk', 'produk.id_produk = detail_transaksi.id_produk');
+        $this->db->order_by('tgl_pesanan', 'DESC');
+        return $this->db->get($this->table)->result_array();
     }
 }

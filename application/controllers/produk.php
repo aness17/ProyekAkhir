@@ -35,6 +35,8 @@
             // }
 
         }
+
+
         public function dataproduk()
         {
             $produk = $this->Produk_model->selectAll();
@@ -78,7 +80,9 @@
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('fotoproduk')) {
+                    $last= explode("V", $this->Produk_model->getLastId()["id_produk"])[1];
                     $db = [
+                        'id_produk' => 'RKV' . str_pad(intval($last) + 1, 3, '0', STR_PAD_LEFT),
                         'nama_produk' => $this->input->post('namaproduk'),
                         'keterangan_produk' => $this->input->post('keteranganproduk'),
                         'harga_produk' => $this->input->post('hargaproduk'),
