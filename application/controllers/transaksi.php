@@ -114,7 +114,7 @@
             // if ($ci->session->userdata('id') != '8') {
             //     redirect('superadmin/');
             // } else {
-            $transaksi = $this->transaksi_model->getUserById($id);
+            $transaksi = $this->Transaksi_model->getTransaksiById($id);
             $this->form_validation->set_rules('namatransaksi', 'Nama transaksi', 'required');
             $this->form_validation->set_rules('keterangantransaksi', 'Keterangan transaksi', 'required');
             $this->form_validation->set_rules('hargatransaksi', 'Harga transaksi', 'required');
@@ -171,9 +171,15 @@
             //     redirect('superadmin/');
             // } else {
             if ($id) {
-                $transaksi = $this->transaksi_model->getUserById($id);
-
-                unlink(FCPATH . 'transaksi/' . $transaksi["foto_transaksi"]);
+                $transaksi = $this->Transaksi_model->getTransaksiById($id);
+                $data = [
+                    'transaksi' => $transaksi
+                    // 'jenis' => $jenis
+                ];
+                echo $data;
+                var_dump($data);
+                die;
+                // unlink(FCPATH . 'transaksi/' . $transaksi["foto_transaksi"]);
 
                 if ($this->transaksi_model->delete($id) > 0) {
                     $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));

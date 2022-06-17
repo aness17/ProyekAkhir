@@ -16,15 +16,13 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Data Transaksi</h5>
-                    <a href="<?= base_url('transaksi/addtransaksi') ?>" type="button" class="btn btn-success text-white btn-sm">
-                        Tambah
-                    </a>
 
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
+                                <th scope="col">Kode Transaksi</th>
                                 <th scope="col">Nama Pelanggan</th>
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Jumlah Produk</th>
@@ -41,6 +39,7 @@
                             foreach ($trans as $transs) : ?>
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
+                                    <td><?= $transs['id_transaksi'] ?></td>
                                     <td><?= $transs['nama_pelanggan'] ?></td>
                                     <td><?= $transs['nama_produk'] ?></td>
                                     <td><?= $transs['ket_jumlah'] ?></td>
@@ -49,9 +48,8 @@
                                     <td><?= $transs['tgl_selesai'] ?></td>
                                     <td><?= $transs['status'] ?></td>
                                     <td class="text-center">
-                                        <a href="<?= base_url('trans/edit/' . $transs['id_trans']) ?>" type="button" class="fas fa-edit" style="color:limegreen">Ubah
-                                        </a>
-                                        <a href="<?= base_url('trans/delete/' . $transs['id_trans']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
+
+                                        <a href="<?= base_url('transaksi/delete/' . $transs['id_transaksi']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
                                         </a>
                                     </td>
                                 </tr>

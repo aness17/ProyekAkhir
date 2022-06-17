@@ -29,27 +29,19 @@ class Transaksi_model extends CI_Model
     {
         // SELECT * FROM `transaksi` A, user B, jenisld C,layananld D where A.id_cs = B.id_cs and A.id_jenis=C.id_jenis and A.id_layanan=D.id_layanan
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
-        $this->db->join('produk C', 'A.id_produk=C.id_produk');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
         $this->db->where('A.id_transaksi', $id);
-        $this->db->order_by('A.id_transaksi', 'DESC');
+        $this->db->order_by('A.id_transaksi', 'ASC');
         return $this->db->get($this->table . " as A")->result_array();
     }
-    public function selecttransaksi()
-    {
-        // SELECT * FROM `transaksi` A, user B, jenisld C,layananld D where A.id_cs = B.id_cs and A.id_jenis=C.id_jenis and A.id_layanan=D.id_layanan
-        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
-        $this->db->join('produk C', 'A.id_produk=C.id_produk');
-        $this->db->order_by('A.id_transaksi', 'DESC');
-        return $this->db->get($this->table . " as A")->result_array();
-    }
-
     public function selectAll()
     {
-        // SELECT * FROM `transaksi` A, user B, jenisld C,layananld D where A.id_cs = B.id_cs and A.id_jenis=C.id_jenis and A.id_layanan=D.id_layanan
+        // $this->db->join('transaksi', 'detail_transaksi.id_transaksi = transaksi.id_transaksi');
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
-        $this->db->join('produk C', 'A.id_produk=C.id_produk');
-        // $this->db->where('A.status !=', 'selesai');
-        $this->db->order_by('A.id_transaksi DESC');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->order_by('C.id_detail', 'ASC');
         return $this->db->get($this->table . " as A")->result_array();
     }
 
@@ -172,10 +164,11 @@ class Transaksi_model extends CI_Model
         return $this->db->update($this->table, $data);
     }
 
-    public function getUserById($id)
+    public function getTransaksiById($id)
     {
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
-        $this->db->join('produk C', 'A.id_produk=C.id_produk');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
         $this->db->where($this->primary, $id);
         return $this->db->get($this->table . " as A")->row_array();
     }
