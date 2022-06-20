@@ -65,10 +65,13 @@
 
                     <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
-                            <li><a href="#">Brownies</a></li>
-                            <li><a href="#">Minuman</a></li>
-                            <li><a href="#">Bika</a></li>
-                            <li><a href="#">Dessert</a></li>
+                            <?php
+                            $kategori = $this->db->query("SELECT * FROM kategori");
+                            foreach ($kategori->result_array() as $kategoris) : ?>
+                                <li><a href="<?= $kategoris['nama_kategori'] ?>"><?= $kategoris['nama_kategori'] ?></a>
+                                </li>
+                            <?php endforeach; ?>
+
                         </ul>
                     </li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/riwayat') ?>">Riwayat Pesanan</a></li>

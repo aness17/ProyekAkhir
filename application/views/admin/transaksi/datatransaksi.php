@@ -30,7 +30,6 @@
                                 <th scope="col">Tanggal Pesanan</th>
                                 <th scope="col">Tanggal Selesai</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">AKSI</th>
                             </tr>
                         </thead>
                         <tbody class="list">
@@ -47,11 +46,7 @@
                                     <td><?= $transs['tgl_pesanan'] ?></td>
                                     <td><?= $transs['tgl_selesai'] ?></td>
                                     <td><?= $transs['status'] ?></td>
-                                    <td class="text-center">
 
-                                        <a href="<?= base_url('transaksi/delete/' . $transs['id_transaksi']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php $no++;
                             endforeach; ?>

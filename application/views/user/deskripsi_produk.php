@@ -14,12 +14,11 @@
 
                 <div class="col-xl-8 col-md-12" data-aos="zoom-in" data-aos-delay="200">
                     <div class="service-item">
-
                         <div class="row align-items-center">
                             <div class="col"><img src="<?= base_url('produk/') . $produk['foto_produk'] ?>" alt="" style="width:400px"></div>
                             <div class=" col">
                                 <h3><?= $produk['nama_produk'] ?></h3>
-                                <h3><?= $produk['keterangan_produk'] ?></h3>
+                                <p><?= $produk['keterangan_produk'] ?></p>
                                 <h3>Rp<?= $produk['harga_produk'] ?></h3>
                                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Keranjang</button>
                             </div>

@@ -45,7 +45,7 @@
                                     <td><?= $produks['keterangan_produk'] ?></td>
                                     <td><?= $produks['harga_produk'] ?></td>
                                     <td><?= $produks['stok_produk'] ?></td>
-                                    <td><img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" alt=""></td>
+                                    <td><img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" alt="" style="width:75px ;"></td>
                                     <td><?= $produks['nama_kategori'] ?></td>
                                     <td><?= $produks['nama_umkm'] ?></td>
 

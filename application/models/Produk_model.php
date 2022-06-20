@@ -20,6 +20,7 @@ class Produk_model extends CI_Model
 
         $this->db->join('kategori B', 'A.fk_kategori=B.id_kategori');
         $this->db->join('umkm C', 'A.fk_umkm=C.id_umkm');
+        $this->db->Order_by('A.nama_produk', "ASC");
         return $this->db->get($this->table . " as A")->result_array();
     }
     public function delete($id)

@@ -80,7 +80,7 @@
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('fotoproduk')) {
-                    $last= explode("V", $this->Produk_model->getLastId()["id_produk"])[1];
+                    $last = explode("V", $this->Produk_model->getLastId()["id_produk"])[1];
                     $db = [
                         'id_produk' => 'RKV' . str_pad(intval($last) + 1, 3, '0', STR_PAD_LEFT),
                         'nama_produk' => $this->input->post('namaproduk'),
@@ -118,7 +118,7 @@
             // if ($ci->session->userdata('id') != '8') {
             //     redirect('superadmin/');
             // } else {
-            $produk = $this->Produk_model->getUserById($id);
+            $produk = $this->Produk_model->getProdukById($id);
             $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
             $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
             $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
