@@ -278,6 +278,13 @@ class Auth extends CI_Controller
         $this->load->view('user/riwayat_pesanan', $data);
         $this->load->view('templates/user/footer');
     }
+    public function alamat()
+    {
+
+        $this->load->view('templates/user/header2');
+        $this->load->view('user/alamat');
+        $this->load->view('templates/user/footer');
+    }
 
     public function flasher($class, $message)
     {
