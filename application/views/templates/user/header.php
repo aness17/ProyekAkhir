@@ -60,10 +60,16 @@
             <nav id="navbar" class="navbar">
                 <ul>
 
-                    <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span></a>
                     </li>
                     <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-
+                        <ul>
+                            <?php
+                            $umkm = $this->db->query("SELECT * FROM kategori");
+                            foreach ($umkm->result_array() as $kategoris) : ?>
+                                <li><a href="<?= $kategoris['nama_kategori'] ?>"><?= $kategoris['nama_kategori'] ?></a>
+                                </li> <?php endforeach; ?>
+                        </ul>
                     </li>
                     <li><a class="nav-link scrollto" href="index.html#about">Tentang</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>">Alamat</a></li>

@@ -19,6 +19,7 @@ class Kategori_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('kategori');
+        $this->db->Order_by('nama_kategori', "ASC");
         return $this->db->get()->result_array();
     }
     public function delete($id)

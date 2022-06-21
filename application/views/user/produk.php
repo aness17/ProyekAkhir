@@ -21,18 +21,16 @@
                 <?php $no = 1;
                 // $user = $this->db->query("SELECT * FROM user where fk_role = '2'");
                 foreach ($produk as $produks) : ?>
-                    <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="col-xl-3 col-md-s6" data-aos="zoom-in" data-aos-delay="200">
                         <div class="service-item">
                             <div class="details position-relative">
-                                <!-- <div class="icon">
-                                    <i class="bi bi-activity"></i>
-                                </div> -->
+
                                 <img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" style="height: 200px; object-fit:cover; object-position:center;" alt="">
 
                                 <a href="<?= base_url('auth/deskripsi_produk/') . $produks["id_produk"] ?>" class="stretched-link">
-                                    <h3><?= $produks['nama_produk'] ?></h3>
+                                    <h3 style="font-size:medium ;"><?= $produks['nama_produk'] ?></h3>
                                 </a>
-                                <h3>Rp<?= $produks['harga_produk'] ?></h3>
+                                <h3 style="font-size:medium ;">Rp<?= $produks['harga_produk'] ?></h3>
                             </div>
                         </div>
                     </div><!-- End Service Item -->

@@ -175,7 +175,6 @@ class Transaksi_model extends CI_Model
     public function sumharga()
     {
         $this->db->select_sum('total_harga');
-        $this->db->where('A.status', 'selesai');
         return $this->db->get($this->table . " as A")->result();
     }
     public function sumhargaproses()

@@ -53,7 +53,7 @@ class Admin extends CI_Controller
 
         $datacs = $this->User_model->sumcs();
         //     $dataagen = $this->User_model->sumagen();
-        //     $dataoutlet = $this->User_model->sumoutlet();
+        $dataproduk = $this->Produk_model->sumProduk();
         //     $datajemput = $this->Transaksi_model->select('Menunggu Penjemputan');
         //     $dataproses = $this->Transaksi_model->select('Pesanan Diproses');
         //     $datadiantar = $this->Transaksi_model->select('Pesanan Diantar');
@@ -66,7 +66,7 @@ class Admin extends CI_Controller
 
         $data = [
             'datacs' => $datacs,
-            //         'dataagen' => $dataagen,
+            'dataproduk' => $dataproduk,
             //         'dataoutlet' => $dataoutlet,
             //         'datajemput' => $datajemput,
             //         'dataproses' => $dataproses,

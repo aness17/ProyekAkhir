@@ -39,7 +39,7 @@
                             <?php $no = 1;
                             // $user = $this->db->query("SELECT * FROM user where fk_role = '2'");
                             foreach ($produk as $produks) : ?>
-                                <tr style="text-align: center;">
+                                <tr style="text-align: center; font-size: small;">
                                     <td><?= $no; ?></td>
                                     <td><?= $produks['nama_produk'] ?></td>
                                     <td><?= $produks['keterangan_produk'] ?></td>

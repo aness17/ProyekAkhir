@@ -23,6 +23,11 @@ class Produk_model extends CI_Model
         $this->db->Order_by('A.nama_produk', "ASC");
         return $this->db->get($this->table . " as A")->result_array();
     }
+    public function sumProduk()
+    {
+
+        return $this->db->get($this->table)->num_rows();
+    }
     public function delete($id)
     {
         $this->db->where($this->primary, $id);

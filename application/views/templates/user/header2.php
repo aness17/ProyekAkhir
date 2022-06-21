@@ -60,7 +60,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
 
-                    <li class="dropdown"><a href="<?= base_url('auth/') ?>"><span>Home</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <li class="dropdown"><a href="<?= base_url('auth/') ?>"><span>Home</span></a>
                     </li>
 
                     <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
