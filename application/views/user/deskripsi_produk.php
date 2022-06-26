@@ -19,7 +19,7 @@
                             <div class=" col">
                                 <h3><?= $produk['nama_produk'] ?></h3>
                                 <p><?= $produk['keterangan_produk'] ?></p>
-                                <h3>Rp<?= $produk['harga_produk'] ?></h3>
+                                <h3>Rp <?= number_format($produk['harga_produk'], 0, ",", "."); ?></h3>
                                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Keranjang</button>
                             </div>
                         </div>
