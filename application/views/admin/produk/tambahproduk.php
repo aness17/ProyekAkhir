@@ -48,7 +48,7 @@
                     <select name="kategori" class="form-control" id="exampleFormControlSelect1" name="kategori">
 
                         <?php
-                        $kategori = $this->db->query("SELECT * FROM kategori");
+                        $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC ");
                         foreach ($kategori->result_array() as $kategoris) : ?>
                             <option value="<?= $kategoris['id_kategori'] ?>"><?= $kategoris['nama_kategori'] ?></option>
                         <?php endforeach; ?>
