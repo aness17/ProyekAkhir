@@ -19,6 +19,7 @@ class Umkm_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('umkm');
+        $this->db->Order_by('nama_umkm', "ASC");
         return $this->db->get()->result_array();
     }
     public function delete($id)

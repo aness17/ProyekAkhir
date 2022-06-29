@@ -61,7 +61,7 @@
                     <select name="umkm" class="form-control" id="exampleFormControlSelect1" name="umkm">
 
                         <?php
-                        $umkm = $this->db->query("SELECT * FROM umkm");
+                        $umkm = $this->db->query("SELECT * FROM umkm order by nama_umkm ASC");
                         foreach ($umkm->result_array() as $umkms) : ?>
                             <option value="<?= $umkms['id_umkm'] ?>"><?= $umkms['nama_umkm'] ?></option>
                         <?php endforeach; ?>
