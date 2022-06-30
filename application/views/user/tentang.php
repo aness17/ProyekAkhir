@@ -1,85 +1,93 @@
 <main id="main">
     <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-        <div class="container" data-aos="fade-up">
+    <section id="faq" class="faq">
+        <div class="container-fluid" data-aos="fade-up">
             <div class="section-header">
                 <div class="d-flex justify-content-evenly">
-                    <h2>Alamat</h2>
+                    <h2>Tentang Viera</h2>
                 </div>
             </div>
+            <!-- ======= F.A.Q Section ======= -->
 
-            <ul class="nav nav-tabs row gy-4 d-flex">
 
-                <li class="nav-item col-6 col-md-4 col-lg-4">
-                    <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
-                        <i class="bi bi-pin-map-fill"></i>
-                        <h4>Pusat</h4>
-                        <h6> Jl. Melati Jl. Bina widya No.2, Simpang Baru, Kec. Tampan, Kota Pekanbaru, Riau 28291</h6>
-                    </a>
-                </li><!-- End Tab 1 Nav -->
+            <div class="row gy-4">
 
-                <li class="nav-item col-6 col-md-4 col-lg-4">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2">
-                        <i class="bi bi-pin-map"></i>
-                        <h4>Cabang 1</h4>
-                        <h6>Jl. Jend. Sudirman, Tengkerang Tengah, Kec. Marpoyan Damai, Kota Pekanbaru, Riau 28128</h6>
-                    </a>
-                </li><!-- End Tab 2 Nav -->
+                <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
-                <li class="nav-item col-6 col-md-4 col-lg-4">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3">
-                        <i class="bi bi-pin-map"></i>
-                        <h4>Cabang 2</h4>
-                        <h6>Jl. Riau BC No.151, Padang Terubuk, Kec. Senapelan, Kota Pekanbaru, Riau 28292</h6>
-                    </a>
-                </li><!-- End Tab 3 Nav -->
-
-            </ul>
-
-            <div class="tab-content">
-
-                <div class="tab-pane active show" id="tab-1">
-                    <div class="row gy-4">
-                        <div class="col-lg-8 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-                            <h3>Pusat</h3>
-
-                            <div class="map">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.672330359433!2d101.36978951426767!3d0.49014426387193527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5a9c7aaaaaaab%3A0x312885a399fb3781!2sVIERA%20OLEH-OLEH%20(Oleh-oleh%20di%20Pekanbaru)!5e0!3m2!1sen!2sid!4v1656556631724!5m2!1sen!2sid" width="1200" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div><!-- End Google Maps -->
-                        </div>
-                        <div class="col-lg-4 order-1 order-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">
-                            <img src="assets/img/features-1.svg" alt="" class="img-fluid">
-                        </div>
+                    <div class="content px-xl-5">
+                        <h3><strong>Visi Viera</strong></h3>
+                        <p>
+                            Menjadi Top of Mind oleh-oleh di Riau
+                        </p>
                     </div>
-                </div><!-- End Tab Content 1 -->
 
-                <div class="tab-pane" id="tab-2">
-                    <div class="row gy-4">
-                        <div class="col-lg-8 order-2 order-lg-1">
-                            <h3>Sudirman</h3>
-                            <div class="map">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.668691718663!2d101.45281591426767!3d0.4962148638626156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5afd38ae6b6ed%3A0x56bcd9c624e5eac9!2sViera%20Oleh-Oleh%20Sudirman%20(oleh-oleh%20khas%20Riau)!5e0!3m2!1sen!2sid!4v1656556650772!5m2!1sen!2sid" width="1200" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div><!-- End Google Maps -->
-                        </div>
-                        <div class="col-lg-4 order-1 order-lg-2 text-center">
-                            <img src="assets/img/features-2.svg" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                </div><!-- End Tab Content 2 -->
+                    <div class="accordion accordion-flush px-xl-5" id="faqlist">
 
-                <div class="tab-pane" id="tab-3">
-                    <div class="row gy-4">
-                        <div class="col-lg-8 order-2 order-lg-1">
-                            <h3>Riau</h3>
-                            <div class="map">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6443819882584!2d101.42623651571908!3d0.5350080627572021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ab25ae21809d%3A0xcf42d79692d25939!2sViera%20Oleh-Oleh%20Jalan%20Riau!5e0!3m2!1sen!2sid!4v1656556520632!5m2!1sen!2sid" width="1200" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div><!-- End Google Maps -->
-                        </div>
-                        <div class="col-lg-4 order-1 order-lg-2 text-center">
-                            <img src="assets/img/features-3.svg" alt="" class="img-fluid">
-                        </div>
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button">
+                                    Non consectetur a erat nam at lectus urna duis?
+                                </button>
+                            </h3>
+
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
+                                </button>
+                            </h3>
+
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                                </button>
+                            </h3>
+                            <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-4">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                                </button>
+                            </h3>
+                            <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="600">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-5">
+                                    <i class="bi bi-question-circle question-icon"></i>
+                                    Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
+                                </button>
+                            </h3>
+                            <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
                     </div>
-                </div><!-- End Tab Content 3 -->
+                </div>
+                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("<?= base_url('assets/') ?>admin/assets/img/logo.png"); background-size: contain;'>&nbsp;</div>
+
             </div>
 
         </div>
