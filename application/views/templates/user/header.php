@@ -71,9 +71,8 @@
                                 </li> <?php endforeach; ?>
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="index.html#about">Tentang</a></li>
+                    <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>">Alamat</a></li>
-                    <li><a class="nav-link scrollto" href="index.html#contact">Kontak</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle d-none"></i>
             </nav><!-- .navbar -->

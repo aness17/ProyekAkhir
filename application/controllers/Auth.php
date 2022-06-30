@@ -284,7 +284,18 @@ class Auth extends CI_Controller
             $this->load->view('templates/user/header2');
         } else {
             $this->load->view('templates/user/header');
-        }        $this->load->view('user/alamat');
+        }
+        $this->load->view('user/alamat');
+        $this->load->view('templates/user/footer');
+    }
+    public function tentang()
+    {
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }
+        $this->load->view('user/tentang');
         $this->load->view('templates/user/footer');
     }
     public function muri()
@@ -293,7 +304,8 @@ class Auth extends CI_Controller
             $this->load->view('templates/user/header2');
         } else {
             $this->load->view('templates/user/header');
-        }        $this->load->view('user/penghargaan_muri');
+        }
+        $this->load->view('user/penghargaan_muri');
         $this->load->view('templates/user/footer');
     }
     public function dinaspariwisata()
@@ -303,7 +315,8 @@ class Auth extends CI_Controller
             $this->load->view('templates/user/header2');
         } else {
             $this->load->view('templates/user/header');
-        }        $this->load->view('user/dinas_pariwisata');
+        }
+        $this->load->view('user/dinas_pariwisata');
         $this->load->view('templates/user/footer');
     }
     public function juara2()
@@ -313,7 +326,8 @@ class Auth extends CI_Controller
             $this->load->view('templates/user/header2');
         } else {
             $this->load->view('templates/user/header');
-        }        $this->load->view('user/juara2');
+        }
+        $this->load->view('user/juara2');
         $this->load->view('templates/user/footer');
     }
 
