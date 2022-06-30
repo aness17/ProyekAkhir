@@ -280,9 +280,40 @@ class Auth extends CI_Controller
     }
     public function alamat()
     {
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }        $this->load->view('user/alamat');
+        $this->load->view('templates/user/footer');
+    }
+    public function muri()
+    {
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }        $this->load->view('user/penghargaan_muri');
+        $this->load->view('templates/user/footer');
+    }
+    public function dinaspariwisata()
+    {
 
-        $this->load->view('templates/user/header2');
-        $this->load->view('user/alamat');
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }        $this->load->view('user/dinas_pariwisata');
+        $this->load->view('templates/user/footer');
+    }
+    public function juara2()
+    {
+
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }        $this->load->view('user/juara2');
         $this->load->view('templates/user/footer');
     }
 
