@@ -30,25 +30,20 @@ class Auth extends CI_Controller
      */
     public function index()
     {
-        if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+        $ci = get_instance();
+        if ($ci->session->userdata('id_role') == '1') {
+            redirect('admin/');
+        } elseif ($ci->session->userdata('id_role') == '2') {
+            redirect('pemilik/');
         } else {
-            $this->load->view('templates/user/header');
+            if ($this->session->userdata('id_role') == 3) {
+                $this->load->view('templates/user/header2');
+            } else {
+                $this->load->view('templates/user/header');
+            }
+            $this->load->view('user/index');
+            $this->load->view('templates/user/footer');
         }
-        $this->load->view('user/index');
-        $this->load->view('templates/user/footer');
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id_role') == '1') {
-        //     redirect('superadmin/');
-        // } elseif ($ci->session->userdata('id_role') == '4') {
-        //     redirect('agen/');
-        // } elseif ($ci->session->userdata('id_role') == '2') {
-        //     redirect('outlet/');
-        // } else {
-        //     $this->load->view('templates/user/header2');
-        //     $this->load->view('user/index');
-        //     $this->load->view('templates/user/footer');
-        // }
     }
     public function login()
     {
@@ -95,7 +90,6 @@ class Auth extends CI_Controller
 
     public function register()
     {
-
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|is_unique[pelanggan.username_pelanggan]');
         $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[6]');
@@ -133,16 +127,16 @@ class Auth extends CI_Controller
         $id = $this->session->userdata('id_role');
         if ($id == '1') {
             $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been logged out'));
-            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('id_pelanggan');
             $this->session->unset_userdata('id_role');
-            $this->session->unset_userdata('nama');
+            $this->session->unset_userdata('nama_pelanggan');
             echo "<script>alert('Anda Telah Keluar');</script>";
             redirect('auth/');
         } else {
             $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been logged out'));
-            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('id_pelanggan');
             $this->session->unset_userdata('id_role');
-            $this->session->unset_userdata('nama');
+            $this->session->unset_userdata('nama_pelanggan');
             echo "<script>alert('Anda Telah Keluar');</script>";
             redirect('auth/');
         }
@@ -189,94 +183,129 @@ class Auth extends CI_Controller
 
     public function keranjang()
     {
-        $keranjang = $this->Keranjang_model->selectAll();
-
-        $data = [
-            'keranjang' => $keranjang
-        ];
-        if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+        $ci = get_instance();
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
         } else {
-            $this->load->view('templates/user/header');
+            $keranjang = $this->Keranjang_model->selectAll();
+
+            $data = [
+                'keranjang' => $keranjang
+            ];
+            if ($this->session->userdata('id_role') == 3) {
+                $this->load->view('templates/user/header2');
+            } else {
+                $this->load->view('templates/user/header');
+            }
+            $this->load->view('user/keranjang', $data);
+            $this->load->view('templates/user/footer');
         }
-        $this->load->view('user/keranjang', $data);
-        $this->load->view('templates/user/footer');
     }
 
     public function tambah_keranjang()
     {
-        $data = [
-            "id_produk" => $this->input->post("id"),
-            "ket_jumlah" => $this->input->post("jumlah"),
-            "id_pelanggan" => $this->session->userdata('id')
-        ];
-        $this->Keranjang_model->create($data);
-        echo "<script>location.href='" . base_url('auth/produk') . "';alert('Anda telah berhasil memasukkan produk ke keranjang');</script>";
+        $ci = get_instance();
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
+        } else {
+            $data = [
+                "id_produk" => $this->input->post("id"),
+                "ket_jumlah" => $this->input->post("jumlah"),
+                "id_pelanggan" => $this->session->userdata('id')
+            ];
+            $this->Keranjang_model->create($data);
+            echo "<script>location.href='" . base_url('auth/produk') . "';alert('Anda telah berhasil memasukkan produk ke keranjang');</script>";
+        }
     }
 
     public function ubah_keranjang()
     {
-        $jumlah = $this->input->post("jumlah");
-        $id = $this->input->post("id");
-        if ($jumlah > 0) {
-            $data = [
-                "id_keranjang" => $id,
-                "ket_jumlah" => $jumlah,
-            ];
-            $this->Keranjang_model->update($data);
-            echo "<script>location.href='" . base_url('auth/keranjang') . "';alert('Anda telah berhasil mengubah produk di keranjang');</script>";
+        $ci = get_instance();
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
         } else {
-            $this->Keranjang_model->delete($id);
-            echo "<script>location.href='" . base_url('auth/keranjang') . "';alert('Anda telah berhasil menghapus produk di keranjang');</script>";
+            $jumlah = $this->input->post("jumlah");
+            $id = $this->input->post("id");
+            if ($jumlah > 0) {
+                $data = [
+                    "id_keranjang" => $id,
+                    "ket_jumlah" => $jumlah,
+                ];
+                $this->Keranjang_model->update($data);
+                echo "<script>location.href='" . base_url('auth/keranjang') . "';alert('Anda telah berhasil mengubah produk di keranjang');</script>";
+            } else {
+                $this->Keranjang_model->delete($id);
+                echo "<script>location.href='" . base_url('auth/keranjang') . "';alert('Anda telah berhasil menghapus produk di keranjang');</script>";
+            }
         }
     }
 
     public function checkout()
     {
-        $keranjang = $this->Keranjang_model->selectAll();
-        $total = 0;
-        foreach ($keranjang as $k) {
-            $total += intval($k["ket_jumlah"] * $k['harga_produk']);
-        }
-        $data = [
-            'id_pelanggan' => $this->session->userdata('id'),
-            'total_harga' => $total,
-            'status' => "Diproses"
-        ];
-        $this->Transaksi_model->createPesanan($data);
-
-        $id = $this->Transaksi_model->getLastId()["id_transaksi"];
-        foreach ($keranjang as $k) {
-            $id_produk = $k["id_produk"];
+        $ci = get_instance();
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
+        } else {
+            $keranjang = $this->Keranjang_model->selectAll();
+            $total = 0;
+            foreach ($keranjang as $k) {
+                $total += intval($k["ket_jumlah"] * $k['harga_produk']);
+            }
             $data = [
-                'id_transaksi' => $id,
-                'id_produk' => $id_produk,
-                'ket_jumlah' => $k["ket_jumlah"],
+                'id_pelanggan' => $this->session->userdata('id'),
+                'total_harga' => $total,
+                'status' => "Diproses"
             ];
-            $this->DetailTransaksi_model->create($data);
+            $this->Transaksi_model->createPesanan($data);
 
-            $p = $this->Produk_model->getProdukById($id_produk);
-            $data = [
-                "id_produk" => $id_produk,
-                "stok_produk" => intval($p["stok_produk"]) - $k["ket_jumlah"]
-            ];
-            $this->Produk_model->update($data);
+            $id = $this->Transaksi_model->getLastId()["id_transaksi"];
+            foreach ($keranjang as $k) {
+                $id_produk = $k["id_produk"];
+                $data = [
+                    'id_transaksi' => $id,
+                    'id_produk' => $id_produk,
+                    'ket_jumlah' => $k["ket_jumlah"],
+                ];
+                $this->DetailTransaksi_model->create($data);
 
-            $this->Keranjang_model->delete($k["id_keranjang"]);
+                $p = $this->Produk_model->getProdukById($id_produk);
+                $data = [
+                    "id_produk" => $id_produk,
+                    "stok_produk" => intval($p["stok_produk"]) - $k["ket_jumlah"]
+                ];
+                $this->Produk_model->update($data);
+
+                $this->Keranjang_model->delete($k["id_keranjang"]);
+            }
+            echo "<script>location.href='" . base_url('auth/riwayat') . "';alert('Anda telah berhasil mengcheckout keranjang');</script>";
         }
-        echo "<script>location.href='" . base_url('auth/riwayat') . "';alert('Anda telah berhasil mengcheckout keranjang');</script>";
     }
 
     public function riwayat()
     {
-        $riwayat = $this->DetailTransaksi_model->riwayat();
+        $ci = get_instance();
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
+        } else {
+            $riwayat = $this->DetailTransaksi_model->riwayat();
 
-        $data = [
-            'riwayat' => $riwayat
-        ];
-        $this->load->view('templates/user/header2');
-        $this->load->view('user/riwayat_pesanan', $data);
-        $this->load->view('templates/user/footer');
+            $data = [
+                'riwayat' => $riwayat
+            ];
+            $this->load->view('templates/user/header2');
+            $this->load->view('user/riwayat_pesanan', $data);
+            $this->load->view('templates/user/footer');
+        }
     }
     public function alamat()
     {

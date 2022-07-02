@@ -15,39 +15,27 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Data pelanggan</h5>
-                    <a href="<?= base_url('pelanggan/add') ?>" type="button" class="btn btn-success text-white btn-sm">
-                        Tambah
-                    </a>
-
+                    <h5 class="card-title">Lift Ratio</h5>
                     <!-- Table with hoverable rows -->
-                    <table class="table datatable">
+                    <table class="table table-hover">
                         <thead>
                             <tr style="text-align: center;">
                                 <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">No. Telp</th>
-                                <th scope="col">Role</th>
+                                <th scope="col">Nama Kategori</th>
                                 <th scope="col">AKSI</th>
                             </tr>
                         </thead>
                         <tbody class="list">
                             <?php $no = 1;
                             // $user = $this->db->query("SELECT * FROM user where fk_role = '2'");
-                            foreach ($pelanggan as $custs) : ?>
+                            foreach ($kategori as $kategoris) : ?>
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
-                                    <td><?= $custs['nama_pelanggan'] ?></td>
-                                    <td><?= $custs['username_pelanggan'] ?></td>
-                                    <td><?= $custs['alamat_pelanggan'] ?></td>
-                                    <td><?= $custs['nohp_pelanggan'] ?></td>
-                                    <td><?= $custs['nama_role'] ?></td>
+                                    <td><?= $kategoris['nama_kategori'] ?></td>
                                     <td class="text-center">
-                                        <a href="<?= base_url('pelanggan/edit/' . $custs['id_pelanggan']) ?>" type="button" class="fas fa-edit" style="color:limegreen">Edit
+                                        <a href="<?= base_url('kategori/edit/' . $kategoris['id_kategori']) ?>" type="button" class="fas fa-edit" style="color:limegreen">Edit
                                         </a>
-                                        <a href="<?= base_url('pelanggan/delete/' . $custs['id_pelanggan']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
+                                        <a href="<?= base_url('kategori/delete/' . $kategoris['id_kategori']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
                                         </a>
                                     </td>
                                 </tr>

@@ -5,7 +5,13 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard/') ?>">Home</a></li>
+                <?php
+                
+                
+                ?>
+                <li class="breadcrumb-item">Data Produk</li>
                 <li class="breadcrumb-item active">Data Produk</li>
+
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +27,7 @@
                     </a>
 
                     <!-- Table with hoverable rows -->
-                    <table class="table table-hover">
+                    <table class="table table datatable">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>

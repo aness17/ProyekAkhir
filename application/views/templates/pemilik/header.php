@@ -71,7 +71,7 @@
 
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="<?= base_url('auth/login/') ?>">
+                            <a class="dropdown-item d-flex align-items-center" href="<?= base_url('auth/logout/') ?>">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>

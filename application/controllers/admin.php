@@ -29,245 +29,38 @@ class Admin extends CI_Controller
         $this->load->model('Produk_model');
         $this->load->model('Kategori_model');
         $this->load->model('Transaksi_model');
-
-
-        // $this->load->model('Transaksi_model');
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
 
-        // if (empty($this->session->userdata('id'))) {
-        //     redirect('auth/login');
-        // }
-
+        if (empty($this->session->userdata('id'))) {
+            redirect('auth/login');
+        }
     }
     public function index()
     {
-
         $ci = get_instance();
-        // if ($ci->session->userdata('id_role') == '2') {
-        //     redirect('outlet/');
-        // } elseif ($ci->session->userdata('id_role') == '4') {
-        //     redirect('agen/');
-        // } elseif ($ci->session->userdata('id_role') == '3') {
+        if ($ci->session->userdata('id_role') == '2') {
+            redirect('pemilik/');
+        } elseif ($ci->session->userdata('id_role') == '1') {
+            $datacs = $this->User_model->sumcs();
+            $dataproduk = $this->Produk_model->sumProduk();
+            $datatrans = $this->Transaksi_model->selecttrans();
+            $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
 
-
-        $datacs = $this->User_model->sumcs();
-        //     $dataagen = $this->User_model->sumagen();
-        $dataproduk = $this->Produk_model->sumProduk();
-        //     $datajemput = $this->Transaksi_model->select('Menunggu Penjemputan');
-        //     $dataproses = $this->Transaksi_model->select('Pesanan Diproses');
-        //     $datadiantar = $this->Transaksi_model->select('Pesanan Diantar');
-        //     $dataselesai = $this->Transaksi_model->select('selesai');
-        $datatrans = $this->Transaksi_model->selecttrans();
-        $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
-        //     $pendapatanproses = $this->Transaksi_model->sumhargaproses()[0]->harga;
-        //     $pendapatantotal = $this->Transaksi_model->sumhargatotal()[0]->harga;
-
-
-        $data = [
-            'datacs' => $datacs,
-            'dataproduk' => $dataproduk,
-            //         'dataoutlet' => $dataoutlet,
-            //         'datajemput' => $datajemput,
-            //         'dataproses' => $dataproses,
-            //         'datadiantar' => $datadiantar,
-            //         'dataselesai' => $dataselesai,
-            'datatrans' => $datatrans,
-            //         'mp' => $mp,
-            'pendapatan' => $pendapatan,
-            //         'pendapatanproses' => $pendapatanproses,
-            //         'pendapatantotal' => $pendapatantotal
-
-        ];
-        //     $this->load->view('templates/admin/header');
-        //     $this->load->view('templates/admin/sidebar');
-        //     $this->load->view('templates/admin/navbar');
-        //     $this->load->view('admin/index', $data);
-        //     $this->load->view('templates/admin/footer');
-        // } else {
-        $this->load->view('templates/admin/header');
-        $this->load->view('templates/admin/sidebar');
-        $this->load->view('admin/index', $data);
-        $this->load->view('templates/admin/footer');
-        // redirect('auth/login');
-        // }
-    }
-
-    public function datacs()
-    {
-        $user = $this->User_model->selectadm(1);
-        $data = [
-            'user' => $user
-        ];
-
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datacustomer', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
-    public function datadmin()
-    {
-        $outlet = $this->User_model->selectadm(2);
-        $agen = $this->User_model->selectadm(4);
-
-        $data = [
-            'outlet' => $outlet,
-            'agen' => $agen
-        ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/dataadmin', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
-
-
-
-
-    public function datapemesananagen()
-    {
-        $pemesanan = $this->Transaksi_model->selectAgen();
-        $data = [
-            'pemesanan' => $pemesanan
-        ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datapemesananagen', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
-    public function mp()
-    {
-        $datajemput = $this->Transaksi_model->selectwhere('Menunggu Penjemputan');
-        $data = [
-            'datajemput' => $datajemput
-        ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datamenunggupenjemputan', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
-    // public function pesanandiproses()
-    // {
-    //     $datajemput = $this->Transaksi_model->selectwhere('Pesanan Diproses');
-    //     $data = [
-    //         'datajemput' => $datajemput
-    //     ];
-    //     $ci = get_instance();
-    //     if ($ci->session->userdata('id') != '8') {
-    //         redirect('superadmin/');
-    //     } else {
-    //         $this->load->view('templates/admin/header');
-    //         $this->load->view('templates/admin/sidebar');
-    //         $this->load->view('templates/admin/navbar');
-    //         $this->load->view('admin/datapesanandiproses', $data);
-    //         $this->load->view('templates/admin/footer');
-    //     }
-    // }
-    // public function pesanandiantar()
-    // {
-    //     $datajemput = $this->Transaksi_model->selectwhere('Pesanan Diantar');
-    //     $data = [
-    //         'datajemput' => $datajemput
-    //     ];
-    //     $ci = get_instance();
-    //     if ($ci->session->userdata('id') != '8') {
-    //         redirect('superadmin/');
-    //     } else {
-    //         $this->load->view('templates/admin/header');
-    //         $this->load->view('templates/admin/sidebar');
-    //         $this->load->view('templates/admin/navbar');
-    //         $this->load->view('admin/datapesanandiantar', $data);
-    //         $this->load->view('templates/admin/footer');
-    //     }
-    // }
-
-    public function datatransaksi()
-    {
-        $pemesanan = $this->Transaksi_model->selecttransaksi();
-        $data = [
-            'pemesanan' => $pemesanan
-        ];
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/datatransaksi', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
-    public function logout()
-    {
-        $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been logged out'));
-        $this->session->unset_userdata('id');
-        redirect('auth/login');
-    }
-
-
-    public function delete($id)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $users = $this->User_model->getUserById($id);
             $data = [
-                'users' => $users
+                'datacs' => $datacs,
+                'dataproduk' => $dataproduk,
+                'datatrans' => $datatrans,
+                'pendapatan' => $pendapatan
             ];
-
-            // var_dump($users['fk_role']);
-            // die;
-            if ($users['fk_role'] == '1') {
-                if ($id) {
-                    if ($this->Transaksi_model->deleteUser($id) && $this->User_model->deleteUser($id) == true) {
-                        $this->session->set_flashdata('message', $this->flasher('success', 'Success To Delete Data'));
-                    } else {
-                        $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Delete Data'));
-                    }
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
-                }
-
-                redirect('superadmin/datacs');
-            } else {
-                if ($id) {
-                    if ($this->User_model->deleteUser($id) == true && $this->Transaksi_model->deleteUser($id) == true) {
-                        $this->session->set_flashdata('message', $this->flasher('success', 'Success To Delete Data'));
-                    }
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
-                }
-                redirect('superadmin/datadmin');
-            }
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('admin/index', $data);
+            $this->load->view('templates/admin/footer');
+        } else {
+            redirect('auth/login');
         }
     }
-
-
 
     public function flasher($class, $message)
     {
@@ -292,39 +85,11 @@ class Admin extends CI_Controller
         return array_slice($roti, 3);
     }
 
-    public function updatepemesanan($id, $ubah)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
-        } else {
-            $d = date("Y-m-d");
-            $status = '';
-            if ($ubah == '1') {
-                $status = 'Pesanan Diproses';
-            } elseif ($ubah == '2') {
-                $status = 'Pesanan Diantar';
-                $tgl_antar = $d;
-            } else {
-                $status = 'selesai';
-                $tgl_antar = $d;
-            }
-
-            $db = [
-                'status' => $status,
-                'tgl_antar' => $tgl_antar
-            ];
-
-            $this->Transaksi_model->update($db, $id);
-            redirect('superadmin/datapemesanan');
-        }
-    }
-
     public function laporan()
     {
         $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('superadmin/');
+        if ($ci->session->userdata('id') != '1') {
+            redirect('admin/');
         } else {
             if (isset($_POST['filter']) && !empty($_POST['filter'])) { // Cek apakah user telah memilih filter dan klik tombol tampilkan
                 $filter = $_POST['filter']; // Ambil data filter yang dipilih user

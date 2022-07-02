@@ -30,10 +30,9 @@ class Kategori extends CI_Controller
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
 
-        // if (empty($this->session->userdata('id'))) {
-        //     redirect('auth/login');
-        // }
-
+        if (empty($this->session->userdata('id'))) {
+            redirect('auth/login');
+        }
     }
     public function datakategori()
     {
@@ -42,95 +41,96 @@ class Kategori extends CI_Controller
             'kategori' => $kategori
         ];
 
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        $this->load->view('templates/admin/header');
-        $this->load->view('templates/admin/sidebar');
-        $this->load->view('admin/kategori/datakategori', $data);
-        $this->load->view('templates/admin/footer');
-        // }
+        $ci = get_instance();
+        if ($ci->session->userdata('id') != '1') {
+            redirect('superadmin/');
+        } else {
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('admin/kategori/datakategori', $data);
+            $this->load->view('templates/admin/footer');
+        }
     }
     public function addkategori()
     {
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        $this->form_validation->set_rules('namakategori', 'Nama Kategori', 'required');
-
-        if ($this->form_validation->run() == true) {
-            $db = [
-                'nama_kategori' => $this->input->post('namakategori'),
-            ];
-
-            // var_dump($db);
-
-            if ($this->Kategori_model->create($db) > 0) {
-                $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
-            } else {
-                $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
-            }
-            redirect('kategori/datakategori');
+        $ci = get_instance();
+        if ($ci->session->userdata('id') != '1') {
+            redirect('superadmin/');
         } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('admin/kategori/tambahkategori');
-            $this->load->view('templates/admin/footer');
+            $this->form_validation->set_rules('namakategori', 'Nama Kategori', 'required');
+
+            if ($this->form_validation->run() == true) {
+                $db = [
+                    'nama_kategori' => $this->input->post('namakategori'),
+                ];
+
+                // var_dump($db);
+
+                if ($this->Kategori_model->create($db) > 0) {
+                    $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
+                } else {
+                    $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
+                }
+                redirect('kategori/datakategori');
+            } else {
+                $this->load->view('templates/admin/header');
+                $this->load->view('templates/admin/sidebar');
+                $this->load->view('admin/kategori/tambahkategori');
+                $this->load->view('templates/admin/footer');
+            }
         }
     }
-    // }
 
     public function edit($id)
     {
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        $this->form_validation->set_rules('namakategori', 'Nama Kategori', 'required');
-
-        $kategori = $this->Kategori_model->getUserById($id);
-        $data = [
-            'kategori' => $kategori
-        ];
-        // if ($id == "") {
-        if ($this->form_validation->run() == true) {
-            $db = [
-                'id_kategori' => $id,
-                'nama_kategori' => $this->input->post('namakategori')
-            ];
-
-            if ($this->Kategori_model->update($db) > 0) {
-                $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
-            } else {
-                $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
-            }
-            redirect('kategori/datakategori');
+        $ci = get_instance();
+        if ($ci->session->userdata('id') != '1') {
+            redirect('superadmin/');
         } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('admin/kategori/editkategori', $data);
-            $this->load->view('templates/admin/footer');
+            $this->form_validation->set_rules('namakategori', 'Nama Kategori', 'required');
+
+            $kategori = $this->Kategori_model->getUserById($id);
+            $data = [
+                'kategori' => $kategori
+            ];
+            // if ($id == "") {
+            if ($this->form_validation->run() == true) {
+                $db = [
+                    'id_kategori' => $id,
+                    'nama_kategori' => $this->input->post('namakategori')
+                ];
+
+                if ($this->Kategori_model->update($db) > 0) {
+                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Edit Data'));
+                } else {
+                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Edit Data'));
+                }
+                redirect('kategori/datakategori');
+            } else {
+                $this->load->view('templates/admin/header');
+                $this->load->view('templates/admin/sidebar');
+                $this->load->view('admin/kategori/editkategori', $data);
+                $this->load->view('templates/admin/footer');
+            }
         }
     }
-    // }
     public function delete($id)
     {
-        // $ci = get_instance();
-        // if ($ci->session->userdata('id') != '8') {
-        //     redirect('superadmin/');
-        // } else {
-        if ($id) {
-            if ($this->Kategori_model->delete($id) > 0) {
-                $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
-            } else {
-                $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
-            }
+        $ci = get_instance();
+        if ($ci->session->userdata('id') != '1') {
+            redirect('superadmin/');
         } else {
-            $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
+            if ($id) {
+                if ($this->Kategori_model->delete($id) > 0) {
+                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
+                } else {
+                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
+                }
+            } else {
+                $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
+            }
+            redirect('kategori/datakategori');
         }
-        redirect('kategori/datakategori');
     }
 
     public function flasher($class, $message)

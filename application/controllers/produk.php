@@ -30,166 +30,178 @@
             // $this->load->library('Pdf');
             // $this->load->library('Excel');
 
-            // if (empty($this->session->userdata('id'))) {
-            //     redirect('auth/login');
-            // }
-
+            if (empty($this->session->userdata('id'))) {
+                redirect('auth/login');
+            }
         }
-
 
         public function dataproduk()
         {
-            $produk = $this->Produk_model->selectAll();
-            // $jenis = $this->Jenis_model->selectAll();
+            $ci = get_instance();
+            if ($ci->session->userdata('id') != '1') {
+                redirect('superadmin/');
+            } else {
+                $produk = $this->Produk_model->selectAll();
 
-            $data = [
-                'produk' => $produk
-                // 'jenis' => $jenis
-            ];
-            // $ci = get_instance();
-            // if ($ci->session->userdata('id') != '8') {
-            // redirect('superadmin/');
-            // } else {
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            // $this->load->view('templates/admin/navbar');
-            $this->load->view('admin/produk/dataproduk', $data);
-            $this->load->view('templates/admin/footer');
-            // }
+                $data = [
+                    'produk' => $produk
+                ];
+                $this->load->view('templates/admin/header');
+                $this->load->view('templates/admin/sidebar');
+                $this->load->view('admin/produk/dataproduk', $data);
+                $this->load->view('templates/admin/footer');
+            }
+        }
+        public function dataprodukterpilih($kategori)
+        {
+            $ci = get_instance();
+            if ($ci->session->userdata('id') != '1') {
+                redirect('superadmin/');
+            } else {
+                $produk = $this->Produk_model->selectproduk($kategori);
+
+                $data = [
+                    'produk' => $produk
+                ];
+                $this->load->view('templates/admin/header');
+                $this->load->view('templates/admin/sidebar');
+                $this->load->view('admin/produk/dataproduk', $data);
+                $this->load->view('templates/admin/footer');
+            }
         }
         public function addproduk()
         {
-            // $ci = get_instance();
-            // if ($ci->session->userdata('id') != '8') {
-            //     redirect('superadmin/');
-            // } else {
-            $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
-            $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
-            $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
-            $this->form_validation->set_rules('stokproduk', 'Stok Produk', 'required');
-            // $this->form_validation->set_rules('fotoproduk', 'Foto Produk', 'required');
-            $this->form_validation->set_rules('kategori', 'Kategori Produk', 'required');
-            $this->form_validation->set_rules('umkm', 'UMKM Produk', 'required');
+            $ci = get_instance();
+            if ($ci->session->userdata('id') != '1') {
+                redirect('superadmin/');
+            } else {
+                $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
+                $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
+                $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
+                $this->form_validation->set_rules('stokproduk', 'Stok Produk', 'required');
+                // $this->form_validation->set_rules('fotoproduk', 'Foto Produk', 'required');
+                $this->form_validation->set_rules('kategori', 'Kategori Produk', 'required');
+                $this->form_validation->set_rules('umkm', 'UMKM Produk', 'required');
 
 
-            if ($this->form_validation->run() == true) {
-                $config['upload_path']          = './produk/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 1000;
+                if ($this->form_validation->run() == true) {
+                    $config['upload_path']          = './produk/';
+                    $config['allowed_types']        = 'gif|jpg|png';
+                    $config['max_size']             = 1000;
 
-                $this->load->library('upload', $config);
+                    $this->load->library('upload', $config);
 
-                if ($this->upload->do_upload('fotoproduk')) {
-                    $last = explode("V", $this->Produk_model->getLastId()["id_produk"])[1];
+                    if ($this->upload->do_upload('fotoproduk')) {
+                        $last = explode("V", $this->Produk_model->getLastId()["id_produk"])[1];
+                        $db = [
+                            'id_produk' => 'RKV' . str_pad(intval($last) + 1, 3, '0', STR_PAD_LEFT),
+                            'nama_produk' => $this->input->post('namaproduk'),
+                            'keterangan_produk' => $this->input->post('keteranganproduk'),
+                            'harga_produk' => $this->input->post('hargaproduk'),
+                            'stok_produk' => $this->input->post('stokproduk'),
+                            'foto_produk' => $this->upload->data()["file_name"],
+                            'fk_kategori' => $this->input->post('kategori'),
+                            'fk_umkm' => $this->input->post('umkm')
+                        ];
+
+                        // var_dump($db);
+
+                        if ($this->Produk_model->create($db) > 0) {
+                            $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
+                        } else {
+                            $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
+                        }
+                        redirect('produk/dataproduk');
+                    } else {
+                        $this->session->set_flashdata('message_login', $this->flasher('danger', $this->upload->display_errors()));
+                        redirect('produk/dataproduk');
+                    }
+                } else {
+                    $this->load->view('templates/admin/header');
+                    $this->load->view('templates/admin/sidebar');
+                    $this->load->view('admin/produk/tambahproduk');
+                    $this->load->view('templates/admin/footer');
+                }
+            }
+        }
+        public function edit($id)
+        {
+            $ci = get_instance();
+            if ($ci->session->userdata('id') != '1') {
+                redirect('superadmin/');
+            } else {
+                $produk = $this->Produk_model->getProdukById($id);
+                $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
+                $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
+                $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
+                $this->form_validation->set_rules('stokproduk', 'Stok Produk', 'required');
+                // $this->form_validation->set_rules('fotoproduk', 'Foto Produk', 'required');
+                $this->form_validation->set_rules('kategori', 'Kategori Produk', 'required');
+                $this->form_validation->set_rules('umkm', 'UMKM Produk', 'required');
+
+
+                if ($this->form_validation->run() == true) {
                     $db = [
-                        'id_produk' => 'RKV' . str_pad(intval($last) + 1, 3, '0', STR_PAD_LEFT),
+                        'id_produk' => $id,
                         'nama_produk' => $this->input->post('namaproduk'),
                         'keterangan_produk' => $this->input->post('keteranganproduk'),
                         'harga_produk' => $this->input->post('hargaproduk'),
                         'stok_produk' => $this->input->post('stokproduk'),
-                        'foto_produk' => $this->upload->data()["file_name"],
                         'fk_kategori' => $this->input->post('kategori'),
                         'fk_umkm' => $this->input->post('umkm')
                     ];
+                    if ($_FILES["fotoproduk"]["name"] != "") {
+                        $config['upload_path']          = './produk/';
+                        $config['allowed_types']        = 'gif|jpg|png';
+                        $config['max_size']             = 1000;
 
-                    // var_dump($db);
-
-                    if ($this->Produk_model->create($db) > 0) {
+                        $this->load->library('upload', $config);
+                        if ($this->upload->do_upload('fotoproduk')) {
+                            unlink(FCPATH . 'produk/' . $produk["foto_produk"]);
+                            $db['foto_produk'] = $this->upload->data()["file_name"];
+                        } else {
+                            $this->session->set_flashdata('message_login', $this->flasher('danger', $this->upload->display_errors()));
+                            var_dump($this->upload->display_errors());
+                            die;
+                            redirect('produk/edit/' . $id);
+                        }
+                    }
+                    if ($this->Produk_model->update($db) > 0) {
                         $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
                     } else {
                         $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
                     }
                     redirect('produk/dataproduk');
                 } else {
-                    $this->session->set_flashdata('message_login', $this->flasher('danger', $this->upload->display_errors()));
-                    redirect('produk/dataproduk');
+                    $this->load->view('templates/admin/header');
+                    $this->load->view('templates/admin/sidebar');
+                    $this->load->view('admin/produk/editproduk', ["produk" => $produk]);
+                    $this->load->view('templates/admin/footer');
                 }
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('admin/produk/tambahproduk');
-                $this->load->view('templates/admin/footer');
             }
-            // }
-        }
-        public function edit($id)
-        {
-            // $ci = get_instance();
-            // if ($ci->session->userdata('id') != '8') {
-            //     redirect('superadmin/');
-            // } else {
-            $produk = $this->Produk_model->getProdukById($id);
-            $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
-            $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
-            $this->form_validation->set_rules('hargaproduk', 'Harga Produk', 'required');
-            $this->form_validation->set_rules('stokproduk', 'Stok Produk', 'required');
-            // $this->form_validation->set_rules('fotoproduk', 'Foto Produk', 'required');
-            $this->form_validation->set_rules('kategori', 'Kategori Produk', 'required');
-            $this->form_validation->set_rules('umkm', 'UMKM Produk', 'required');
-
-
-            if ($this->form_validation->run() == true) {
-                $db = [
-                    'id_produk' => $id,
-                    'nama_produk' => $this->input->post('namaproduk'),
-                    'keterangan_produk' => $this->input->post('keteranganproduk'),
-                    'harga_produk' => $this->input->post('hargaproduk'),
-                    'stok_produk' => $this->input->post('stokproduk'),
-                    'fk_kategori' => $this->input->post('kategori'),
-                    'fk_umkm' => $this->input->post('umkm')
-                ];
-                if ($_FILES["fotoproduk"]["name"] != "") {
-                    $config['upload_path']          = './produk/';
-                    $config['allowed_types']        = 'gif|jpg|png';
-                    $config['max_size']             = 1000;
-
-                    $this->load->library('upload', $config);
-                    if ($this->upload->do_upload('fotoproduk')) {
-                        unlink(FCPATH . 'produk/' . $produk["foto_produk"]);
-                        $db['foto_produk'] = $this->upload->data()["file_name"];
-                    } else {
-                        $this->session->set_flashdata('message_login', $this->flasher('danger', $this->upload->display_errors()));
-                        var_dump($this->upload->display_errors());
-                        die;
-                        redirect('produk/edit/' . $id);
-                    }
-                }
-                if ($this->Produk_model->update($db) > 0) {
-                    $this->session->set_flashdata('message_login', $this->flasher('success', 'User has been registered!'));
-                } else {
-                    $this->session->set_flashdata('message_login', $this->flasher('danger', 'Failed to create User'));
-                }
-                redirect('produk/dataproduk');
-            } else {
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('admin/produk/editproduk', ["produk" => $produk]);
-                $this->load->view('templates/admin/footer');
-            }
-            // }
         }
         public function delete($id)
         {
-            // $ci = get_instance();
-            // if ($ci->session->userdata('id') != '8') {
-            //     redirect('superadmin/');
-            // } else {
-            if ($id) {
-                $produk = $this->Produk_model->getUserById($id);
-
-                unlink(FCPATH . 'produk/' . $produk["foto_produk"]);
-
-                if ($this->Produk_model->delete($id) > 0) {
-                    $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
-                } else {
-                    $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
-                }
+            $ci = get_instance();
+            if ($ci->session->userdata('nama') == "admin" || $ci->session->userdata('id_role') != '1' || $ci->session->userdata('id_role') == '2' || $ci->session->userdata('id_role') == '3') {
+                echo ("Akses diblok");
             } else {
-                $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
+                if ($id) {
+                    $produk = $this->Produk_model->getUserById($id);
+
+                    unlink(FCPATH . 'produk/' . $produk["foto_produk"]);
+
+                    if ($this->Produk_model->delete($id) > 0) {
+                        $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
+                    } else {
+                        $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
+                    }
+                } else {
+                    $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
+                }
+                redirect('produk/dataproduk');
             }
-            redirect('produk/dataproduk');
         }
-        // }
 
         public function flasher($class, $message)
         {

@@ -28,22 +28,28 @@ class Pemilik extends CI_Controller
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
 
-        // if (empty($this->session->userdata('id'))) {
-        //     redirect('index.php/auth/login');
-        // }
-
+        if (empty($this->session->userdata('id'))) {
+            redirect('index.php/auth/login');
+        }
     }
     public function index()
     {
-        $this->load->view('templates/pemilik/header');
-        $this->load->view('templates/pemilik/sidebar');
-        $this->load->view('pemilik/index');
-        $this->load->view('templates/pemilik/footer');
+        $ci = get_instance();
+        if ($ci->session->userdata('id_role') == '1') {
+            redirect('admin/');
+        } elseif ($ci->session->userdata('id_role') == '3') {
+            redirect('auth/login');
+        } else {
+            $this->load->view('templates/pemilik/header');
+            $this->load->view('templates/pemilik/sidebar');
+            $this->load->view('pemilik/index');
+            $this->load->view('templates/pemilik/footer');
+        }
     }
     public function laporan()
     {
         $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
+        if ($ci->session->userdata('id') != '5') {
             redirect('pemilik/');
         } else {
             if (isset($_POST['filter']) && !empty($_POST['filter'])) { // Cek apakah user telah memilih filter dan klik tombol tampilkan
