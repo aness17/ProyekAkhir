@@ -48,7 +48,7 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <header id="header" class="header fixed-top" data-scrollto-offset="0" style="background-color: gold;">
         <div class="container-fluid d-flex align-items-center justify-content-between">
 
             <a href="<?= base_url('') ?>" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
