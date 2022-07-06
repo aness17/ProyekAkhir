@@ -5,7 +5,7 @@
     <div class="section-header">
         <div class="d-flex justify-content-evenly">
             <div></div>
-            <h2>Produk</h2>
+            <h2 style="font-family: cursive;">Produk</h2>
             <?php if ($this->session->userdata('id_role') == 3) : ?>
                 <a href="<?= base_url('auth/keranjang') ?>">
                     <i class="bi bi-basket-fill text-dark" style="font-size: 32px;"></i>
@@ -30,7 +30,7 @@
                                 <a href="<?= base_url('auth/deskripsi_produk/') . $produks["id_produk"] ?>" class="stretched-link">
                                     <h3 style="font-size:medium ;"><?= $produks['nama_produk'] ?></h3>
                                 </a>
-                                <h3 style="font-size:medium ;">Rp<?= $produks['harga_produk'] ?></h3>
+                                <h3 style="font-size:medium ;">Rp <?= number_format($produks['harga_produk'], 0, ",", "."); ?></h3>
                             </div>
                         </div>
                     </div><!-- End Service Item -->

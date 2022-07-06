@@ -6,7 +6,36 @@
 
 <main id="main">
 
-  <!-- ======= Featured Services Section ======= -->
+  <section id="features" class="features">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Produk Best Seller</h2>
+        <ul class="nav nav-tabs row gy-4 d-flex">
+          <li class="nav-item col-6 col-md-4 col-lg-4">
+            <a class="nav-link show" data-bs-toggle="tab" data-bs-target="#tab-1">
+              <i class="bi bi-star-fill"></i>
+              <h1>Content</h1>
+            </a>
+          </li><!-- End Tab 1 Nav -->
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ======= On Focus Section ======= -->
+  <section id="onfocus" class="onfocus">
+    <div class="container-fluid p-0" data-aos="fade-up">
+
+      <div class="row g-0">
+        <div class="col-lg-12 video-play position-relative">
+          <a href="https://www.youtube.com/watch?v=WMf_9772JmM" class="glightbox play-btn"></a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End On Focus Section -->
   <section id="featured-services" class="featured-services">
     <div class="container">
 
@@ -39,37 +68,6 @@
     </div>
   </section><!-- End Featured Services Section -->
 
-  <!-- ======= On Focus Section ======= -->
-  <section id="onfocus" class="onfocus">
-    <div class="container-fluid p-0" data-aos="fade-up">
-
-      <div class="row g-0">
-        <div class="col-lg-12 video-play position-relative">
-          <a href="https://www.youtube.com/watch?v=WMf_9772JmM" class="glightbox play-btn"></a>
-        </div>
-      </div>
-
-    </div>
-  </section><!-- End On Focus Section -->
-
-  <!-- ======= Recent Blog Posts Section ======= -->
-  <section id="features" class="features">
-    <div class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2>Produk Best Seller</h2>
-        <ul class="nav nav-tabs row gy-4 d-flex">
-          <li class="nav-item col-6 col-md-4 col-lg-4">
-            <a class="nav-link show" data-bs-toggle="tab" data-bs-target="#tab-1">
-              <i class="bi bi-star-fill"></i>
-              <h1>Content</h1>
-            </a>
-          </li><!-- End Tab 1 Nav -->
-        </ul>
-      </div>
-
-    </div>
-
-  </section><!-- End Recent Blog Posts Section -->
 
 
   <!-- ======= Testimonials Section ======= -->
