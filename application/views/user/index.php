@@ -10,10 +10,10 @@
   <section id="featured-services" class="featured-services">
     <div class="container">
 
-      <div class="row gy-4">
-        <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-out" data-aos-delay="400">
+      <div class="row gy-4 ">
+        <div class="col-xl-4 col-md-6 d-flex " data-aos="zoom-out" data-aos-delay="400">
           <div class="service-item position-relative">
-            <img src="<?= base_url('assets/') ?>pelanggan/assets/img/juara.png" alt="" width="300px" class="img-fluid animated">
+            <img src="<?= base_url('assets/') ?>pelanggan/assets/img/juara.png" alt="" width="400px" class="img-fluid animated">
             <br />
 
             <h4 style="text-align: center ;font-family:serif ;font-size: medium;"><a href="<?= base_url('auth/juara2') ?>" class="stretched-link">Viera Oleh-oleh Raih Juara 2 Pada Anugerah Pesona Indonesia</a></h4>
@@ -21,14 +21,14 @@
         </div><!-- End Service Item -->
         <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-out">
           <div class="service-item position-relative">
-            <img src="<?= base_url('assets/') ?>pelanggan/assets/img/MOU.png" alt="" width="300px" class="img-fluid animated">
+            <img src="<?= base_url('assets/') ?>pelanggan/assets/img/MOU.png" alt="" width="400px" class="img-fluid animated">
             <br />
             <h4 style="text-align: center ; font-family:serif ; font-size: medium;"><a href="<?= base_url('auth/dinaspariwisata') ?>" class="stretched-link">Viera Oleh-oleh Bekerjasama dengan Dinas Pariwisata dan Kebudayaan Kota Pekanbaru</a></h4>
           </div>
         </div><!-- End Service Item -->
         <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-out">
           <div class="service-item position-relative">
-            <img src="<?= base_url('assets/') ?>pelanggan/assets/img/muri.png" alt="" width="300px" class="img-fluid animated">
+            <img src="<?= base_url('assets/') ?>pelanggan/assets/img/muri.png" alt="" width="400px" class="img-fluid animated">
             <br />
             <h4 style="text-align: center ;font-family:serif ;font-size: medium;"><a href="<?= base_url('auth/muri') ?>" class="stretched-link">Viera Oleh-oleh Raih Rekor Muri Ketan Talam Durian Terpanjang</a></h4>
           </div>

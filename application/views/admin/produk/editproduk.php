@@ -14,7 +14,7 @@
         <div class="card-body">
 
             <!-- Vertical Form -->
-            <form method="POST" action="<?= base_url('produk/edit/'.$produk["id_produk"]) ?>" class="row g-3" enctype="multipart/form-data">
+            <form method="POST" action="<?= base_url('produk/edit/' . $produk["id_produk"]) ?>" class="row g-3" enctype="multipart/form-data">
                 <div class="col-12">
                     <label for="inputNanme4" class="form-label">Nama Produk</label>
                     <input type="text" name="namaproduk" class="form-control" id="namaproduk" value="<?= $produk["nama_produk"] ?>">
@@ -48,7 +48,7 @@
                     <select name="kategori" class="form-control" id="exampleFormControlSelect1" name="kategori">
 
                         <?php
-                        $kategori = $this->db->query("SELECT * FROM kategori");
+                        $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
                         foreach ($kategori->result_array() as $kategoris) : ?>
                             <option value="<?= $kategoris['id_kategori'] ?>" <?= ($produk["fk_kategori"] == $kategoris['id_kategori']) ? "selected" : "" ?>><?= $kategoris['nama_kategori'] ?></option>
                         <?php endforeach; ?>
@@ -61,7 +61,7 @@
                     <select name="umkm" class="form-control" id="exampleFormControlSelect1" name="umkm">
 
                         <?php
-                        $umkm = $this->db->query("SELECT * FROM umkm");
+                        $umkm = $this->db->query("SELECT * FROM umkm order by nama_umkm ASC");
                         foreach ($umkm->result_array() as $umkms) : ?>
                             <option value="<?= $umkms['id_umkm'] ?>" <?= ($produk["fk_umkm"] == $umkms['id_umkm']) ? "selected" : "" ?>><?= $umkms['nama_umkm'] ?></option>
                         <?php endforeach; ?>
