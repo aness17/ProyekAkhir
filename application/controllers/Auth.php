@@ -47,10 +47,7 @@ class Auth extends CI_Controller
     }
     public function login()
     {
-        $this->form_validation->set_rules('username', 'Username');        
-$this->form_validation->set_rules('username', 'Username');
-
-
+        $this->form_validation->set_rules('username', 'Username');
         $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[4]');
 
         $username = $this->input->post('username');
