@@ -148,6 +148,21 @@ class Auth extends CI_Controller
         $this->load->view('user/dashboard');
         $this->load->view('templates/user/footer');
     }
+    public function profil($id)
+    {
+        $pelanggan = $this->User_model->getPelangganById($id);
+
+        $data = [
+            'pelanggan' => $pelanggan
+        ];
+        if ($this->session->userdata('id_role') == 3) {
+            $this->load->view('templates/user/header2');
+        } else {
+            $this->load->view('templates/user/header');
+        }
+        $this->load->view('user/produk', $data);
+        $this->load->view('templates/user/footer');
+    }
 
     public function produk()
     {

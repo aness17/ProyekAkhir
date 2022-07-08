@@ -76,10 +76,22 @@
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>">Alamat</a></li>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle d-none"></i>
             </nav><!-- .navbar -->
 
-            <a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/logout') ?>>Keluar</a>
-
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li class="dropdown"><i class="bi bi-person-fill" style="font-size: 32px;"></i></i></a>
+                        <ul>
+                            <li>
+                                <a><i class="bi bi-person-fill" style="font-size: 30px;" href=<?= base_url('auth/profil') ?>></i></a>
+                            </li>
+                            <li>
+                                <a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/logout') ?>>Keluar</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
+
     </header><!-- End Header -->
