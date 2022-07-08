@@ -13,6 +13,12 @@
             <?php else : ?>
                 <div></div>
             <?php endif; ?>
+            <nav class="navbar navbar-light bg-light justify-content-between">
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" id="search-form" type=" search" placeholder="Cari Produk" aria-label="Search">
+                    <input type="submit" value="Cari">
+                </form>
+            </nav>
         </div>
     </div>
     <section id="services" class="services">
@@ -40,3 +46,20 @@
         </div>
     </section>
 </main>
+
+<script type="text/javascript">
+    (function() {
+        var searchForm = document.getElementById('search-form'),
+            textInput = searchForm.cari,
+            clearBtn = textInput.nextSibling;
+        textInput.onkeyup = function() {
+            // Show the clear button if text input value is not empty
+            clearBtn.style.visibility = (this.value.length) ? "visible" : "hidden";
+        };
+        // Hide the clear button on click, and reset the input value
+        clearBtn.onclick = function() {
+            this.style.visibility = "hidden";
+            textInput.value = "";
+        };
+    })();
+</script>

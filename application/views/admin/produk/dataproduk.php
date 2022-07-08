@@ -6,8 +6,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard/') ?>">Home</a></li>
                 <?php
-                
-                
+
+
                 ?>
                 <li class="breadcrumb-item">Data Produk</li>
                 <li class="breadcrumb-item active">Data Produk</li>
@@ -21,10 +21,11 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Data Produk</h5>
-                    <a href="<?= base_url('produk/addproduk') ?>" type="button" class="btn btn-success text-white btn-sm">
-                        Tambah
-                    </a>
+                    <div class="d-flex justify-content-evenly">
+                        <h5 class="card-title">Data Produk</h5>
+                        <button href="<?= base_url('produk/addproduk') ?>" type="button" class="btn" style="font-size:25px;">
+                            <i class="bi bi-plus-circle"></i> </button>
+                    </div>
 
                     <!-- Table with hoverable rows -->
                     <table class="table table datatable">

@@ -187,7 +187,7 @@
                 echo ("Akses diblok");
             } else {
                 if ($id) {
-                    $produk = $this->Produk_model->getUserById($id);
+                    $produk = $this->Produk_model->getProdukById($id);
 
                     unlink(FCPATH . 'produk/' . $produk["foto_produk"]);
 

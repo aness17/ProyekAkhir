@@ -79,7 +79,7 @@
                 <i class="bi bi-list mobile-nav-toggle d-none"></i>
             </nav><!-- .navbar -->
 
-            <a class="btn-getstarted scrollto" href=<?= base_url('auth/logout') ?>>Keluar</a>
+            <a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/logout') ?>>Keluar</a>
 
         </div>
     </header><!-- End Header -->
