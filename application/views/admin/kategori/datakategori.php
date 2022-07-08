@@ -15,10 +15,12 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Data Kategori</h5>
-                    <a href="<?= base_url('kategori/addkategori') ?>" type="button" class="btn btn-success text-white btn-sm">
-                        Tambah
-                    </a>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Data Kategori</h5>
+                        <a href="<?= base_url('kategori/addkategori') ?>" type="button" class="btn" style="font-size:25px;">
+                            <i class="bi bi-plus-circle"></i>
+                        </a>
+                    </div>
 
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
@@ -37,9 +39,9 @@
                                     <td><?= $no; ?></td>
                                     <td><?= $kategoris['nama_kategori'] ?></td>
                                     <td class="text-center">
-                                        <a href="<?= base_url('kategori/edit/' . $kategoris['id_kategori']) ?>" type="button" class="fas fa-edit" style="color:limegreen">Edit
+                                        <a href="<?= base_url('kategori/edit/' . $kategoris['id_kategori']) ?>" type="button" class="bi bi-pencil-square" style="color:limegreen">
                                         </a>
-                                        <a href="<?= base_url('kategori/delete/' . $kategoris['id_kategori']) ?>" type="button" class="fas fa-trash" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">Hapus
+                                        <a href="<?= base_url('kategori/delete/' . $kategoris['id_kategori']) ?>" type="button" class="bi bi-trash-fill" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">
                                         </a>
                                     </td>
                                 </tr>
