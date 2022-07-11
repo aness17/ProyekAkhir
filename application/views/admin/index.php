@@ -92,54 +92,40 @@
           <div class="card top-selling overflow-auto">
 
             <div class="card-body pb-0">
-              <h5 class="card-title">Top Selling <span>| Today</span></h5>
+              <h5 class="card-title">Data Transaksi <span>| Hari ini</span></h5>
 
-              <table class="table table-borderless">
+              <table class="table table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Preview</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Sold</th>
-                    <th scope="col">Revenue</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Kode Transaksi</th>
+                    <th scope="col">Nama Pelanggan</th>
+                    <th scope="col">Nama Produk</th>
+                    <th scope="col">Jumlah Produk</th>
+                    <th scope="col">Total Harga</th>
+                    <th scope="col">Tanggal Pesanan</th>
+                    <th scope="col">Tanggal Selesai</th>
+                    <th scope="col">Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-                    <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                    <td>$64</td>
-                    <td class="fw-bold">124</td>
-                    <td>$5,828</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-                    <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                    <td>$46</td>
-                    <td class="fw-bold">98</td>
-                    <td>$4,508</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-                    <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                    <td>$59</td>
-                    <td class="fw-bold">74</td>
-                    <td>$4,366</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-                    <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                    <td>$32</td>
-                    <td class="fw-bold">63</td>
-                    <td>$2,016</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-                    <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                    <td>$79</td>
-                    <td class="fw-bold">41</td>
-                    <td>$3,239</td>
-                  </tr>
+                <tbody class="list">
+                  <?php $no = 1;
+                  // $user = $this->db->query("SELECT * FROM user where fk_role = '2'");
+                  foreach ($trans as $transs) : ?>
+                    <tr style="text-align: center;">
+                      <td><?= $no; ?></td>
+                      <td><?= $transs['id_transaksi'] ?></td>
+                      <td><?= $transs['nama_pelanggan'] ?></td>
+                      <td><?= $transs['nama_produk'] ?></td>
+                      <td><?= $transs['ket_jumlah'] ?></td>
+                      <td><?= $transs['total_harga'] ?></td>
+                      <td><?= $transs['tgl_pesanan'] ?></td>
+                      <td><?= $transs['tgl_selesai'] ?></td>
+                      <td><?= $transs['status'] ?></td>
+
+                    </tr>
+                  <?php $no++;
+                  endforeach; ?>
                 </tbody>
               </table>
 

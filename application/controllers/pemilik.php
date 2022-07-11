@@ -25,6 +25,11 @@ class Pemilik extends CI_Controller
         parent::__construct();
 
         $this->load->model('User_model');
+        $this->load->model('Umkm_model');
+        $this->load->model('Produk_model');
+        $this->load->model('Kategori_model');
+        $this->load->model('Transaksi_model');
+
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
 
@@ -34,16 +39,33 @@ class Pemilik extends CI_Controller
     }
     public function index()
     {
+        $tgl = date('Y-m-d');
         $ci = get_instance();
         if ($ci->session->userdata('id_role') == '1') {
             redirect('admin/');
         } elseif ($ci->session->userdata('id_role') == '3') {
             redirect('auth/login');
-        } else {
+        } elseif ($ci->session->userdata('id_role') == '2') {
+            $trans = $this->Transaksi_model->trans_view_by_date($tgl);
+            $datacs = $this->User_model->sumcs();
+            $dataproduk = $this->Produk_model->sumProduk();
+            $datatrans = $this->Transaksi_model->selecttrans();
+            $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
+
+
+            $data = [
+                'datacs' => $datacs,
+                'dataproduk' => $dataproduk,
+                'datatrans' => $datatrans,
+                'pendapatan' => $pendapatan,
+                'trans' => $trans
+            ];
             $this->load->view('templates/pemilik/header');
             $this->load->view('templates/pemilik/sidebar');
-            $this->load->view('pemilik/index');
+            $this->load->view('admin/index', $data);
             $this->load->view('templates/pemilik/footer');
+        } else {
+            redirect('auth/login');
         }
     }
     public function laporan()

@@ -13,12 +13,7 @@
             <?php else : ?>
                 <div></div>
             <?php endif; ?>
-            <nav class="navbar navbar-light bg-light justify-content-between">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" id="search-form" type=" search" placeholder="Cari Produk" aria-label="Search">
-                    <input type="submit" value="Cari">
-                </form>
-            </nav>
+
         </div>
     </div>
     <section id="services" class="services">

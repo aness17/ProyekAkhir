@@ -56,6 +56,15 @@ class Transaksi_model extends CI_Model
         $this->db->where('status', $where);
         return $this->db->get()->num_rows();
     }
+    public function trans_view_by_date($date)
+    {
+        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->where('A.tgl_pesanan LIKE', $date . '%'); // Tambahkan where tanggal nya
+        return $this->db->get($this->table . " as A")->result_array(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
+
+    }
 
     public function selecttrans()
     {
@@ -69,29 +78,6 @@ class Transaksi_model extends CI_Model
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
         $this->db->join('produk C', 'A.id_produk=C.id_produk');
         $this->db->where('A.status =', $where);
-        $this->db->order_by('A.id_transaksi', 'DESC');
-        return $this->db->get($this->table . " as A")->result_array();
-    }
-    public function selectagenstatus()
-    {
-        $this->db->join('user B', 'A.id_cs=B.id_cs');
-        $this->db->join('jenisld C', 'A.id_jenis=C.id_jenis');
-        $this->db->join('layananld D', 'A.id_layanan=D.id_layanan');
-        $this->db->where('A.status !=', 'selesai');
-        $this->db->where('A.status !=', 'Menunggu Penjemputan');
-        $this->db->where('B.catatan =', 'input by agen ' . $this->session->userdata('id'));
-        $this->db->order_by('A.id_transaksi', 'DESC');
-        return $this->db->get($this->table . " as A")->result_array();
-    }
-
-    public function selectoutletstatus()
-    {
-        $this->db->join('user B', 'A.id_cs=B.id_cs');
-        $this->db->join('jenisld C', 'A.id_jenis=C.id_jenis');
-        $this->db->join('layananld D', 'A.id_layanan=D.id_layanan');
-        $this->db->where('A.status !=', 'selesai');
-        $this->db->where('A.status !=', 'Menunggu Penjemputan');
-        $this->db->where('B.catatan =', 'input by outlet ' . $this->session->userdata('id'));
         $this->db->order_by('A.id_transaksi', 'DESC');
         return $this->db->get($this->table . " as A")->result_array();
     }
