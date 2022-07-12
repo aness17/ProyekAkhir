@@ -22,11 +22,18 @@ class Produk_model extends CI_Model
         $this->db->Order_by('A.nama_produk', "ASC");
         return $this->db->get($this->table . " as A")->result_array();
     }
+
+    public function getWhere($where)
+    {
+        $this->db->where($where);
+        return $this->db->geT($this->table)->row_array();
+    }
+
     public function selectproduk($kategori)
     {
         $this->db->join('kategori B', 'A.fk_kategori=B.id_kategori');
         $this->db->join('umkm C', 'A.fk_umkm=C.id_umkm');
-        $this->db->where('A.nama_kategori', $kategori);
+        $this->db->where('B.nama_kategori', $kategori);
         $this->db->Order_by('A.nama_produk', "ASC");
         return $this->db->get($this->table . " as A")->result_array();
     }

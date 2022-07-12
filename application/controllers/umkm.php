@@ -43,7 +43,7 @@ class Umkm extends CI_Controller
 
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/sidebar');
@@ -55,7 +55,7 @@ class Umkm extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             $this->form_validation->set_rules('namaumkm', 'Nama UMKM', 'required');
 
@@ -85,7 +85,7 @@ class Umkm extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             $this->form_validation->set_rules('namaumkm', 'Nama UMKM', 'required');
 
@@ -118,7 +118,7 @@ class Umkm extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             if ($id) {
                 if ($this->Umkm_model->delete($id) > 0) {

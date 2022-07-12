@@ -36,6 +36,9 @@
 
     <!-- Template Main CSS File -->
     <link href=<?= base_url('assets/pelanggan/assets/css/main.css') ?> rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- =======================================================
   * Template Name: HeroBiz - v2.0.0
@@ -68,18 +71,21 @@
                             <?php
                             $umkm = $this->db->query("SELECT * FROM kategori");
                             foreach ($umkm->result_array() as $kategoris) : ?>
-                                <li><a href="<?= $kategoris['nama_kategori'] ?>"><?= $kategoris['nama_kategori'] ?></a>
+                                <li><a href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
                                 </li> <?php endforeach; ?>
                         </ul>
                     </li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/riwayat') ?>">Riwayat Pesanan</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>">Alamat</a></li>
-                    <form class="form-inline">
-                        <div class="md-form my-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        </div>
-                    </form>
+                    <div class="md-form">
+                        <select class="produkSelect form-control mr-sm-2" id="produkSelect">
+                            <option value="" disabled selected>Search</option>
+                            <?php foreach ($produk as $p) : ?>
+                                <option value="<?= $p["id_produk"] ?>"><?= $p["nama_produk"] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
                 </ul>
             </nav><!-- .navbar -->

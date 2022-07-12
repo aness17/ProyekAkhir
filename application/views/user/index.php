@@ -10,14 +10,23 @@
     <div class="container" data-aos="fade-up">
       <div class="section-header">
         <h2>Produk Best Seller</h2>
-        <ul class="nav nav-tabs row gy-4 d-flex">
-          <li class="nav-item col-6 col-md-4 col-lg-4">
-            <a class="nav-link show" data-bs-toggle="tab" data-bs-target="#tab-1">
-              <i class="bi bi-star-fill"></i>
-              <h1>Content</h1>
-            </a>
-          </li><!-- End Tab 1 Nav -->
-        </ul>
+        <div class="row gy-4 d-flex mt-4">
+          <?php foreach ($bestSeller as $produks) : ?>
+            <div class="col-xl-4" data-aos="zoom-in" data-aos-delay="200">
+              <div class="service-item mb-3">
+                <div class="details position-relative" style="margin: -20px 30px!important;">
+
+                  <img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" style="height: 200px; object-fit:cover; object-position:center;" alt="">
+
+                  <a href="<?= base_url('auth/deskripsi_produk/') . $produks["id_produk"] ?>" class="stretched-link">
+                    <h3 style="font-size:medium ;"><?= $produks['nama_produk'] ?></h3>
+                  </a>
+                  <h3 style="font-size:medium ;">Rp <?= number_format($produks['harga_produk'], 0, ",", "."); ?></h3>
+                </div>
+              </div>
+            </div><!-- End Service Item -->
+          <?php endforeach; ?>
+        </div>
       </div>
 
     </div>

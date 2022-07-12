@@ -43,7 +43,14 @@
 
  <!-- Template Main JS File -->
  <script src="<?= base_url('assets/') ?>pelanggan/assets/js/main.js"></script>
-
+ <script>
+     $(document).ready(function() {
+         $('.produkSelect').select2().on('change', (e) => {
+             console.log(`<?= base_url("auth/deskripsi_produk") ?>/${e.target.value}?search=true`)
+             window.location.href = `<?= base_url("auth/deskripsi_produk") ?>/${e.target.value}?search=true`
+         });
+     })
+ </script>
  </body>
 
  </html>

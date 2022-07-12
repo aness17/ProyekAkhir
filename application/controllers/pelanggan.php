@@ -41,7 +41,7 @@ class Pelanggan extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             $pelanggan = $this->User_model->selectAll();
             $data = [
@@ -50,7 +50,7 @@ class Pelanggan extends CI_Controller
 
             // $ci = get_instance();
             // if ($ci->session->userdata('id') != '8') {
-            //     redirect('superadmin/');
+            //     redirect('admin/');
             // } else {
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/sidebar');
@@ -62,7 +62,7 @@ class Pelanggan extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             $this->form_validation->set_rules('namapelanggan', 'Nama Pelanggan', 'required');
             $this->form_validation->set_rules('username', 'Username', 'required|is_unique[pelanggan.username_pelanggan]');
@@ -117,7 +117,7 @@ class Pelanggan extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             $this->form_validation->set_rules('namapelanggan', 'Nama Pelanggan', 'required');
             $this->form_validation->set_rules('username', 'Username', 'required');
@@ -158,7 +158,7 @@ class Pelanggan extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('superadmin/');
+            redirect('admin/');
         } else {
             if ($id) {
                 if ($this->User_model->delete($id) > 0) {

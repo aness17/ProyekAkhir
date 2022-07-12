@@ -41,20 +41,3 @@
         </div>
     </section>
 </main>
-
-<script type="text/javascript">
-    (function() {
-        var searchForm = document.getElementById('search-form'),
-            textInput = searchForm.cari,
-            clearBtn = textInput.nextSibling;
-        textInput.onkeyup = function() {
-            // Show the clear button if text input value is not empty
-            clearBtn.style.visibility = (this.value.length) ? "visible" : "hidden";
-        };
-        // Hide the clear button on click, and reset the input value
-        clearBtn.onclick = function() {
-            this.style.visibility = "hidden";
-            textInput.value = "";
-        };
-    })();
-</script>

@@ -30,6 +30,16 @@ class DetailTransaksi_model extends CI_Model
         return $this->db->get($this->table)->row_array();
     }
 
+    public function bestSeller()
+    {
+        $this->db->select("sum(ket_jumlah) as ket_jumlah, produk.*");
+        $this->db->join("produk", "produk.id_produk = detail_transaksi.id_produk");
+        $this->db->group_by("id_produk");
+        $this->db->order_by("ket_jumlah", "desc");
+        $this->db->limit(3);
+        return $this->db->get($this->table)->result_array();
+    }
+
     public function riwayat()
     {
         $this->db->where('transaksi.id_pelanggan', $this->session->userdata('id'));

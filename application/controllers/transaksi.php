@@ -55,7 +55,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 $this->form_validation->set_rules('namatransaksi', 'Nama transaksi', 'required');
                 $this->form_validation->set_rules('keterangantransaksi', 'Keterangan transaksi', 'required');
@@ -108,7 +108,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 $transaksi = $this->Transaksi_model->getTransaksiById($id);
                 $this->form_validation->set_rules('namatransaksi', 'Nama transaksi', 'required');
@@ -164,7 +164,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 if ($id) {
                     $transaksi = $this->Transaksi_model->getTransaksiById($id);

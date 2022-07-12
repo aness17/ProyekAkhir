@@ -36,12 +36,14 @@ class Auth extends CI_Controller
         } elseif ($ci->session->userdata('id_role') == '2') {
             redirect('pemilik/');
         } else {
+            $data["produk"] = $this->Produk_model->selectAll();
+            $data["bestSeller"] = $this->DetailTransaksi_model->bestSeller();
             if ($this->session->userdata('id_role') == 3) {
-                $this->load->view('templates/user/header2');
+                $this->load->view('templates/user/header2', $data);
             } else {
-                $this->load->view('templates/user/header');
+                $this->load->view('templates/user/header', $data);
             }
-            $this->load->view('user/index');
+            $this->load->view('user/index', $data);
             $this->load->view('templates/user/footer');
         }
     }
@@ -144,7 +146,8 @@ class Auth extends CI_Controller
 
     public function dashboard()
     {
-        $this->load->view('templates/user/header2');
+        $data["produk"] = $this->Produk_model->selectAll();
+        $this->load->view('templates/user/header2', $data);
         $this->load->view('user/dashboard');
         $this->load->view('templates/user/footer');
     }
@@ -155,26 +158,31 @@ class Auth extends CI_Controller
         $data = [
             'pelanggan' => $pelanggan
         ];
+        $data["produk"] = $this->Produk_model->selectAll();
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/produk', $data);
         $this->load->view('templates/user/footer');
     }
 
-    public function produk()
+    public function produk($kategori = "")
     {
-        $produk = $this->Produk_model->selectAll();
+        if ($kategori == "") {
+            $produk = $this->Produk_model->selectAll();
+        } else {
+            $produk = $this->Produk_model->selectproduk($kategori);
+        }
 
         $data = [
             'produk' => $produk
         ];
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/produk', $data);
         $this->load->view('templates/user/footer');
@@ -182,15 +190,33 @@ class Auth extends CI_Controller
 
     public function deskripsi_produk($id)
     {
-        $produk = $this->Produk_model->getProdukById($id);
+        $detail = $this->Produk_model->getProdukById($id);
+        $produk = $this->Produk_model->selectAll();
+        $transaksi = $this->Transaksi_model->selectAll();
+        $data_item = [];
+        foreach ($transaksi as $t) {
+            array_push($data_item, ["id" => $t["id_transaksi"], "item" => $t["nama_produk"]]);
+        };
 
         $data = [
-            'produk' => $produk,
+            'detail' => $detail,
+            "produk" => $produk
         ];
+        if ($this->input->get("search")) {
+            $apriori = new apriori();
+            $rekom = $apriori->main($data_item);
+            $rekomendasi = [];
+            foreach ($rekom as $r) {
+                if ($r["item"] == $detail["nama_produk"]) {
+                    array_push($rekomendasi, $this->Produk_model->getWhere(["nama_produk" => $r["val"]]));
+                }
+            }
+            $data["rekomendasi"] = $rekomendasi;
+        }
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/deskripsi_produk', $data);
         $this->load->view('templates/user/footer');
@@ -198,6 +224,8 @@ class Auth extends CI_Controller
 
     public function keranjang()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
+
         $ci = get_instance();
         if (!$ci->session->userdata('id')) {
             redirect('auth/login');
@@ -210,9 +238,9 @@ class Auth extends CI_Controller
                 'keranjang' => $keranjang
             ];
             if ($this->session->userdata('id_role') == 3) {
-                $this->load->view('templates/user/header2');
+                $this->load->view('templates/user/header2', $data);
             } else {
-                $this->load->view('templates/user/header');
+                $this->load->view('templates/user/header', $data);
             }
             $this->load->view('user/keranjang', $data);
             $this->load->view('templates/user/footer');
@@ -306,6 +334,7 @@ class Auth extends CI_Controller
 
     public function riwayat()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
         $ci = get_instance();
         if (!$ci->session->userdata('id')) {
             redirect('auth/login');
@@ -317,59 +346,67 @@ class Auth extends CI_Controller
             $data = [
                 'riwayat' => $riwayat
             ];
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
             $this->load->view('user/riwayat_pesanan', $data);
             $this->load->view('templates/user/footer');
         }
     }
     public function alamat()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
+
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/alamat');
         $this->load->view('templates/user/footer');
     }
     public function tentang()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
+
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/tentang');
         $this->load->view('templates/user/footer');
     }
     public function muri()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
+
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/penghargaan_muri');
         $this->load->view('templates/user/footer');
     }
     public function dinaspariwisata()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
 
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/dinas_pariwisata');
         $this->load->view('templates/user/footer');
     }
     public function juara2()
     {
+        $data["produk"] = $this->Produk_model->selectAll();
 
         if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2');
+            $this->load->view('templates/user/header2', $data);
         } else {
-            $this->load->view('templates/user/header');
+            $this->load->view('templates/user/header', $data);
         }
         $this->load->view('user/juara2');
         $this->load->view('templates/user/footer');
@@ -384,5 +421,162 @@ class Auth extends CI_Controller
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>';
+    }
+}
+class apriori
+{
+    function main($data_item)
+    {
+        $minSupport = 4;
+        $arr = [];
+        for ($i = 0; $i < count($data_item); $i++) {
+            $ar = [];
+            $val = explode(",", $data_item[$i]["item"]);
+            for ($j = 0; $j < count($val); $j++) {
+                $ar[] = $val[$j];
+            }
+            array_push($arr, $ar);
+        }
+
+        $frekuensi_item = $this->frekuensiItem($arr);
+        $dataEliminasi = $this->eliminasiItem($frekuensi_item, $minSupport);
+
+        // print_r($dataEliminasi);
+
+        do {
+            $pasangan_item = $this->pasanganItem($dataEliminasi);
+            $frekuensi_item = $this->FrekuensiPasanganItem($pasangan_item, $arr);
+            $dataEliminasi = $this->eliminasiItem($frekuensi_item, $minSupport);
+            foreach ($frekuensi_item as $key => $val) {
+
+                $ex = explode("_", $key);
+                $item = "";
+                $vl = "";
+                for ($k = 0; $k < count($ex); $k++) {
+                    if ($k !== count($ex) - 1) {
+                        $item .= "," . $ex[$k];
+                    } else {
+                        $vl = $ex[$k];
+                    }
+                }
+                $aturan_asosiasi[] = array("item" => substr($item, 1), "val" => $vl, "sc" => $val);
+            }
+        } while ($dataEliminasi == $frekuensi_item);
+
+
+        for ($i = 0; $i < count($aturan_asosiasi); $i++) {
+            $x = 0;
+            // echo $i + 1 . "Nilai confident, ";
+            // echo $aturan_asosiasi[$i]["item"] . " => " . $aturan_asosiasi[$i]["val"] . "=";
+            $ex = explode(",", $aturan_asosiasi[$i]["item"]);
+
+            for ($l = 0; $l < count($arr); $l++) {
+                $jum = 0;
+                for ($k = 0; $k < count($ex); $k++) {
+
+                    for ($j = 0; $j < count($arr[$l]); $j++) {
+                        if ($arr[$l][$j] == $ex[$k]) {
+                            $jum += 1;
+                        }
+                    }
+                }
+                if (count($ex) == $jum) {
+                    $x += 1;
+                }
+            }
+            $convident = (floatval($aturan_asosiasi[$i]["sc"]) / floatval($x)) * 100;
+            $aturan_asosiasi[$i]["c"] = number_format($convident, 2, ".", ",");
+            // echo $aturan_asosiasi[$i]["sc"] . "/" . $x . "=" . number_format(floatval($aturan_asosiasi[$i]["sc"]) / floatval($x), 2, ".", ",") . "=" . number_format($convident, 0, ".", ",") . "%";
+        }
+        for ($i = 0; $i < count($aturan_asosiasi); $i++) {
+            if ($aturan_asosiasi[$i]["c"] == 0) {
+                array_splice($aturan_asosiasi, $i--, 1);
+            }
+        }
+        return $aturan_asosiasi;
+    }
+    // $data_item = array(
+    //     array("id" => 1, "item" => "Sabun,Sampo"),
+    //     array("id" => 2, "item" => "Handuk,Bedak,Sampo,Sabun"),
+    //     array("id" => 3, "item" => "Sabun,Handuk,Sampo,Sikat Gigi"),
+    //     array("id" => 4, "item" => "Sampo,Sabun,Bedak,Handuk"),
+    //     array("id" => 5, "item" => "Sabun,Pasta Gigi,Sampo"),
+    //     array("id" => 6, "item" => "Sabun,Handuk,Sikat Gigi"),
+    //     array("id" => 7, "item" => "Sampo,Sikat Gigi")
+    // );
+
+    function frekuensiItem($data)
+    {
+        $arr = [];
+        for ($i = 0; $i < count($data); $i++) {
+            $jum = array_count_values($data[$i]);
+            foreach ($jum as $key => $v) {
+                if (array_key_exists($key, $arr)) {
+                    $arr[$key] += 1;
+                } else {
+                    $arr[$key] = 1;
+                }
+            }
+        }
+        return $arr;
+    }
+
+    function eliminasiItem($data, $minSupport)
+    {
+        $arr = [];
+        foreach ($data as $key => $v) {
+            if ($v >= $minSupport) {
+                $arr[$key] = $v;
+            }
+        }
+        return $arr;
+    }
+    function pasanganItem($data_filter)
+    {
+        $n = 0;
+        $arr = [];
+        foreach ($data_filter as $key1 => $v1) {
+            $m = 1;
+            foreach ($data_filter as $key2 => $v2) {
+                $str = explode("_", $key2);
+                for ($i = 0; $i < count($str); $i++) {
+
+                    if (!strstr($key1, $str[$i])) {
+                        if ($m > $n + 1 && count($data_filter) > $n + 1) {
+                            $arr[$key1 . "_" . $str[$i]] = 0;
+                        }
+                    }
+                }
+                $m++;
+            }
+            $n++;
+        }
+        return $arr;
+    }
+
+    function frekuensiPasanganItem($data_pasangan, $data)
+    {
+        $arr = $data_pasangan;
+        $ky = "";
+        $kali = 0;
+        foreach ($data_pasangan as $key1 => $k) {
+            for ($i = 0; $i < count($data); $i++) {
+                $kk = explode("_", $key1);
+                $jm = 0;
+                for ($k = 0; $k < count($kk); $k++) {
+
+                    for ($j = 0; $j < count($data[$i]); $j++) {
+                        if ($data[$i][$j] == $kk[$k]) {
+                            $jm += 1;
+                            break;
+                        }
+                    }
+                }
+                if ($jm > count($kk) - 1) {
+                    $arr[$key1] += 1;
+                }
+            }
+        }
+        return $arr;
     }
 }

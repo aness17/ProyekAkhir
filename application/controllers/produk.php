@@ -39,7 +39,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 $produk = $this->Produk_model->selectAll();
 
@@ -56,7 +56,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 $produk = $this->Produk_model->selectproduk($kategori);
 
@@ -73,7 +73,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
                 $this->form_validation->set_rules('keteranganproduk', 'Keterangan Produk', 'required');
@@ -128,7 +128,7 @@
         {
             $ci = get_instance();
             if ($ci->session->userdata('id') != '1') {
-                redirect('superadmin/');
+                redirect('admin/');
             } else {
                 $produk = $this->Produk_model->getProdukById($id);
                 $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
