@@ -35,40 +35,29 @@
             }
         }
 
-        public function dataproduk()
+        public function dataproduk($kategori = "")
         {
-            $ci = get_instance();
-            if ($ci->session->userdata('id') != '1') {
-                redirect('admin/');
-            } else {
+            if ($kategori == "") {
                 $produk = $this->Produk_model->selectAll();
-
-                $data = [
-                    'produk' => $produk
-                ];
-                $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
-                $this->load->view('admin/produk/dataproduk', $data);
-                $this->load->view('templates/admin/footer');
-            }
-        }
-        public function dataprodukterpilih($kategori)
-        {
-            $ci = get_instance();
-            if ($ci->session->userdata('id') != '1') {
-                redirect('admin/');
             } else {
                 $produk = $this->Produk_model->selectproduk($kategori);
+            }
 
-                $data = [
-                    'produk' => $produk
-                ];
+            $data = [
+                'produk' => $produk
+            ];
+            $ci = get_instance();
+            if ($ci->session->userdata('id') != '1') {
+                redirect('admin/');
+            } else {
+
                 $this->load->view('templates/admin/header');
-                $this->load->view('templates/admin/sidebar');
+                $this->load->view('templates/admin/sidebar', $data);
                 $this->load->view('admin/produk/dataproduk', $data);
                 $this->load->view('templates/admin/footer');
             }
         }
+
         public function addproduk()
         {
             $ci = get_instance();

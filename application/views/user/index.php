@@ -9,7 +9,7 @@
   <section id="features" class="features">
     <div class="container" data-aos="fade-up">
       <div class="section-header">
-        <h2>Produk Best Seller</h2>
+        <h2 style="font-family: monospace;">Produk Best Seller</h2>
         <div class="row gy-4 d-flex mt-4">
           <?php foreach ($bestSeller as $produks) : ?>
             <div class="col-xl-4" data-aos="zoom-in" data-aos-delay="200">
@@ -47,6 +47,10 @@
   </section><!-- End On Focus Section -->
   <section id="featured-services" class="featured-services">
     <div class="container">
+      <div class="section-header">
+        <h2 style="font-family: monospace;" class="">Berita Viera</h2>
+
+      </div>
 
       <div class="row gy-4 ">
         <div class="col-xl-4 col-md-6 d-flex " data-aos="zoom-out" data-aos-delay="400">

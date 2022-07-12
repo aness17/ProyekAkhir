@@ -40,7 +40,7 @@
                         $produk = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
                         foreach ($produk->result_array() as $kategoris) : ?>
 
-                            <a class="nav-link collapsed" href="<?= base_url('produk/dataproduk/') ?>">
+                            <a class="nav-link collapsed" href="<?= base_url('produk/dataproduk/' . $kategoris['nama_kategori']) ?>">
                                 <i class="bi bi-layout-text-window-reverse"></i><span><?= $kategoris['nama_kategori'] ?></span><i></i>
                             </a><?php endforeach; ?>
                 </li>

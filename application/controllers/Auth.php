@@ -179,6 +179,7 @@ class Auth extends CI_Controller
         $data = [
             'produk' => $produk
         ];
+
         if ($this->session->userdata('id_role') == 3) {
             $this->load->view('templates/user/header2', $data);
         } else {

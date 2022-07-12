@@ -5,12 +5,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= base_url('admin/dashboard/') ?>">Home</a></li>
-                <?php
-
-
-                ?>
                 <li class="breadcrumb-item">Data Produk</li>
-                <li class="breadcrumb-item active">Data Produk</li>
 
             </ol>
         </nav>

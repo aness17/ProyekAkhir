@@ -68,8 +68,8 @@
                     <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             <?php
-                            $umkm = $this->db->query("SELECT * FROM kategori");
-                            foreach ($umkm->result_array() as $kategoris) : ?>
+                            $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
+                            foreach ($kategori->result_array() as $kategoris) : ?>
                                 <li><a href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
                                 </li> <?php endforeach; ?>
                         </ul>
