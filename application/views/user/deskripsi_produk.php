@@ -66,12 +66,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah <?= $produk['nama_produk'] ?> ke Keranjang</h5>
+                <h5 class="modal-title">Tambah <?= $detail['nama_produk'] ?> ke Keranjang</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= base_url('auth/tambah_keranjang') ?>" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?= $produk["id_produk"] ?>">
+                    <input type="hidden" name="id" value="<?= $detail["id_produk"] ?>">
                     <label for="recipient-name" class="col-form-label">Jumlah:</label>
                     <input type="number" name="jumlah" min="1" value="1" class="form-control">
                 </div>

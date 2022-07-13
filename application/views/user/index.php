@@ -93,15 +93,18 @@
           <div class="swiper-slide">
             <div class="testimonial-item">
               <img src="" class="testimonial-img" alt="">
-              <h3>Saul Goodman</h3>
-              <h4>Ceo &amp; Founder</h4>
+              <h3>Micelli zhalmhariawan</h3>
               <div class="stars">
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                <i class="bi bi-quote quote-icon-right"></i>
+                aku paling langganan dari dulu di viera,
+                pas suami pulang ke medan oleh-olehnya selalu dari viera sampe
+                tinggal di pekanbaru juga sering jajan di viera yang gerai panam, sekarang
+                udahh jauh di lombok, janji deh pulang ke pku bakal borong
+                talam durian di sini. solah betol la oleh-oleh di viera nii.
+                semuanya enak-enak <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>
           </div><!-- End testimonial item -->
@@ -109,15 +112,15 @@
           <div class="swiper-slide">
             <div class="testimonial-item">
               <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-              <h3>Sara Wilsson</h3>
-              <h4>Designer</h4>
+              <h3>Nopita Saputri</h3>
               <div class="stars">
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                <i class="bi bi-quote quote-icon-right"></i>
+                Seneng banget liat rumah kue Viera sekarang,
+                yg.dulunya cuman buka 1 ruko, sekarang bisa buka dimana
+                mana, sukses terus RKV <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>
           </div><!-- End testimonial item -->

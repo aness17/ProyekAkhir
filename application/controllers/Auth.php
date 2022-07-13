@@ -73,7 +73,7 @@ class Auth extends CI_Controller
                     } else if ($user['fk_role'] == '2') {
                         echo "<script>location.href='" . base_url('pemilik') . "';alert('Anda Berhasil Masuk Sebagai Owner');</script>";
                     } else {
-                        echo "<script>location.href='" . base_url('auth/dashboard') . "';alert('Anda Berhasil Masuk Sebagai Customer');</script>";
+                        echo "<script>location.href='" . base_url('auth') . "';alert('Anda Berhasil Masuk Sebagai Customer');</script>";
                     }
                 } else {
                     // var_dump($user);
@@ -144,13 +144,6 @@ class Auth extends CI_Controller
         }
     }
 
-    public function dashboard()
-    {
-        $data["produk"] = $this->Produk_model->selectAll();
-        $this->load->view('templates/user/header2', $data);
-        $this->load->view('user/dashboard');
-        $this->load->view('templates/user/footer');
-    }
     public function profil($id)
     {
         $pelanggan = $this->User_model->getPelangganById($id);

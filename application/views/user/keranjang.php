@@ -2,12 +2,13 @@
 
 </section>
 <main id="main">
-    <div class="section-header">
+    <div class="section-header" style="padding-bottom: 0;">
         <div class="d-flex justify-content-evenly">
             <h2>Keranjang</h2>
 
         </div>
     </div>
+
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
             <div class="row gy-5">

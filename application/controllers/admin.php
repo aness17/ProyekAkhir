@@ -88,23 +88,23 @@ class Admin extends CI_Controller
 
         return array_slice($roti, 3);
     }
-    public function apriori()
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '1') {
-            redirect('pemilik/');
-        } else {
-            $transaksi = $this->Transaksi_model->selectAll();
+    // public function apriori()
+    // {
+    //     $ci = get_instance();
+    //     if ($ci->session->userdata('id') != '1') {
+    //         redirect('pemilik/');
+    //     } else {
+    //         $transaksi = $this->Transaksi_model->selectAll();
 
-            $data = [
-                'transaksi' => $transaksi
-            ];
-            $this->load->view('templates/admin/header');
-            $this->load->view('templates/admin/sidebar');
-            $this->load->view('admin/apriori', $data);
-            $this->load->view('templates/admin/footer');
-        }
-    }
+    //         $data = [
+    //             'transaksi' => $transaksi
+    //         ];
+    //         $this->load->view('templates/admin/header');
+    //         $this->load->view('templates/admin/sidebar');
+    //         $this->load->view('admin/apriori', $data);
+    //         $this->load->view('templates/admin/footer');
+    //     }
+    // }
     public function laporan()
     {
         $ci = get_instance();
