@@ -66,7 +66,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("<?= base_url('assets/') ?>admin/assets/img/logo.png"); background-size: contain;'>&nbsp;</div>
+                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("<?= base_url('assets/') ?>admin/assets/img/logo.png"); background-size: contain; width:400px;'>&nbsp;</div>
 
             </div>
 

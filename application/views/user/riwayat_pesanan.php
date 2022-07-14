@@ -10,7 +10,7 @@
             </div>
             <div class="row gy-5">
                 <div class="col-12">
-                    <table class="table table-responsive">
+                    <table class="table tables-responsive">
                         <thead>
                             <tr>
                                 <th>No</th>

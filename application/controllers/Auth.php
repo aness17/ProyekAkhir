@@ -510,8 +510,7 @@ class apriori
 
         for ($i = 0; $i < count($aturan_asosiasi); $i++) {
             $x = 0;
-            // echo $i + 1 . "Nilai confident, ";
-            // echo $aturan_asosiasi[$i]["item"] . " => " . $aturan_asosiasi[$i]["val"] . "=";
+
             $ex = explode(",", $aturan_asosiasi[$i]["item"]);
 
             for ($l = 0; $l < count($arr); $l++) {
@@ -530,7 +529,6 @@ class apriori
             }
             $convident = (floatval($aturan_asosiasi[$i]["sc"]) / floatval($x)) * 100;
             $aturan_asosiasi[$i]["c"] = number_format($convident, 2, ".", ",");
-            // echo $aturan_asosiasi[$i]["sc"] . "/" . $x . "=" . number_format(floatval($aturan_asosiasi[$i]["sc"]) / floatval($x), 2, ".", ",") . "=" . number_format($convident, 0, ".", ",") . "%";
         }
         for ($i = 0; $i < count($aturan_asosiasi); $i++) {
             if ($aturan_asosiasi[$i]["c"] == 0) {
@@ -539,15 +537,6 @@ class apriori
         }
         return $aturan_asosiasi;
     }
-    // $data_item = array(
-    //     array("id" => 1, "item" => "Sabun,Sampo"),
-    //     array("id" => 2, "item" => "Handuk,Bedak,Sampo,Sabun"),
-    //     array("id" => 3, "item" => "Sabun,Handuk,Sampo,Sikat Gigi"),
-    //     array("id" => 4, "item" => "Sampo,Sabun,Bedak,Handuk"),
-    //     array("id" => 5, "item" => "Sabun,Pasta Gigi,Sampo"),
-    //     array("id" => 6, "item" => "Sabun,Handuk,Sikat Gigi"),
-    //     array("id" => 7, "item" => "Sampo,Sikat Gigi")
-    // );
 
     function frekuensiItem($data)
     {
