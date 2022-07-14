@@ -19,6 +19,7 @@ class User_model extends CI_Model
         return $this->db->get()->row_array();
     }
 
+
     public function getpelanggByEmail($username)
     {
         return $this->db->get_where($this->table, ['username_pelanggan' => $username])->row_array();
@@ -39,7 +40,7 @@ class User_model extends CI_Model
 
     public function update($data, $id)
     {
-        $this->db->where('id_cs', $id);
+        $this->db->where('id_pelanggan', $id);
         return $this->db->update($this->table, $data);
     }
     public function deletepelanggan($id)
@@ -71,21 +72,7 @@ class User_model extends CI_Model
         $this->db->where('fk_role', 3);
         return $this->db->get()->num_rows();
     }
-    public function selectadm($where)
-    {
-        $this->db->from('pelanggan');
-        $this->db->where('fk_role', $where);
-        $this->db->order_by('id_pelanggan', 'ASC');
-        return $this->db->get()->result_array();
-    }
 
-    public function selectcs($where)
-    {
-        $this->db->from('pelanggan');
-        $this->db->where($where);
-        $this->db->order_by('id_pelanggan', 'ASC');
-        return $this->db->get()->result_array();
-    }
     public function sumpemesanan()
     {
         $this->db->from('transaksi');

@@ -144,29 +144,71 @@ class Auth extends CI_Controller
         }
     }
 
-    public function profil($id)
+    public function profil()
     {
-        $pelanggan = $this->User_model->getPelangganById($id);
+        $id = $this->session->userdata('id');
 
+        $pelanggan = $this->User_model->getpelangganById($id);
         $data = [
             'pelanggan' => $pelanggan
         ];
+
         $data["produk"] = $this->Produk_model->selectAll();
         if ($this->session->userdata('id_role') == 3) {
             $this->load->view('templates/user/header2', $data);
         } else {
             $this->load->view('templates/user/header', $data);
         }
-        $this->load->view('user/produk', $data);
+        $this->load->view('user/profil', $data);
         $this->load->view('templates/user/footer');
+    }
+    public function edit_profil($id)
+    {
+        $pelanggan = $this->User_model->getpelangganById($id);
+        $data = [
+            'pelanggan' => $pelanggan
+        ];
+        $this->form_validation->set_rules('nama', 'Nama Pelanggan', 'required');
+        $this->form_validation->set_rules('nohp', 'No. Telp', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+
+        if ($this->form_validation->run() == true) {
+            $db = [
+
+                'nama_pelanggan' => $this->input->post('nama'),
+                'nohp_pelanggan' => $this->input->post('nohp'),
+                'alamat_pelanggan' => $this->input->post('alamat')
+            ];
+
+            if ($this->User_model->update($db, $id) > 0) {
+                $this->session->set_flashdata('message', $this->flasher('success', 'Profil Anda telah diperbarui'));
+                echo "berhasil";
+                redirect('auth/profil', $data);
+            } else {
+                echo "gagal";
+                $this->session->set_flashdata('message', $this->flasher('danger', 'Profil Anda gagal diperbarui'));
+                redirect('auth/edit_profil', $data);
+            }
+        } else {
+            $data["produk"] = $this->Produk_model->selectAll();
+            if ($this->session->userdata('id_role') == 3) {
+                $this->load->view('templates/user/header2', $data);
+            } else {
+                $this->load->view('templates/user/header', $data);
+            }
+            $this->load->view('user/edit_profil', $data);
+            $this->load->view('templates/user/footer');
+        }
     }
 
     public function produk($kategori = "")
     {
+        $kat = urldecode($kategori);
+
         if ($kategori == "") {
             $produk = $this->Produk_model->selectAll();
         } else {
-            $produk = $this->Produk_model->selectproduk($kategori);
+            $produk = $this->Produk_model->selectproduk($kat);
         }
 
         $data = [
@@ -227,15 +269,19 @@ class Auth extends CI_Controller
             echo "Akses di blokir";
         } else {
             $keranjang = $this->Keranjang_model->selectAll();
+            $data["produk"] = $this->Produk_model->selectAll();
 
-            $data = [
-                'keranjang' => $keranjang
-            ];
+
             if ($this->session->userdata('id_role') == 3) {
                 $this->load->view('templates/user/header2', $data);
             } else {
                 $this->load->view('templates/user/header', $data);
             }
+
+            $data = [
+                'keranjang' => $keranjang
+            ];
+
             $this->load->view('user/keranjang', $data);
             $this->load->view('templates/user/footer');
         }
@@ -328,7 +374,7 @@ class Auth extends CI_Controller
 
     public function riwayat()
     {
-        $data["produk"] = $this->Produk_model->selectAll();
+
         $ci = get_instance();
         if (!$ci->session->userdata('id')) {
             redirect('auth/login');
@@ -336,11 +382,14 @@ class Auth extends CI_Controller
             echo "Akses di blokir";
         } else {
             $riwayat = $this->DetailTransaksi_model->riwayat();
+            $data["produk"] = $this->Produk_model->selectAll();
+
+            $this->load->view('templates/user/header2', $data);
 
             $data = [
                 'riwayat' => $riwayat
             ];
-            $this->load->view('templates/user/header2', $data);
+
             $this->load->view('user/riwayat_pesanan', $data);
             $this->load->view('templates/user/footer');
         }
@@ -369,6 +418,7 @@ class Auth extends CI_Controller
         $this->load->view('user/tentang');
         $this->load->view('templates/user/footer');
     }
+
     public function muri()
     {
         $data["produk"] = $this->Produk_model->selectAll();

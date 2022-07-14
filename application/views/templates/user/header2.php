@@ -95,7 +95,7 @@
                     <li class="dropdown"><i class="bi bi-person-fill" style="font-size: 32px;"></i></i></a>
                         <ul>
                             <li>
-                                <a><i class="bi bi-person-fill" style="font-size: 30px;" href=<?= base_url('auth/profil') ?>></i></a>
+                                <a class="btn" href=<?= base_url('auth/profil') ?>><i class="bi bi-person-fill" style="font-size: 30px;"></i></a>
                             </li>
                             <li>
                                 <a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/logout') ?>>Keluar</a>

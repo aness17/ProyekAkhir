@@ -13,7 +13,6 @@
             <?php else : ?>
                 <div></div>
             <?php endif; ?>
-
         </div>
     </div>
     <section id="services" class="services">
