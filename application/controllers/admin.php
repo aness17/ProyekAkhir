@@ -171,7 +171,7 @@ class Admin extends CI_Controller
                 "Status",
             ];
 
-            $judul = "Laporan Transaksi Laundry";
+            $judul = "Laporan Transaksi Viera Oleh-oleh";
             $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
             $pdf->SetTitle('Laporan ' . $judul);
             $pdf->SetHeaderMargin(30);
@@ -208,15 +208,11 @@ class Admin extends CI_Controller
             foreach ($transaksi as $data) {
                 $html .= '<tr align="center">
                                 <td>' . $no++ . '</td>
-                                <td>' . $data->nama_cs . '</td>
-                                <td>' . $data->alamat_cs . '</td>
-                                <td>' . $data->nama_jenis . '</td>
-                                <td>' . $data->nama_layanan . '</td>
-                                <td>' . $data->tgl_order . '</td>
-                                <td>' . $data->tgl_pickup . '</td>
-                                <td>' . $data->tgl_antar . '</td>
+                                <td>' . $data->nama_pelanggan . '</td>
+                                <td>' . $data->alamat_pelanggan . '</td>
+                                <td>' . $data->tgl_pesanan . '</td>
                                 <td>' . $data->ket_jumlah . '</td>
-                                <td>' . $data->harga . '</td>
+                                <td>' . $data->total_harga . '</td>
                                 <td>' . $data->status . '</td>
                             </tr>';
             }
