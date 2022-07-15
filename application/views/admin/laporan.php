@@ -69,7 +69,7 @@
                             </div>
                             <br />
                             <div class="col-lg">
-                                <!-- <button type="submit" class="h4 mb-2 text-gray-800" id="cetak">C   ETAK PDF</button> -->
+                                <button type="submit" class="h4 mb-2 text-gray-800" id="cetak">CETAK PDF</button>
                                 <button type="submit" class="h4 mb-2 text-gray-800" id="cetakexcel">CETAK EXCEL</button>
 
                             </div>
@@ -108,11 +108,12 @@
 
                                             echo "<tr style='text-align: center;'>";
                                             echo "<td>" . $no . "</td>";
+                                            echo "<td>" . $data->id_transaksi . "</td>";
                                             echo "<td>" . $data->nama_pelanggan . "</td>";
-                                            echo "<td>" . $data->alamat_pelanggan . "</td>";
                                             echo "<td>" . $data->nama_produk . "</td>";
-                                            echo "<td>" . $tgl_pesanan . "</td>";
                                             echo "<td>" . $data->ket_jumlah . "</td>";
+
+                                            echo "<td>" . $tgl_pesanan . "</td>";
                                             echo "<td>Rp" . number_format($data->total_harga, 0, ",", ".") . "</td>";
                                             echo "<td class='alert alert-$keterangan'>" . $data->status . "</td>";
                                             echo "</tr>";

@@ -154,8 +154,8 @@ class Admin extends CI_Controller
     public function cetak($filter, $date)
     {
         $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('index.php/superadmin/');
+        if ($ci->session->userdata('id') != '1') {
+            redirect('index.php/admin/');
         } else {
             $table = [
                 "No",
@@ -226,7 +226,7 @@ class Admin extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '8') {
-            redirect('index.php/superadmin/');
+            redirect('index.php/admin/');
         } else {
             $table = [
                 ["alphabet" => "A", "column" => "No"],
