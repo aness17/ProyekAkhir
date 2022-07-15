@@ -39,7 +39,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"></script>
+    <!-- <script src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"></script> -->
 
     <!-- =======================================================
   * Template Name: HeroBiz - v2.0.0
@@ -52,55 +52,41 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id=" header" class="header fixed-top" data-scrollto-offset="0" style="background-color: gold;">
-        < div class="container-fluid d-flex align-items-center justify-content-between">
+    <header id="header" class="header fixed-top" data-scrollto-offset="0" style="background-color: gold;">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
 
-            < a href="<?= base_url('') ?>" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-                < !--Uncomment the line below if you also wish to use an image logo-->
-                    < !-- < img src="assets/img/logo.png" alt=""> -- >
-                        < h1> Viera Oleh - oleh < /h1>
-                                < /a>
+            <a href="<?= base_url('') ?>" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+                <!-- Uncomment the line below if you also wish to use an image logo -->
+                <!-- <img src="assets/img/logo.png" alt=""> -->
+                <h1>Viera Oleh-oleh</h1>
+            </a>
 
-                                    < nav id="navbar" class="navbar">
-                                        < ul>
-
-                                            < li class="dropdown">
-                                                < a href="<?= base_url('') ?>">
-                                                    < span> Home < /span></a>
-                                                            < /li>
-                                                                < li class="dropdown">
-                                                                    < a href="<?= base_url('auth/produk') ?>">
-                                                                        < span> Produk < /span> <i class="bi bi-chevron-down dropdown-indicator"></i>
-                                                                                < /a>
-                                                                                    < ul>
-                                                                                        <?php
-                                                                                        $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
-                                                                                        foreach ($kategori->result_array() as $kategoris) : ?> < li>
-                                                                                                < a href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"> <?= $kategoris['nama_kategori'] ?> < /a>
-                                                                                                        < /li> <?php endforeach; ?> < /ul>
-                                                                                                            < /li>
-                                                                                                                < li>
-                                                                                                                    < a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>"> Tentang < /a>
-                                                                                                                            </li>
-                                                                                                                            < li>
-                                                                                                                                < a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>"> Alamat < /a>
-                                                                                                                                        </li>
-                                                                                                                                        < div class="md-form">
-                                                                                                                                            < select class="produkSelect form-control mr-sm-2" id="produkSelect">
-                                                                                                                                                < option value="" disabled selected> Search < /option>
-                                                                                                                                                        <?php foreach ($produk as $p) : ?>
-                                                                                                                                                            < option value="<?= $p["id_produk"] ?>"> <?= $p["nama_produk"] ?> < /option>
-                                                                                                                                                                <?php endforeach; ?>
-                                                                                                                                                                < /select>
-                                                                                                                                                                    < /div>
-                                                                                                                                                                        < /ul>
-                                                                                                                                                                            < i class="bi bi-list mobile-nav-toggle d-none">
-                                                                                                                                                                                < /i>
-                                                                                                                                                                                    < /nav>
-                                                                                                                                                                                        <!-- .navbar -->
-
-                                                                                                                                                                                        < a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/login/') ?>> Login < /a>
-
-                                                                                                                                                                                                < /div>
-                                                                                                                                                                                                    < /header>
-                                                                                                                                                                                                        <!-- End Header -->
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span></a>
+                    </li>
+                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            <?php
+                            $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
+                            foreach ($kategori->result_array() as $kategoris) : ?>
+                                <li><a href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
+                                </li> <?php endforeach; ?>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>
+                    <li><a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>">Alamat</a></li>
+                    <div class="md-form">
+                        <select class="produkSelect form-control mr-sm-2" id="produkSelect">
+                            <option value="" disabled selected>Search</option>
+                            <?php foreach ($produk as $p) : ?>
+                                <option value="<?= $p["id_produk"] ?>"><?= $p["nama_produk"] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle d-none"></i>
+            </nav><!-- .navbar -->
+            <a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/login/') ?>>Login</a>
+        </div>
+    </header><!-- End Header -->
