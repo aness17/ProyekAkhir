@@ -104,7 +104,7 @@
                     <th scope="col">Jumlah Produk</th>
                     <th scope="col">Total Harga</th>
                     <th scope="col">Tanggal Pesanan</th>
-                    <th scope="col">Tanggal Selesai</th>
+                    <!-- <th scope="col">Tanggal Selesai</th> -->
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
@@ -120,7 +120,7 @@
                       <td><?= $transs['ket_jumlah'] ?></td>
                       <td><?= $transs['total_harga'] ?></td>
                       <td><?= $transs['tgl_pesanan'] ?></td>
-                      <td><?= $transs['tgl_selesai'] ?></td>
+                      <!-- <td><?= $transs['tgl_selesai'] ?></td> -->
                       <td><?= $transs['status'] ?></td>
 
                     </tr>
