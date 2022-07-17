@@ -60,6 +60,7 @@
                 </div>
             </div>
         </section>
+
     <?php endif ?>
 </main>
 <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

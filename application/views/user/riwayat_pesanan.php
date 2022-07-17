@@ -31,7 +31,7 @@
                                     <td><?= $r['tgl_pesanan'] ?></td>
                                     <td><?= $r['ket_jumlah'] ?></td>
                                     <td><?= $r['harga_produk'] ?></td>
-                                    <td><?= $r['ket_jumlah'] * $r['harga_produk'] ?></td>
+                                    <td><?= $r['total_harga'] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
