@@ -88,23 +88,7 @@ class Admin extends CI_Controller
 
         return array_slice($roti, 3);
     }
-    // public function apriori()
-    // {
-    //     $ci = get_instance();
-    //     if ($ci->session->userdata('id') != '1') {
-    //         redirect('pemilik/');
-    //     } else {
-    //         $transaksi = $this->Transaksi_model->selectAll();
 
-    //         $data = [
-    //             'transaksi' => $transaksi
-    //         ];
-    //         $this->load->view('templates/admin/header');
-    //         $this->load->view('templates/admin/sidebar');
-    //         $this->load->view('admin/apriori', $data);
-    //         $this->load->view('templates/admin/footer');
-    //     }
-    // }
     public function laporan()
     {
         $ci = get_instance();
@@ -155,20 +139,17 @@ class Admin extends CI_Controller
     {
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
-            redirect('index.php/admin/');
+            redirect('admin/');
         } else {
             $table = [
                 "No",
-                "Nama Customer",
-                "Alamat",
-                "Jenis Laundry",
-                "Jenis Layanan",
-                "Tgl Order",
-                "Tgl Jemput",
-                "Tgl Antar",
-                "Jumlah",
-                "Harga",
-                "Status",
+                "Kode Transaksi",
+                "Nama Pelanggan",
+                "Alamat Pelanggan",
+                "Nama Produk",
+                "Jumlah Produk",
+                "Total Harga",
+                "Tgl Pesanan",
             ];
 
             $judul = "Laporan Transaksi Viera Oleh-oleh";
@@ -208,137 +189,19 @@ class Admin extends CI_Controller
             foreach ($transaksi as $data) {
                 $html .= '<tr align="center">
                                 <td>' . $no++ . '</td>
+                                <td>' . $data->id_transaksi . '</td>
                                 <td>' . $data->nama_pelanggan . '</td>
                                 <td>' . $data->alamat_pelanggan . '</td>
-                                <td>' . $data->tgl_pesanan . '</td>
+                                <td>' . $data->nama_produk . '</td>
                                 <td>' . $data->ket_jumlah . '</td>
                                 <td>' . $data->total_harga . '</td>
-                                <td>' . $data->status . '</td>
+                                <td>' . $data->tgl_pesanan . '</td>
                             </tr>';
             }
             $html .= '</table>';
 
             $pdf->writeHTML($html, true, 0, true, 0);
             $pdf->Output('Laporan Transaksi Laundry.pdf', 'I');
-        }
-    }
-    public function cetakexcel($filter, $date)
-    {
-        $ci = get_instance();
-        if ($ci->session->userdata('id') != '8') {
-            redirect('index.php/admin/');
-        } else {
-            $table = [
-                ["alphabet" => "A", "column" => "No"],
-                ["alphabet" => "B", "column" => "Nama Customer"],
-                ["alphabet" => "C", "column" => "Alamat"],
-                ["alphabet" => "D", "column" => "Jenis Laundry"],
-                ["alphabet" => "E", "column" => "Jenis Layanan"],
-                ["alphabet" => "F", "column" => "Tgl Order"],
-                ["alphabet" => "G", "column" => "Tgl Jemput"],
-                ["alphabet" => "H", "column" => "Tgl Antar"],
-                ["alphabet" => "I", "column" => "Jumlah"],
-                ["alphabet" => "J", "column" => "Harga"],
-                ["alphabet" => "K", "column" => "Status"],
-            ];
-
-            if ($filter == '1') { // Jika filter nya 1 (per tanggal)
-                $transaksi = $this->Transaksi_model->view_by_date($date); // Panggil fungsi view_by_date yang ada di TransaksiModel
-            } else if ($filter == '2') { // Jika filter nya 2 (per bulan)
-                $transaksi = $this->Transaksi_model->view_by_month($date); // Panggil fungsi view_by_month yang ada di TransaksiModel
-            } else { // Jika filter nya 3 (per tahun)
-                $transaksi = $this->Transaksi_model->view_by_year($date); // Panggil fungsi view_by_year yang ada di TransaksiModel
-            }
-            $excel = new PHPExcel();
-            // Settingan awal fil excel
-            $excel->getProperties()->setCreator('PCR')
-                ->setTitle("Laporan Transaksi Laundry")
-                ->setSubject("Transaksi")
-                ->setDescription("Laporan Transaksi Laundry");
-            // Buat sebuah variabel untuk menampung pengaturan style dari header tabel
-            $style_col = array(
-                'font' => array('bold' => true), // Set font nya jadi bold
-                'alignment' => array(
-                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
-                    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-                ),
-                'borders' => array(
-                    'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                    'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                    'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                    'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-                )
-            );
-            // Buat sebuah variabel untuk menampung pengaturan style dari isi tabel
-            $style_row = array(
-                'alignment' => array(
-                    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
-                ),
-                'borders' => array(
-                    'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-                    'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-                    'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-                    'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-                )
-            );
-            // $excel->getActiveSheet()->mergeCells('A1:E1'); // Set Merge Cell pada kolom A1 sampai E1
-            // $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
-            // $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
-            // $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
-
-            $numrow = 1;
-
-            foreach ($table as $value) {
-                $excel->setActiveSheetIndex(0)->setCellValue($value["alphabet"] . $numrow, $value["column"]);
-                $excel->getActiveSheet()->getStyle($value["alphabet"] . $numrow)->applyFromArray($style_col);
-            }
-            $numrow++;
-            $no = 1;
-
-            foreach ($transaksi as $data) { // Lakukan looping pada variabel siswa
-                $excel->setActiveSheetIndex(0)->setCellValue('A' . $numrow, $no);
-                $excel->setActiveSheetIndex(0)->setCellValue('B' . $numrow, $data->nama_cs);
-                $excel->setActiveSheetIndex(0)->setCellValue('C' . $numrow, $data->alamat_cs);
-                $excel->setActiveSheetIndex(0)->setCellValue('D' . $numrow, $data->nama_jenis);
-                $excel->setActiveSheetIndex(0)->setCellValue('E' . $numrow, $data->nama_layanan);
-                $excel->setActiveSheetIndex(0)->setCellValue('F' . $numrow, $data->tgl_order);
-                $excel->setActiveSheetIndex(0)->setCellValue('G' . $numrow, $data->tgl_pickup);
-                $excel->setActiveSheetIndex(0)->setCellValue('H' . $numrow, $data->tgl_antar);
-                $excel->setActiveSheetIndex(0)->setCellValue('I' . $numrow, $data->ket_jumlah);
-                $excel->setActiveSheetIndex(0)->setCellValue('J' . $numrow, $data->harga);
-                $excel->setActiveSheetIndex(0)->setCellValue('K' . $numrow, $data->status);
-                foreach ($table as $value) {
-                    $excel->getActiveSheet()->getStyle($value["alphabet"] . $numrow)->applyFromArray($style_row);
-                }
-                $no++;
-                $numrow++;
-
-                // echo $numrow;
-
-            }
-
-            foreach ($table as $value) {
-                $excel->getActiveSheet()->getColumnDimension($value['alphabet'])->setAutoSize(true);
-            }
-
-            // Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
-            $excel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(-1);
-            // Set orientasi kertas jadi LANDSCAPE
-            $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-            // Set judul file excel nya
-            $excel->getActiveSheet(0)->setTitle("Laporan Laundry");
-            $excel->setActiveSheetIndex(0);
-            // Proses file excel
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            // header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment; filename="Laporan Transaksi Laundry.xlsx"'); // Set nama file excel nya
-            header('Cache-Control: max-age=0');
-            $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-            ob_end_clean();
-            $write->save('php://output');
-            // var_dump($transaksi);
-
-            // echo "a", "b", "c", "d";
         }
     }
 }

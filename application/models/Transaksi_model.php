@@ -58,18 +58,6 @@ class Transaksi_model extends CI_Model
         $this->db->where('status', $where);
         return $this->db->get()->num_rows();
     }
-    public function trans_view_by_date($date)
-    {
-        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
-        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
-        $this->db->join('produk D', 'D.id_produk = C.id_produk');
-        $this->db->where('A.tgl_pesanan LIKE', $date . '%');
-        $this->db->group_by("A.id_transaksi");
-        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
-        $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
-        return $this->db->get($this->table . " as A")->result_array(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
-
-    }
 
     public function selecttrans()
     {
@@ -104,12 +92,27 @@ class Transaksi_model extends CI_Model
         $this->db->order_by('A.id_transaksi', 'DESC');
         return $this->db->get($this->table . " as A ")->result_array();
     }
+    public function trans_view_by_date($date)
+    {
+        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->where('A.tgl_pesanan LIKE', $date . '%');
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
+        return $this->db->get($this->table . " as A")->result_array(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
+    }
+
     public function view_by_date($date)
     {
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
         $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
         $this->db->join('produk D', 'D.id_produk=C.id_produk');
-        $this->db->where('DATE(tgl_pesanan)', $date); // Tambahkan where tanggal nya
+        $this->db->where('DATE(tgl_pesanan)', $date);
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
         return $this->db->get($this->table . " as A ")->result(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
     }
     public function view_by_month($month)
@@ -118,6 +121,9 @@ class Transaksi_model extends CI_Model
         $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
         $this->db->join('produk D', 'D.id_produk=C.id_produk');
         $this->db->like('tgl_pesanan', $month); // Tambahkan where bulan
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC');
         // $this->db->where('YEAR(tgl_order)', $year); // Tambahkan where tahun
 
         return $this->db->get($this->table . " as A ")->result(); // Tampilkan data transaksi sesuai bulan dan tahun yang diinput oleh user pada filter
@@ -128,7 +134,9 @@ class Transaksi_model extends CI_Model
         $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
         $this->db->join('produk D', 'D.id_produk=C.id_produk');
         $this->db->where('YEAR(tgl_pesanan)', $year); // Tambahkan where tahun
-
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC');
         return $this->db->get($this->table . " as A ")->result(); // Tampilkan data transaksi sesuai tahun yang diinput oleh user pada filter
     }
 
@@ -137,7 +145,10 @@ class Transaksi_model extends CI_Model
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
         $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
         $this->db->join('produk D', 'D.id_produk = C.id_produk');
-        $this->db->order_by('C.id_transaksi', 'DESC');
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC');
+        // $this->db->order_by('C.id_transaksi', 'DESC');
         return $this->db->get($this->table . " as A ")->result(); // Tampilkan semua data transaksi
     }
 

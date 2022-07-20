@@ -128,15 +128,13 @@
           <div class="swiper-slide">
             <div class="testimonial-item">
               <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-              <h3>Jena Karlis</h3>
-              <h4>Store Owner</h4>
+              <h3>Intan Fadillah</h3>
               <div class="stars">
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                <i class="bi bi-quote quote-icon-right"></i>
+                Langganan tempat jajan tersayang, enak kenyang dan selalu puas dengan rasanya <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>
           </div><!-- End testimonial item -->
@@ -144,15 +142,13 @@
           <div class="swiper-slide">
             <div class="testimonial-item">
               <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-              <h3>Matt Brandon</h3>
-              <h4>Freelancer</h4>
+              <h3>Riky Aditya</h3>
               <div class="stars">
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                <i class="bi bi-quote quote-icon-right"></i>
+                Mantap, top markotop. apa saja jenis kue yang aku pesan tidak mengecewakan.. rasanya wuenak tenan <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>
           </div><!-- End testimonial item -->
@@ -160,14 +156,13 @@
           <div class="swiper-slide">
             <div class="testimonial-item">
               <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-              <h3>John Larson</h3>
-              <h4>Entrepreneur</h4>
+              <h3>Desri Elfiani</h3>
               <div class="stars">
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                Aku sering belanja disini, soalnya pelayanannya ramah banget dan juga kue yang ada semuanya enak-enak
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>

@@ -29,6 +29,7 @@ class Pemilik extends CI_Controller
         $this->load->model('Produk_model');
         $this->load->model('Kategori_model');
         $this->load->model('Transaksi_model');
+        $this->load->model('DetailTransaksi_model');
 
         // $this->load->library('Pdf');
         // $this->load->library('Excel');
@@ -51,18 +52,19 @@ class Pemilik extends CI_Controller
             $dataproduk = $this->Produk_model->sumProduk();
             $datatrans = $this->Transaksi_model->selecttrans();
             $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
-
+            $bestSeller = $this->DetailTransaksi_model->bestSeller();
 
             $data = [
                 'datacs' => $datacs,
                 'dataproduk' => $dataproduk,
                 'datatrans' => $datatrans,
                 'pendapatan' => $pendapatan,
-                'trans' => $trans
+                'trans' => $trans,
+                "bestSeller" => $bestSeller
             ];
             $this->load->view('templates/pemilik/header');
             $this->load->view('templates/pemilik/sidebar');
-            $this->load->view('admin/index', $data);
+            $this->load->view('pemilik/index', $data);
             $this->load->view('templates/pemilik/footer');
         } else {
             redirect('auth/login');
@@ -112,6 +114,75 @@ class Pemilik extends CI_Controller
             $this->load->view('templates/pemilik/sidebar');
             $this->load->view('pemilik/laporan', $data);
             $this->load->view('templates/pemilik/footer');
+        }
+    }
+    public function cetak($filter, $date)
+    {
+        $ci = get_instance();
+        if ($ci->session->userdata('id') != '1') {
+            redirect('pemilik/');
+        } else {
+            $table = [
+                "No",
+                "Kode Transaksi",
+                "Nama Pelanggan",
+                "Alamat Pelanggan",
+                "Nama Produk",
+                "Jumlah Produk",
+                "Total Harga",
+                "Tgl Pesanan",
+            ];
+
+            $judul = "Laporan Transaksi Viera Oleh-oleh";
+            $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+            $pdf->SetTitle('Laporan ' . $judul);
+            $pdf->SetHeaderMargin(30);
+            $pdf->SetTopMargin(20);
+            $pdf->setFooterMargin(20);
+            $pdf->SetAutoPageBreak(true);
+            $pdf->setPrintHeader(false);
+            $pdf->SetAuthor('PCR');
+            $pdf->SetDisplayMode('real', 'default');
+            $pdf->AddPage();
+
+            if ($filter == '1') { // Jika filter nya 1 (per tanggal)
+                $transaksi = $this->Transaksi_model->view_by_date($date); // Panggil fungsi view_by_date yang ada di TransaksiModel
+            } else if ($filter == '2') { // Jika filter nya 2 (per bulan)
+                $transaksi = $this->Transaksi_model->view_by_month($date); // Panggil fungsi view_by_month yang ada di TransaksiModel
+            } else { // Jika filter nya 3 (per tahun)
+                $transaksi = $this->Transaksi_model->view_by_year($date); // Panggil fungsi view_by_year yang ada di TransaksiModel
+            }
+            $html = "<h3>$judul</h3>";
+
+            $html .= '<table cellpadding="5" border="0.5">
+                        <tr>';
+            foreach ($table as $col) {
+                $html .= "<th align='center'><b>" . $col . "</b></th>";
+            }
+            $html .= '</tr>';
+            // <th width="45%" align="center"><b>Nama Sampah</b></th>
+            // <th width="15%" align="center"><b>Total Berat</b></th>
+            // <th width="10%" align="center"><b>Satuan</b></th>
+            // <th width="20%" align="center"><b>Total Harga</b></th>
+            $no = 1;
+
+
+            foreach ($transaksi as $data) {
+                $html .= '<tr align="center">
+                                <td>' . $no++ . '</td>
+                                <td>' . $data->id_transaksi . '</td>
+                                <td>' . $data->nama_pelanggan . '</td>
+                                <td>' . $data->alamat_pelanggan . '</td>
+                                <td>' . $data->nama_produk . '</td>
+                                <td>' . $data->ket_jumlah . '</td>
+                                <td>' . $data->total_harga . '</td>
+                                <td>' . $data->tgl_pesanan . '</td>
+                            </tr>';
+            }
+            $html .= '</table>';
+
+            $pdf->writeHTML($html, true, 0, true, 0);
+            $pdf->Output('Laporan Transaksi Viera.pdf', 'I');
         }
     }
 }

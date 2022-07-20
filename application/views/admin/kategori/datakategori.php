@@ -37,7 +37,7 @@
                             foreach ($kategori as $kategoris) : ?>
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
-                                    <td><?= $kategoris['nama_kategori'] ?></td>
+                                    <td><?= $kategoris['nama_kategori'] ?></td>s
                                     <td class="text-center">
                                         <a href="<?= base_url('kategori/edit/' . $kategoris['id_kategori']) ?>" type="button" class="bi bi-pencil-square" style="color:limegreen">
                                         </a>
