@@ -58,6 +58,11 @@
                 <i class="bi bi-clipboard-data"></i><span>Laporan</span><i></i>
             </a>
         </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= base_url('admin/apriori/') ?>">
+                <i class="bi bi-clipboard-data"></i><span>Apriori</span><i></i>
+            </a>
+        </li><!-- End Tables Nav -->
 
 
 

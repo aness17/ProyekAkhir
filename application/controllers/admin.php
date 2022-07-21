@@ -206,4 +206,21 @@ class Admin extends CI_Controller
             $pdf->Output('Laporan Transaksi Viera.pdf', 'I');
         }
     }
+    public function apriori()
+    {
+        $ci = get_instance();
+        if ($ci->session->userdata('id') != '1') {
+            redirect('pemilik/');
+        } else {
+            $transaksi = $this->Transaksi_model->selectAll();
+
+            $data = [
+                'transaksi' => $transaksi
+            ];
+            $this->load->view('templates/admin/header');
+            $this->load->view('templates/admin/sidebar');
+            $this->load->view('admin/apriori', $data);
+            $this->load->view('templates/admin/footer');
+        }
+    }
 }
