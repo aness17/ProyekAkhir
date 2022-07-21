@@ -56,7 +56,7 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Admin<?= $this->session->userdata('username_pelanggan') ?></span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">Admin<?= $this->session->userdata('nama_pelanggan') ?></span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

@@ -64,9 +64,9 @@
                                     <button type="submit" id="tombol" disabled>Tampilkan</button>
                                 </div>
                             </form>
-                            <div class="card-header py-3">
+                            <!-- <div class="card-header py-3">
                                 <h1 class="h3 mb-2 text-gray-800"><?php echo $ket; ?></h1>
-                            </div>
+                            </div> -->
                             <br />
                             <div class="col-lg">
                                 <button type="submit" class="h4 mb-2 text-gray-800" id="cetak">CETAK PDF</button>
@@ -77,7 +77,7 @@
                                 <div class="card top-selling overflow-auto">
 
                                     <div class="card-body pb-0">
-                                        <h5 class="card-title">Data Transaksi <span>| Hari ini</span></h5>
+                                        <h5 class="card-title"><?php echo $ket; ?></span></h5>
 
                                         <table class="table table datatable">
                                             <thead>

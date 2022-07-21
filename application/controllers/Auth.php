@@ -368,7 +368,7 @@ class Auth extends CI_Controller
 
                 $this->Keranjang_model->delete($k["id_keranjang"]);
             }
-            echo "<script>location.href='" . base_url('auth/riwayat') . "';alert('Anda telah berhasil mengcheckout keranjang');</script>";
+            echo "<script>location.href='" . base_url('auth/riwayat') . "';alert alert-success ('Anda telah berhasil mengcheckout keranjang');</script>";
         }
     }
 
@@ -471,7 +471,8 @@ class apriori
 {
     function main($data_item)
     {
-        $minSupport = 4;
+        $minSupport = 11;
+        $minConvident = 60;
         $arr = [];
         for ($i = 0; $i < count($data_item); $i++) {
             $ar = [];
@@ -528,14 +529,21 @@ class apriori
                 }
             }
             $convident = (floatval($aturan_asosiasi[$i]["sc"]) / floatval($x)) * 100;
-            $aturan_asosiasi[$i]["c"] = number_format($convident, 2, ".", ",");
+            if ($convident >= $minConvident) {
+                $aturan_asosiasi[$i]["c"] = number_format($convident, 2, ".", ",");
+            }
+            return $aturan_asosiasi;
         }
         for ($i = 0; $i < count($aturan_asosiasi); $i++) {
             if ($aturan_asosiasi[$i]["c"] == 0) {
                 array_splice($aturan_asosiasi, $i--, 1);
             }
+            return $aturan_asosiasi;
         }
         return $aturan_asosiasi;
+        // var_dump($aturan_asosiasi[$i]["sc"] . "/" . $x ."=" . number_format(floatval($aturan_asosiasi[$i]["sc"]) / floatval($x), 2, ".", ",") . "=" . number_format($convident, 0, ".", ",") . "%");
+        echo $aturan_asosiasi[$i]["sc"] . "/" . $x . "=" . number_format(floatval($aturan_asosiasi[$i]["sc"]) / floatval($x), 2, ".", ",") . "=" . number_format($convident, 0, ".", ",") . "%";
+        die;
     }
 
     function frekuensiItem($data)

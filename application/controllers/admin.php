@@ -142,14 +142,14 @@ class Admin extends CI_Controller
             redirect('admin/');
         } else {
             $table = [
-                "No",
-                "Kode Transaksi",
-                "Nama Pelanggan",
-                "Alamat Pelanggan",
-                "Nama Produk",
-                "Jumlah Produk",
-                "Total Harga",
-                "Tgl Pesanan",
+                "No" => "5%",
+                "Kode Transaksi" => "5%",
+                "Nama Pelanggan" => "15%",
+                "Alamat Pelanggan" => "15%",
+                "Nama Produk" => "25%",
+                "Jumlah Produk" => "5%",
+                "Total Harga" => "15%",
+                "Tgl Pesanan" => "15%",
             ];
 
             $judul = "Laporan Transaksi Viera Oleh-oleh";
@@ -175,9 +175,10 @@ class Admin extends CI_Controller
 
             $html .= '<table cellpadding="5" border="0.5">
                         <tr>';
-            foreach ($table as $col) {
-                $html .= "<th align='center'><b>" . $col . "</b></th>";
+            foreach ($table as $col => $q) {
+                $html .= "<td style= 'font-size: 10px;' align='center' ><b>" . $col . "</b></td>";
             }
+
             $html .= '</tr>';
             // <th width="45%" align="center"><b>Nama Sampah</b></th>
             // <th width="15%" align="center"><b>Total Berat</b></th>
@@ -188,20 +189,21 @@ class Admin extends CI_Controller
 
             foreach ($transaksi as $data) {
                 $html .= '<tr align="center">
-                                <td>' . $no++ . '</td>
-                                <td>' . $data->id_transaksi . '</td>
-                                <td>' . $data->nama_pelanggan . '</td>
-                                <td>' . $data->alamat_pelanggan . '</td>
-                                <td>' . $data->nama_produk . '</td>
-                                <td>' . $data->ket_jumlah . '</td>
-                                <td>' . $data->total_harga . '</td>
-                                <td>' . $data->tgl_pesanan . '</td>
+                                <td width="5%" style = "font-size: 8px;">' . $no++ . '</td>
+                                <td width="5%" style = "font-size: 8px;">' . $data->id_transaksi . '</td>
+                                <td width="15%"style = "font-size: 8px;">' . $data->nama_pelanggan . '</td>
+                                <td width="15%" style = "font-size: 8px;">' . $data->alamat_pelanggan . '</td>
+                                <td width="25%" style = "font-size: 8px;">' . $data->nama_produk . '</td>
+                                <td width="5%" style = "font-size: 8px;">' . $data->ket_jumlah . '</td>
+                                <td width="15%" style = "font-size: 8px;">Rp' . $data->total_harga . '</td>
+                                <td width="15%" style = "font-size: 8px;">' . $data->tgl_pesanan . '</td>
                             </tr>';
             }
             $html .= '</table>';
-
+            // var_dump($html);
+            // die;
             $pdf->writeHTML($html, true, 0, true, 0);
-            $pdf->Output('Laporan Transaksi Laundry.pdf', 'I');
+            $pdf->Output('Laporan Transaksi Viera.pdf', 'I');
         }
     }
 }

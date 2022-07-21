@@ -146,8 +146,8 @@
                                                 })
 
                                                 cetak.addEventListener("click", (e) => {
-                                                    console.log(`<?= base_url() ?>admin/cetak/${sessionStorage.getItem('filter')}/${sessionStorage.getItem('date')}`)
-                                                    location.href = `<?= base_url() ?>admin/cetak/${sessionStorage.getItem('filter')}/${sessionStorage.getItem('date')}`
+                                                    console.log(`<?= base_url() ?>pemilik/cetak/${sessionStorage.getItem('filter')}/${sessionStorage.getItem('date')}`)
+                                                    location.href = `<?= base_url() ?>pemilik/cetak/${sessionStorage.getItem('filter')}/${sessionStorage.getItem('date')}`
                                                 })
                                                 // cetakexcel.addEventListener("click", (e) => {
                                                 //     console.log(`<?= base_url() ?>admin/cetakexcel/${sessionStorage.getItem('filter')}/${sessionStorage.getItem('date')}`)
