@@ -86,22 +86,17 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+                    <ul class="navbar">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-fill" style="font-size: 30px;"></i></a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="<?= base_url('auth/profil') ?>" class="dropdown-item">Profil</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="<?= base_url('auth/logout') ?>">Keluar</a>
+                            </div>
+                        </li>
+                    </ul>
 
-                </ul>
-            </nav><!-- .navbar -->
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li class="dropdown"><i class="bi bi-person-fill" style="font-size: 32px;"></i></i></a>
-                        <ul>
-                            <li>
-                                <a class="btn" href=<?= base_url('auth/profil') ?>><i class="bi bi-person-fill" style="font-size: 30px;"></i></a>
-                            </li>
-                            <li>
-                                <a class="btn-getstarted scrollto bg-success" href=<?= base_url('auth/logout') ?>>Keluar</a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </nav>
         </div>

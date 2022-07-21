@@ -533,6 +533,8 @@ class apriori
                 $aturan_asosiasi[$i]["c"] = number_format($convident, 2, ".", ",");
             }
             return $aturan_asosiasi;
+            var_dump($aturan_asosiasi);
+            die;
         }
         for ($i = 0; $i < count($aturan_asosiasi); $i++) {
             if ($aturan_asosiasi[$i]["c"] == 0) {
@@ -541,9 +543,6 @@ class apriori
             return $aturan_asosiasi;
         }
         return $aturan_asosiasi;
-        // var_dump($aturan_asosiasi[$i]["sc"] . "/" . $x ."=" . number_format(floatval($aturan_asosiasi[$i]["sc"]) / floatval($x), 2, ".", ",") . "=" . number_format($convident, 0, ".", ",") . "%");
-        echo $aturan_asosiasi[$i]["sc"] . "/" . $x . "=" . number_format(floatval($aturan_asosiasi[$i]["sc"]) / floatval($x), 2, ".", ",") . "=" . number_format($convident, 0, ".", ",") . "%";
-        die;
     }
 
     function frekuensiItem($data)
