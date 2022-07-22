@@ -206,20 +206,40 @@ class Admin extends CI_Controller
             $pdf->Output('Laporan Transaksi Viera.pdf', 'I');
         }
     }
-    public function apriori()
+    public function pengujian()
     {
+        $this->load->library('customautoloader');
         $ci = get_instance();
         if ($ci->session->userdata('id') != '1') {
             redirect('pemilik/');
         } else {
             $transaksi = $this->Transaksi_model->selectAll();
+            $data_item = [];
+            foreach ($transaksi as $t) {
+                array_push($data_item, ["id" => $t["id_transaksi"], "item" => $t["nama_produk"]]);
+            };
 
-            $data = [
-                'transaksi' => $transaksi
-            ];
+            $apriori = new helpers\apriori();
+            $pengujian = $apriori->main($data_item);
+            $result = [];
+            foreach ($pengujian as $p) {
+                $item = array(
+                    "nama_produk" => $p['item'] . " , " . $p["val"],
+                    "sc" => $p["sc"],
+                    "c" => $p["c"],
+                    "benchmark" => $this->Transaksi_model->getB($p["val"])["jumlah"] / count($this->Transaksi_model->selectAll()),
+                );
+                $item["ratio"] = $item["benchmark"] > 0 ? $item["c"] / ($item["benchmark"] * 100) : 0;
+                $result[] = $item;
+            }
+            // echo "<pre>";
+            // print_r($pengujian);
+            // echo "</pre>";
+            // die;
+            $data["pengujian"] = $result;
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/sidebar');
-            $this->load->view('admin/apriori', $data);
+            $this->load->view('admin/pengujian', $data);
             $this->load->view('templates/admin/footer');
         }
     }

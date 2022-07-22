@@ -17,7 +17,6 @@
                                 <th>Nama Produk</th>
                                 <th>Tanggal Pesan</th>
                                 <th>Jumlah</th>
-                                <th>Harga</th>
                                 <th>Total Harga</th>
                             </tr>
                         </thead>
@@ -30,7 +29,6 @@
                                     <td><?= $r['nama_produk'] ?></td>
                                     <td><?= $r['tgl_pesanan'] ?></td>
                                     <td><?= $r['ket_jumlah'] ?></td>
-                                    <td><?= $r['harga_produk'] ?></td>
                                     <td><?= $r['total_harga'] ?></td>
                                 </tr>
                             <?php endforeach; ?>

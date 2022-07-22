@@ -47,6 +47,15 @@ class Transaksi_model extends CI_Model
         return $this->db->get($this->table . " as A")->result_array();
     }
 
+    public function getB($nama)
+    {
+        $this->db->where("D.nama_produk", $nama);
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->select("count(*) as jumlah");
+        return $this->db->get($this->table . " as A")->row_array();
+    }
+
     public function update($data, $id)
     {
         $this->db->where('id_transaksi', $id);
