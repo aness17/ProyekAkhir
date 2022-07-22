@@ -368,7 +368,7 @@ class Auth extends CI_Controller
 
                 $this->Keranjang_model->delete($k["id_keranjang"]);
             }
-            echo "<script>location.href='" . base_url('auth/riwayat') . "';alert alert-success ('Anda telah berhasil mengcheckout keranjang');</script>";
+            echo "<script>location.href='" . base_url('auth/riwayat') . "';alert('Anda telah berhasil lalamengcheckout keranjang');</script>";
         }
     }
 

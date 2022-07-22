@@ -36,7 +36,7 @@
             <?php if (count($keranjang) > 0) : ?>
                 <div class="row">
                     <div class="col">
-                        <a href="<?= base_url('auth/checkout') ?>" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Checkout</a>
+                        <a href="<?= base_url('auth/checkout') ?>" class="btn btn-primary">Checkout</a>
                     </div>
                 </div>
 
@@ -46,15 +46,3 @@
         </div>
     </section>
 </main>
-<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Anda telah berhasil mengcheckout keranjang</h5>
-                <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close">
-                    <a href="<?= base_url('auth/checkout') ?>"> </a>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
