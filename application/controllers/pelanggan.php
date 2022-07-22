@@ -161,7 +161,7 @@ class Pelanggan extends CI_Controller
             redirect('admin/');
         } else {
             if ($id) {
-                if ($this->User_model->delete($id) > 0) {
+                if ($this->User_model->deletepelanggan($id) > 0) {
                     $this->session->set_flashdata('message', $this->flasher('success', 'Success To Add Data'));
                 } else {
                     $this->session->set_flashdata('message', $this->flasher('danger', 'Failed To Add Data'));
@@ -169,7 +169,7 @@ class Pelanggan extends CI_Controller
             } else {
                 $this->session->set_flashdata('message', $this->flasher('danger', 'Id Is null'));
             }
-            redirect('pelanggan/datapelanggan');
+            redirect('pelanggan/data');
         }
     }
     public function flasher($class, $message)
