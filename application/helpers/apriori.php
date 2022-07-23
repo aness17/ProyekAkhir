@@ -8,7 +8,7 @@ class apriori
     function main($data_item)
     {
         $minSupport = 11;
-        $minConvident = 30;
+        $minConvident = 10;
         $arr = [];
         for ($i = 0; $i < count($data_item); $i++) {
             $ar = [];

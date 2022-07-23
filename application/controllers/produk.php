@@ -37,10 +37,12 @@
 
         public function dataproduk($kategori = "")
         {
+            $kat = urldecode($kategori);
+
             if ($kategori == "") {
                 $produk = $this->Produk_model->selectAll();
             } else {
-                $produk = $this->Produk_model->selectproduk($kategori);
+                $produk = $this->Produk_model->selectproduk($kat);
             }
 
             $data = [

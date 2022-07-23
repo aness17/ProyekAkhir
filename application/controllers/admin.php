@@ -227,9 +227,9 @@ class Admin extends CI_Controller
                     "nama_produk" => $p['item'] . " , " . $p["val"],
                     "sc" => $p["sc"],
                     "c" => $p["c"],
-                    "benchmark" => $this->Transaksi_model->getB($p["val"])["jumlah"] / count($this->Transaksi_model->selectAll()),
+                    "benchmark" => ($this->Transaksi_model->getB($p["val"])["jumlah"] / count($this->Transaksi_model->selectAll())) * 100,
                 );
-                $item["ratio"] = $item["benchmark"] > 0 ? $item["c"] / ($item["benchmark"] * 100) : 0;
+                $item["ratio"] = $item["benchmark"] > 0 ? $item["c"] / $item["benchmark"]  : 0;
                 $result[] = $item;
             }
             // echo "<pre>";
