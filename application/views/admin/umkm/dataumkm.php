@@ -22,8 +22,7 @@
                             <i class="bi bi-plus-circle"></i> </a>
                     </div>
 
-                    <!-- Table with hoverable rows -->
-                    <table class="table table-hover">
+                    <table class="table datatable">
                         <thead>
                             <tr style="text-align: center;">
                                 <th scope="col">No</th>

@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Table with hoverable rows -->
-                    <table class="table table-hover">
+                    <table class="table datatable">
                         <thead>
                             <tr style="text-align: center;">
                                 <th scope="col">No</th>
@@ -37,7 +37,7 @@
                             foreach ($kategori as $kategoris) : ?>
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
-                                    <td><?= $kategoris['nama_kategori'] ?></td>s
+                                    <td><?= $kategoris['nama_kategori'] ?></td>
                                     <td class="text-center">
                                         <a href="<?= base_url('kategori/edit/' . $kategoris['id_kategori']) ?>" type="button" class="bi bi-pencil-square" style="color:limegreen">
                                         </a>
@@ -57,5 +57,6 @@
 
         </div>
     </section>
+
 
 </main><!-- End #main -->
