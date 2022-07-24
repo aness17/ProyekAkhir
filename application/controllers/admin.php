@@ -29,6 +29,7 @@ class Admin extends CI_Controller
         $this->load->model('Produk_model');
         $this->load->model('Kategori_model');
         $this->load->model('Transaksi_model');
+        $this->load->model('DetailTransaksi_model');
         $this->load->library('Pdf');
         $this->load->library('Excel');
 
@@ -48,14 +49,15 @@ class Admin extends CI_Controller
             $dataproduk = $this->Produk_model->sumProduk();
             $datatrans = $this->Transaksi_model->selecttrans();
             $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
-
+            $bestSeller = $this->DetailTransaksi_model->bestSeller();
 
             $data = [
                 'datacs' => $datacs,
                 'dataproduk' => $dataproduk,
                 'datatrans' => $datatrans,
                 'pendapatan' => $pendapatan,
-                'trans' => $trans
+                'trans' => $trans,
+                'bestSeller' => $bestSeller
             ];
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/sidebar');

@@ -86,6 +86,32 @@
             </div>
           </div>
         </div><!-- End Revenue Card -->
+        <div class="col-12">
+          <div class="card">
+
+            <div class="card-body">
+              <h5 class="card-title">Produk Terlaris</h5>
+
+              <div class="row gy-4 d-flex mt-4">
+                <?php foreach ($bestSeller as $produks) : ?>
+                  <div class="col-xl-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="service-item mb-3">
+                      <div class="details position-relative" style="margin: -20px 30px!important;">
+
+                        <img class="img-fluid" src="<?= base_url('produk/') . $produks['foto_produk'] ?>" style="height: 200px; object-fit:cover; object-position:center;" alt="">
+
+                        <h3 style="font-size:medium ;"><?= $produks['nama_produk'] ?></h3>
+                        <h3 style="font-size:medium ;"><?= $produks['ket_jumlah'] ?> pcs</h3>
+
+                      </div>
+                    </div>
+                  </div><!-- End Service Item -->
+                <?php endforeach; ?>
+              </div>
+            </div>
+
+          </div><!-- End Recent Sales -->
+        </div>
 
         <!-- Top Selling -->
         <div class="col-12">
