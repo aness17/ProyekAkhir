@@ -100,6 +100,7 @@ class apriori
         }
         return $arr;
     }
+    
     function pasanganItem($data_filter)
     {
         $n = 0;
