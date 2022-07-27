@@ -74,6 +74,7 @@ class apriori
         }
         return $aturan_asosiasi;
     }
+    
     function frekuensiItem($data)
     {
         $arr = [];
