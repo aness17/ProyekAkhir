@@ -17,7 +17,7 @@
     </div>
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
-            <div class="row gy-5 mb-5">
+            <div class="row gy-5 mb-5"> 
                 <?php $no = 1;
                 // $user = $this->db->query("SELECT * FROM user where fk_role = '2'");
                 foreach ($produk as $produks) : ?>
