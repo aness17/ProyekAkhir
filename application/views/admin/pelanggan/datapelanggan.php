@@ -31,7 +31,6 @@
                                 <th scope="col">Alamat</th>
                                 <th scope="col">No. Telp</th>
                                 <th scope="col">Role</th>
-                                <th scope="col">AKSI</th>
                             </tr>
                         </thead>
                         <tbody class="list">
@@ -45,12 +44,7 @@
                                     <td><?= $custs['alamat_pelanggan'] ?></td>
                                     <td><?= $custs['nohp_pelanggan'] ?></td>
                                     <td><?= $custs['nama_role'] ?></td>
-                                    <td class="text-center">
-                                        <a href="<?= base_url('pelanggan/edit/' . $custs['id_pelanggan']) ?>" type="button" class="bi bi-pencil-square" style="color:limegreen">
-                                        </a>
-                                        <a href="<?= base_url('pelanggan/delete/' . $custs['id_pelanggan']) ?>" type="button" class="bi bi-trash-fill" style="color:red" onclick="return confirm('Are you sure to delete this row ?')">
-                                        </a>
-                                    </td>
+
                                 </tr>
                             <?php $no++;
                             endforeach; ?>

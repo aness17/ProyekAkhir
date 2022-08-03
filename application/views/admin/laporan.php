@@ -68,11 +68,7 @@
                                 <h1 class="h3 mb-2 text-gray-800"><?php echo $ket; ?></h1>
                             </div> -->
                             <br />
-                            <div class="col-lg">
-                                <button type="submit" class="h4 mb-2 text-gray-800" id="cetak">CETAK PDF</button>
-                                <!-- <button type="submit" class="h4 mb-2 text-gray-800" id="cetakexcel">CETAK EXCEL</button> -->
 
-                            </div>
                             <div class="col-12">
                                 <div class="card top-selling overflow-auto">
 
@@ -220,6 +216,11 @@
                                     </div>
 
                                 </div>
+                            </div>
+                            <div class="col-lg">
+                                <button type="submit" class="h4 mb-2 text-gray-800" id="cetak"><i class="bi bi-filetype-pdf"></i></button>
+                                <!-- <button type="submit" class="h4 mb-2 text-gray-800" id="cetakexcel">CETAK EXCEL</button> -->
+
                             </div>
 
                             <!-- Top Selling -->

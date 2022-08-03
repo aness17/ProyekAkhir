@@ -77,7 +77,6 @@
                     </li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/riwayat') ?>">Riwayat Pesanan</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>
-                    <li><a class="nav-link scrollto" href="<?= base_url('auth/alamat') ?>">Alamat</a></li>
                     <div class="md-form">
                         <select class="produkSelect form-control mr-sm-2" id="produkSelect">
                             <option value="" disabled selected>Search</option>

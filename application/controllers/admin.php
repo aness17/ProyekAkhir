@@ -235,6 +235,7 @@ class Admin extends CI_Controller
             foreach ($pengujian as $p) {
                 $item = array(
                     "nama_produk" => $p['item'] . " , " . $p["val"],
+                    "val" => $this->Transaksi_model->getB($p["val"])["jumlah"],
                     "sc" => $p["sc"],
                     "c" => $p["c"],
                     "benchmark" => ($this->Transaksi_model->getB($p["val"])["jumlah"] / count($this->Transaksi_model->selectAll())) * 100,
