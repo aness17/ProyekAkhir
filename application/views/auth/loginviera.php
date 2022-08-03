@@ -56,7 +56,7 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Selamat Datang!</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">Halo Admin</h5>
                                     </div>
 
                                     <form method="POST" action="<?= base_url('auth/login') ?>" class="row g-3 needs-validation" novalidate>
@@ -80,9 +80,6 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="small mb-0">Belum punya akun? <a href="<?= base_url('auth/register/') ?>">Buat Akun!</a></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="small mb-0">Anda Admin? <a href="<?= base_url('auth/loginviera/') ?>">Login Disini!</a></p>
                                         </div>
                                     </form>
 

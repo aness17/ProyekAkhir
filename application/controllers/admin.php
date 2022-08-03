@@ -40,11 +40,16 @@ class Admin extends CI_Controller
     public function index()
     {
         $tgl = date('Y-m-d');
+        $month = date('m');
+        $year = date('Y');
         $ci = get_instance();
         if ($ci->session->userdata('id_role') == '2') {
             redirect('pemilik/');
         } elseif ($ci->session->userdata('id_role') == '1') {
             $trans = $this->Transaksi_model->trans_view_by_date($tgl);
+            $transaksiperhari = $this->Transaksi_model->sumtrans_view_by_date($tgl);
+            $transaksiperbulan = $this->Transaksi_model->sumtrans_view_by_month($month);
+            $transaksipertahun = $this->Transaksi_model->sumtrans_view_by_year($year);
             $datacs = $this->User_model->sumcs();
             $dataproduk = $this->Produk_model->sumProduk();
             $datatrans = $this->Transaksi_model->selecttrans();
@@ -57,6 +62,9 @@ class Admin extends CI_Controller
                 'datatrans' => $datatrans,
                 'pendapatan' => $pendapatan,
                 'trans' => $trans,
+                'transaksiperhari' => $transaksiperhari,
+                'transaksiperbulan' => $transaksiperbulan,
+                'transaksipertahun' => $transaksipertahun,
                 'bestSeller' => $bestSeller
             ];
             $this->load->view('templates/admin/header');
