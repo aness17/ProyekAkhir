@@ -15,10 +15,70 @@
 
       <!-- Left side columns -->
       <div class="row">
+        <div class="col-xxl-4 col-md-3">
+          <div class="card info-card sales-card">
+            <div class="card-body">
+              <h5 class="card-title">Total Transaksi</h5>
 
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cart"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $datatrans ?></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Sales Card -->
 
+        <div class="col-xxl-4 col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Transaksi Perhari </h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cart"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $transaksiperhari ?></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Revenue Card -->
+        <div class="col-xxl-4 col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Transaksi Perbulan </h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cart"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $transaksiperbulan ?></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Revenue Card -->
+        <div class="col-xxl-4 col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Transaksi Pertahun </h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cart"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $transaksipertahun ?></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Revenue Card -->
 
-        <div class="col-xxl-4 col-md-6">
+        <div class="col-xxl-4 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
               <h5 class="card-title">Produk</h5>
@@ -37,14 +97,13 @@
         </div><!-- End Sales Card -->
 
         <!-- Sales Card -->
-        <div class="col-xxl-4 col-md-6">
+        <div class="col-xxl-4 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
-              <h5 class="card-title">Pelanggan</h5>
-
+              <h5 class="card-title">Total Pelanggan</h5>
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-cart"></i>
+                  <i class="bi bi-person-fill"></i>
                 </div>
                 <div class="ps-3">
                   <h6><?= $datacs ?></h6>
@@ -53,35 +112,78 @@
             </div>
           </div>
         </div><!-- End Sales Card -->
-        <!-- Sales Card -->
-        <div class="col-xxl-4 col-md-6">
+        <div class="col-xxl-4 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
-              <h5 class="card-title">Transaksi</h5>
-
+              <h5 class="card-title">Pelanggan Perhari</h5>
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-cart"></i>
+                  <i class="bi bi-person-fill"></i>
                 </div>
                 <div class="ps-3">
-                  <h6><?= $datatrans ?></h6>
+                  <h6><?= $datacshari ?></h6>
                 </div>
               </div>
             </div>
           </div>
         </div><!-- End Sales Card -->
-
-        <!-- Revenue Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card revenue-card">
+        <div class="col-xxl-4 col-md-3">
+          <div class="card info-card sales-card">
             <div class="card-body">
-              <h5 class="card-title">Pendapatan</h5>
+              <h5 class="card-title">UMKM</h5>
+
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-currency-dollar"></i>
+                  <i class="bi bi-person-fill"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>Rp <?= number_format($pendapatan, 0, ",", "."); ?></h6>
+                  <h6><?= $dataumkm ?></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Sales Card -->
+        <div class="col-xxl-4 col-md-4">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Pendapatan Perhari </h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cash"></i>
+                </div>
+                <div class="ps-3">
+                  <h5 style="font-weight: bold;">Rp <?= number_format($pendapatanperhari, 0, ",", "."); ?></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Revenue Card -->
+        <div class="col-xxl-4 col-md-4">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Pendapatan Perbulan </h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cash"></i>
+                </div>
+                <div class="ps-3">
+                  <h5 style="font-weight: bold;">Rp <?= number_format($pendapatanperbulan, 0, ",", "."); ?></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- End Revenue Card -->
+        <!-- Revenue Card -->
+        <div class="col-xxl-4 col-md-4">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Pendapatan Pertahun</h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-cash"></i>
+                </div>
+                <div class="ps-3">
+                  <h5 style="font-weight: bold;">Rp <?= number_format($pendapatan, 0, ",", "."); ?></h5>
                 </div>
               </div>
             </div>

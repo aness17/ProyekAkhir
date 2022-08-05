@@ -41,6 +41,8 @@ class Pemilik extends CI_Controller
     public function index()
     {
         $tgl = date('Y-m-d');
+        $month = date('m');
+        $year = date('Y');
         $ci = get_instance();
         if ($ci->session->userdata('id_role') == '1') {
             redirect('admin/');
@@ -48,19 +50,33 @@ class Pemilik extends CI_Controller
             redirect('auth/login');
         } elseif ($ci->session->userdata('id_role') == '2') {
             $trans = $this->Transaksi_model->trans_view_by_date($tgl);
+            $transaksiperhari = $this->Transaksi_model->sumtrans_view_by_date($tgl);
+            $transaksiperbulan = $this->Transaksi_model->sumtrans_view_by_month($month);
+            $transaksipertahun = $this->Transaksi_model->sumtrans_view_by_year($year);
             $datacs = $this->User_model->sumcs();
+            $datacshari = $this->Transaksi_model->sumcshari($tgl);
+            $dataumkm = $this->Umkm_model->sumumkm();
             $dataproduk = $this->Produk_model->sumProduk();
             $datatrans = $this->Transaksi_model->selecttrans();
             $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
+            $pendapatanperhari = $this->Transaksi_model->sumhargahari($tgl)[0]->total_harga;
+            $pendapatanperbulan = $this->Transaksi_model->sumhargabulan($month)[0]->total_harga;
             $bestSeller = $this->DetailTransaksi_model->bestSeller();
 
             $data = [
                 'datacs' => $datacs,
+                'datacshari' => $datacshari,
+                'dataumkm' => $dataumkm,
                 'dataproduk' => $dataproduk,
                 'datatrans' => $datatrans,
                 'pendapatan' => $pendapatan,
+                'pendapatanperhari' => $pendapatanperhari,
+                'pendapatanperbulan' => $pendapatanperbulan,
                 'trans' => $trans,
-                "bestSeller" => $bestSeller
+                'transaksiperhari' => $transaksiperhari,
+                'transaksiperbulan' => $transaksiperbulan,
+                'transaksipertahun' => $transaksipertahun,
+                'bestSeller' => $bestSeller
             ];
             $this->load->view('templates/pemilik/header');
             $this->load->view('templates/pemilik/sidebar');
@@ -125,9 +141,8 @@ class Pemilik extends CI_Controller
             $table = [
                 "No" => "5%",
                 "Kode Transaksi" => "5%",
-                "Nama Pelanggan" => "15%",
-                "Alamat Pelanggan" => "15%",
-                "Nama Produk" => "25%",
+                "Alamat Pelanggan" => "20%",
+                "Nama Produk" => "35%",
                 "Jumlah Produk" => "5%",
                 "Total Harga" => "15%",
                 "Tgl Pesanan" => "15%",
@@ -171,9 +186,8 @@ class Pemilik extends CI_Controller
                 $html .= '<tr align="center">
                                 <td width="5%" style = "font-size: 8px;">' . $no++ . '</td>
                                 <td width="5%" style = "font-size: 8px;">' . $data->id_transaksi . '</td>
-                                <td width="15%"style = "font-size: 8px;">' . $data->nama_pelanggan . '</td>
-                                <td width="15%" style = "font-size: 8px;">' . $data->alamat_pelanggan . '</td>
-                                <td width="25%" style = "font-size: 8px;">' . $data->nama_produk . '</td>
+                                <td width="20%" style = "font-size: 8px;">' . $data->alamat_pelanggan . '</td>
+                                <td width="35%" style = "font-size: 8px;">' . $data->nama_produk . '</td>
                                 <td width="5%" style = "font-size: 8px;">' . $data->ket_jumlah . '</td>
                                 <td width="15%" style = "font-size: 8px;">Rp' . $data->total_harga . '</td>
                                 <td width="15%" style = "font-size: 8px;">' . $data->tgl_pesanan . '</td>
