@@ -51,16 +51,24 @@ class Admin extends CI_Controller
             $transaksiperbulan = $this->Transaksi_model->sumtrans_view_by_month($month);
             $transaksipertahun = $this->Transaksi_model->sumtrans_view_by_year($year);
             $datacs = $this->User_model->sumcs();
+            $datacshari = $this->Transaksi_model->sumcshari($tgl);
+            $dataumkm = $this->Umkm_model->sumumkm();
             $dataproduk = $this->Produk_model->sumProduk();
             $datatrans = $this->Transaksi_model->selecttrans();
             $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
+            $pendapatanperhari = $this->Transaksi_model->sumhargahari($tgl)[0]->total_harga;
+            $pendapatanperbulan = $this->Transaksi_model->sumhargabulan($month)[0]->total_harga;
             $bestSeller = $this->DetailTransaksi_model->bestSeller();
 
             $data = [
                 'datacs' => $datacs,
+                'datacshari' => $datacshari,
+                'dataumkm' => $dataumkm,
                 'dataproduk' => $dataproduk,
                 'datatrans' => $datatrans,
                 'pendapatan' => $pendapatan,
+                'pendapatanperhari' => $pendapatanperhari,
+                'pendapatanperbulan' => $pendapatanperbulan,
                 'trans' => $trans,
                 'transaksiperhari' => $transaksiperhari,
                 'transaksiperbulan' => $transaksiperbulan,

@@ -39,4 +39,9 @@ class Umkm_model extends CI_Model
         $this->db->where($this->primary, $id);
         return $this->db->get()->row_array();
     }
+    public function sumumkm()
+    {
+        $this->db->from('umkm');
+        return $this->db->get()->num_rows();
+    }
 }

@@ -58,10 +58,14 @@ class Umkm extends CI_Controller
             redirect('admin/');
         } else {
             $this->form_validation->set_rules('namaumkm', 'Nama UMKM', 'required');
+            $this->form_validation->set_rules('alamatumkm', 'Alamat UMKM', 'required');
+            $this->form_validation->set_rules('notelpumkm', 'No. Telp UMKM', 'required');
 
             if ($this->form_validation->run() == true) {
                 $db = [
                     'nama_umkm' => $this->input->post('namaumkm'),
+                    'alamat_umkm' => $this->input->post('alamatumkm'),
+                    'notelp_umkm' => $this->input->post('notelpumkm')
                 ];
 
                 // var_dump($db);
@@ -88,6 +92,8 @@ class Umkm extends CI_Controller
             redirect('admin/');
         } else {
             $this->form_validation->set_rules('namaumkm', 'Nama UMKM', 'required');
+            $this->form_validation->set_rules('alamatumkm', 'Alamat UMKM', 'required');
+            $this->form_validation->set_rules('notelpumkm', 'No. Telp UMKM', 'required');
 
             $umkm = $this->Umkm_model->getUserById($id);
             $data = [
@@ -97,7 +103,9 @@ class Umkm extends CI_Controller
             if ($this->form_validation->run() == true) {
                 $db = [
                     'id_umkm' => $id,
-                    'nama_umkm' => $this->input->post('namaumkm')
+                    'nama_umkm' => $this->input->post('namaumkm'),
+                    'alamat_umkm' => $this->input->post('alamatumkm'),
+                    'notelp_umkm' => $this->input->post('notelpumkm')
                 ];
 
                 if ($this->Umkm_model->update($db) > 0) {

@@ -9,7 +9,7 @@
   <section id="features" class="features">
     <div class="container" data-aos="fade-up">
       <div class="section-header">
-        <h2 style="font-family: monospace;">Produk Terlaris</h2>
+        <h2 style="font-family: monospace; text-shadow: 5px 5px 10px black;">Produk Terlaris Minggu Ini</h2>
         <div class="row gy-4 d-flex mt-4">
           <?php foreach ($bestSeller as $produks) : ?>
             <div class="col-xl-4" data-aos="zoom-in" data-aos-delay="200">

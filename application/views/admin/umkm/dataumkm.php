@@ -21,12 +21,13 @@
                         <a href="<?= base_url('umkm/addumkm') ?>" type="button" class="btn" style="font-size:25px;">
                             <i class="bi bi-plus-circle"></i> </a>
                     </div>
-
                     <table class="table datatable">
                         <thead>
                             <tr style="text-align: center;">
                                 <th scope="col">No</th>
                                 <th scope="col">Nama UMKM</th>
+                                <th scope="col">Alamat UMKM</th>
+                                <th scope="col">No. Telp UMKM</th>
                                 <th scope="col">AKSI</th>
                             </tr>
                         </thead>
@@ -37,6 +38,8 @@
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
                                     <td><?= $umkms['nama_umkm'] ?></td>
+                                    <td><?= $umkms['alamat_umkm'] ?></td>
+                                    <td><?= $umkms['notelp_umkm'] ?></td>
                                     <td class="text-center">
                                         <a href="<?= base_url('umkm/edit/' . $umkms['id_umkm']) ?>" type="button" class="bi bi-pencil-square" style="color:limegreen">
                                         </a>

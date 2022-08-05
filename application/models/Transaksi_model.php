@@ -226,6 +226,25 @@ class Transaksi_model extends CI_Model
         $this->db->select_sum('total_harga');
         return $this->db->get($this->table . " as A")->result();
     }
+    public function sumhargahari($date)
+    {
+        $this->db->select_sum('total_harga');
+        $this->db->where('A.tgl_pesanan LIKE', '%' . $date . '%');
+        return $this->db->get($this->table . " as A")->result();
+    }
+    public function sumhargabulan($date)
+    {
+        $this->db->select_sum('total_harga');
+        $this->db->where('A.tgl_pesanan LIKE', '%' . $date . '%');
+        return $this->db->get($this->table . " as A")->result();
+    }
+    public function sumcshari($date)
+    {
+        $this->db->select('count(id_pelanggan)');
+        $this->db->distinct();
+        $this->db->where('A.tgl_pesanan LIKE', '%' . $date . '%');
+        return $this->db->get($this->table . " as A")->num_rows();
+    }
     public function sumhargaproses()
     {
         $this->db->select_sum('harga');

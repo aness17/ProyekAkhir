@@ -20,6 +20,17 @@
                     <input type="text" name="namaumkm" class="form-control" id="namaumkm">
                     <?= form_error('namaumkm', '<small class="form-text text-danger">', '</small>'); ?>
                 </div>
+                <div class="col-12">
+                    <label for="inputEmail4" class="form-label">Alamat UMKM</label>
+                    <input type="text" name="alamatumkm" class="form-control" id="alamatumkm">
+                    <?= form_error('alamatumkm', '<small class="form-text text-danger">', '</small>'); ?>
+                </div>
+                <div class="col-12">
+                    <label for="inputPassword4" class="form-label">No. Telp UMKM</label>
+                    <input type="text" name="notelpumkm" class="form-control" id="notelpumkm">
+                    <?= form_error('notelpumkm', '<small class="form-text text-danger">', '</small>'); ?>
+
+                </div>
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
