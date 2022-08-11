@@ -24,6 +24,7 @@
     <link href=<?= base_url('assets/pelanggan/assets/vendor/aos/aos.css') ?> rel="stylesheet">
     <link href=<?= base_url('assets/pelanggan/assets/vendor/glightbox/css/glightbox.min.css') ?> rel="stylesheet">
     <link href=<?= base_url('assets/pelanggan/assets/vendor/swiper/swiper-bundle.min.css') ?> rel="stylesheet">
+    <link href="<?= base_url('assets/') ?>admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Variables CSS Files. Uncomment your preferred color scheme -->
     <link href=<?= base_url('assets/pelanggan/assets/css/variables.css') ?> rel="stylesheet">
@@ -35,6 +36,7 @@
     <!-- <link href="assets/css/variables-pink.css" rel="stylesheet"> -->
 
     <!-- Template Main CSS File -->
+
     <link href=<?= base_url('assets/pelanggan/assets/css/main.css') ?> rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -66,14 +68,8 @@
                     <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span></a>
                     </li>
 
-                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                        <ul>
-                            <?php
-                            $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
-                            foreach ($kategori->result_array() as $kategoris) : ?>
-                                <li><a href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
-                                </li> <?php endforeach; ?>
-                        </ul>
+                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span></a>
+
                     </li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/riwayat') ?>">Riwayat Pesanan</a></li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>

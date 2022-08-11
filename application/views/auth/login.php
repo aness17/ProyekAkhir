@@ -81,9 +81,7 @@
                                         <div class="col-12">
                                             <p class="small mb-0">Belum punya akun? <a href="<?= base_url('auth/register/') ?>">Buat Akun!</a></p>
                                         </div>
-                                        <div class="col-12">
-                                            <p class="small mb-0">Anda Admin? <a href="<?= base_url('auth/loginviera/') ?>">Login Disini!</a></p>
-                                        </div>
+
                                     </form>
 
                                 </div>

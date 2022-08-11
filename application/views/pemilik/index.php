@@ -219,5 +219,34 @@
       </div>
     </div>
   </section>
+  <script>
+    const item = async () => {
+      //kelompok
+      let penjualankelompok_bar = await fetchData('/user/penjualankelompok_bar');
+      var chart = new Chartist.Pie('#animating-donut', {
+        series: penjualankelompok_bar.map((s) => parseInt(s.jumlah)),
+        labels: penjualankelompok_bar.map((s) => s.nama_stock)
+      }, {
+        donut: true,
+        showLabel: false,
+        plugins: [
+          Chartist.plugins.tooltip()
+        ]
+      });
+      var data = {
+        series: penjualankelompok_bar.map((s) => parseInt(s.jumlah)),
+        labels: penjualankelompok_bar.map((s) => s.nama_stock)
+
+
+      };
+
+      new Chartist.Bar('#distributed-series', data, {
+        distributeSeries: true,
+        plugins: [
+          Chartist.plugins.tooltip()
+        ]
+      })
+    }
+  </script>
 
 </main><!-- End #main -->

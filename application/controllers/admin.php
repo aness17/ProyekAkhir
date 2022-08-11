@@ -118,10 +118,11 @@ class Admin extends CI_Controller
 
                 if ($filter == '1') { // Jika filter nya 1 (per tanggal)
                     $tgl = $_POST['tanggal'];
+                    $tgl2 = $_POST['tanggal2'];
 
-                    $ket = 'Data Transaksi Tanggal ' . date('d-m-y', strtotime($tgl));
+                    $ket = 'Data Transaksi Tanggal ' . date('d-m-y', strtotime($tgl)) . ' - ' .  date('d-m-y', strtotime($tgl2));
                     // $url_cetak = 'transaksi/cetak?filter=1&tanggal=' . $tgl;
-                    $transaksi = $this->Transaksi_model->view_by_date($tgl); // Panggil fungsi view_by_date yang ada di TransaksiModel
+                    $transaksi = $this->Transaksi_model->view_by_date($tgl, $tgl2); // Panggil fungsi view_by_date yang ada di TransaksiModel
                 } else if ($filter == '2') { // Jika filter nya 2 (per bulan)
                     $bulan = $_POST['bulan'];
                     $arr = explode('-', $bulan);

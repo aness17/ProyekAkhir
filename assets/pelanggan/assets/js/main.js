@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  //DataTable
+   const datatables = document.querySelectorAll('.datatable' )
+  datatables.forEach(datatable => {
+    new simpleDatatables.DataTable(datatable);
+  })
+
   /**
    * Sticky header on scroll
    */

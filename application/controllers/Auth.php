@@ -49,8 +49,38 @@ class Auth extends CI_Controller
     }
     public function loginviera()
     {
+        $this->form_validation->set_rules('username', 'Username');
+        $this->form_validation->set_rules('passwd', 'Password', 'required|min_length[4]');
 
-        $this->load->view('auth/loginviera');
+        $username = $this->input->post('username');
+        $passwd = $this->input->post('passwd');
+
+        $user = $this->db->get_where('pelanggan', ['username_pelanggan' => $username])->row_array();
+
+        if ($this->form_validation->run()) {
+            if (isset($user)) {
+                if (password_verify($passwd, $user['password_pelanggan'])) {
+                    $this->session->set_userdata('id', $user['id_pelanggan']);
+                    $this->session->set_userdata('username', $user['username_pelanggan']);
+                    $this->session->set_userdata('id_role', $user['fk_role']);
+                    if ($user['fk_role'] == '1') {
+                        echo "<script>location.href='" . base_url('admin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
+                    } else if ($user['fk_role'] == '2') {
+                        echo "<script>location.href='" . base_url('pemilik') . "';alert('Anda Berhasil Masuk Sebagai Owner');</script>";
+                    }
+                } else {
+                    // var_dump($user);
+                    // die;
+                    echo "<script>location.href='" . base_url('auth/loginviera') . "';alert('Password Salah');</script>";
+                }
+            } else {
+                echo "<script>location.href='" . base_url('auth/loginviera') . "';alert('User Tidak Ada');</script>";
+            }
+        } else {
+            // var_dump($user);
+            // die;
+            $this->load->view('auth/loginviera');
+        }
     }
     public function login()
     {
@@ -64,17 +94,14 @@ class Auth extends CI_Controller
 
         if ($this->form_validation->run()) {
             if (isset($user)) {
-
                 if (password_verify($passwd, $user['password_pelanggan'])) {
                     $this->session->set_userdata('id', $user['id_pelanggan']);
                     $this->session->set_userdata('username', $user['username_pelanggan']);
                     $this->session->set_userdata('id_role', $user['fk_role']);
-                    if ($user['fk_role'] == '1') {
-                        echo "<script>location.href='" . base_url('admin') . "';alert('Anda Berhasil Masuk Sebagai Admin');</script>";
-                    } else if ($user['fk_role'] == '2') {
-                        echo "<script>location.href='" . base_url('pemilik') . "';alert('Anda Berhasil Masuk Sebagai Owner');</script>";
-                    } else {
+                    if ($user['fk_role'] == '3') {
                         echo "<script>location.href='" . base_url('auth') . "';alert('Anda Berhasil Masuk Sebagai Customer');</script>";
+                    } else {
+                        echo "<script>location.href='" . base_url('auth/login') . "';alert('User Tidak Ada');</script>";
                     }
                 } else {
                     // var_dump($user);
@@ -211,6 +238,12 @@ class Auth extends CI_Controller
         } else {
             $produk = $this->Produk_model->selectproduk($kat);
         }
+        if ($this->input->post()) {
+            $harga = $this->input->post('harga');
+            $harga2 = $this->input->post('harga2');
+
+            $produk = $this->Produk_model->selectharga($harga, $harga2);
+        }
 
         $data = [
             'produk' => $produk
@@ -230,28 +263,10 @@ class Auth extends CI_Controller
         $detail = $this->Produk_model->getProdukById($id);
         $produk = $this->Produk_model->selectAll();
         $transaksi = $this->Transaksi_model->selectAll();
-        $data_item = [];
-        foreach ($transaksi as $t) {
-            array_push($data_item, ["id" => $t["id_transaksi"], "item" => $t["nama_produk"]]);
-        };
-
-        $this->load->library('customautoloader');
-
         $data = [
             'detail' => $detail,
             "produk" => $produk
         ];
-        if ($this->input->get("search")) {
-            $apriori = new helpers\apriori();
-            $rekom = $apriori->main($data_item);
-            $rekomendasi = [];
-            foreach ($rekom as $r) {
-                if ($r["item"] == $detail["nama_produk"]) {
-                    array_push($rekomendasi, $this->Produk_model->getWhere(["nama_produk" => $r["val"]]));
-                }
-            }
-            $data["rekomendasi"] = $rekomendasi;
-        }
         if ($this->session->userdata('id_role') == 3) {
             $this->load->view('templates/user/header2', $data);
         } else {
@@ -271,20 +286,46 @@ class Auth extends CI_Controller
         } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
             echo "Akses di blokir";
         } else {
+            $transaksi = $this->Transaksi_model->selectAll();
             $keranjang = $this->Keranjang_model->selectAll();
-            $data["produk"] = $this->Produk_model->selectAll();
 
+            $data_item = [];
+            foreach ($transaksi as $t) {
+                array_push($data_item, ["id" => $t["id_transaksi"], "item" => $t["nama_produk"]]);
+            };
+
+            $this->load->library('customautoloader');
+
+            $apriori = new helpers\apriori();
+            $rekom = $apriori->main($data_item);
+            $cart = [];
+
+            foreach ($keranjang as $k) {
+                $rekomendasi = [];
+                foreach ($rekom as $r) {
+                    if ($r["item"] == $k["nama_produk"]) {
+                        array_push($rekomendasi, $this->Produk_model->getWhere(["nama_produk" => $r["val"]]));
+                    }
+                }
+                $k["rekomendasi"] = $rekomendasi;
+                array_push($cart, $k);
+            }
+            // echo "<pre>";
+            // print_r($cart);
+            // echo "</pre>";
+            // die;
+            $produk = $this->Produk_model->selectAll();
+
+            $data = [
+                'keranjang' => $cart,
+                'produk' => $produk
+            ];
 
             if ($this->session->userdata('id_role') == 3) {
                 $this->load->view('templates/user/header2', $data);
             } else {
                 $this->load->view('templates/user/header', $data);
             }
-
-            $data = [
-                'keranjang' => $keranjang
-            ];
-
             $this->load->view('user/keranjang', $data);
             $this->load->view('templates/user/footer');
         }

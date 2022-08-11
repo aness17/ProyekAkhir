@@ -8,13 +8,10 @@
 
         </div>
     </div>
-
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
             <div class="row gy-5">
-
-                <div class="col-xl-8 col-md-12" data-aos="zoom-in" data-aos-delay="200">
-
+                <div class="col-xl-12 col-md-12" data-aos="zoom-in" data-aos-delay="200">
                     <?php foreach ($keranjang as $keranjangs) : ?>
                         <div class="service-item mb-4">
                             <div class="row">
@@ -28,6 +25,24 @@
                                         <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ubah Keranjang</button>
                                     </form>
                                 </div>
+                                <div class="col">
+                                    <div class="container" data-aos="fade-up">
+                                        <h3 class="mb-3">Rekomendasi Produk</h3>
+                                        <?php if (count($keranjangs['rekomendasi']) > 0) : ?>
+                                            <?php foreach ($keranjangs['rekomendasi'] as $produks) : ?>
+                                                <div class="row justify-content-center gy-5">
+                                                    <div class="col-xl-12 col-md-12 " data-aos="zoom-in" data-aos-delay="200">
+                                                        <a href="<?= base_url('auth/deskripsi_produk/') . $produks["id_produk"] ?>?search=false" class="stretched-link">
+                                                            <h3 style="font-size:medium ;"><?= $produks['nama_produk'] ?></h3>
+                                                        </a>
+                                                    </div><!-- End Service Item -->
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
+                                            <h3 style="font-size:medium ;">Tidak Ada Rekomendasi</h3>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -39,10 +54,10 @@
                         <a href="<?= base_url('auth/checkout') ?>" class="btn btn-primary">Checkout</a>
                     </div>
                 </div>
-
             <?php else : ?>
                 <h1 class="text-center">Tidak ada barang di keranjang</h1>
             <?php endif; ?>
         </div>
+
     </section>
 </main>
