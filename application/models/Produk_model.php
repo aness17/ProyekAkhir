@@ -39,7 +39,6 @@ class Produk_model extends CI_Model
     }
     public function sumProduk()
     {
-
         return $this->db->get($this->table)->num_rows();
     }
     public function delete($id)
@@ -61,5 +60,14 @@ class Produk_model extends CI_Model
     {
         $this->db->select_max('id_produk');
         return $this->db->get($this->table)->row_array();
+    }
+    public function selectharga($harga, $harga2)
+    {
+        $this->db->join('kategori B', 'A.fk_kategori=B.id_kategori');
+        $this->db->join('umkm C', 'A.fk_umkm=C.id_umkm');
+        $this->db->where('A.harga_produk >=', $harga);
+        $this->db->where('A.harga_produk <=', $harga2);
+        $this->db->Order_by('A.harga_produk', "ASC");
+        return $this->db->get($this->table . " as A")->result_array();
     }
 }

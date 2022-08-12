@@ -43,7 +43,6 @@ class apriori
             }
         } while ($dataEliminasi == $frekuensi_item);
 
-
         for ($i = 0; $i < count($aturan_asosiasi); $i++) {
             $x = 0;
             $ex = explode(",", $aturan_asosiasi[$i]["item"]);

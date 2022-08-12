@@ -15,6 +15,41 @@
             <?php endif; ?>
         </div>
     </div>
+    <section id="features" class="features" style="padding: 10px 0 !important;">
+        <div class="container" data-aos="fade-up">
+            <ul class="nav nav-tabs row gy-4 d-flex">
+                <?php
+                $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
+                foreach ($kategori->result_array() as $kategoris) : ?>
+                    <li class="nav-item col-6 col-md-4 col-lg-2">
+                        <a class="nav-link" href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
+
+                    </li><!-- End Tab 1 Nav -->
+
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </section>
+    <section id="features" class="features" style="padding: 10px 0 !important;">
+        <div class="container aos-init aos-animate" data-aos="fade-up">
+            <form action="" method="post">
+                <div class="row flex-row align-items-end" id="form-tanggal">
+                    <div class="col-lg-3">
+                        <h5 class="card-title">Min. Harga</h5>
+                        <input type="number" value="0" min="0" name="harga" id="harga" class="form-control">
+                    </div>
+                    <div class="col-lg-3">
+                        <h5 class="card-title">Max. Harga</h5>
+                        <input type="number" value="0" min="0" name="harga2" id="harga2" class="form-control">
+                    </div>
+                    <div class="col">
+                        <button type="submit" id="tombol" class="btn btn-primary">Terapkan</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </section>
     <section id="services" class="services">
         <div class="container" data-aos="fade-up">
             <div class="row gy-5 mb-5">

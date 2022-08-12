@@ -41,6 +41,9 @@
  <script src="<?= base_url('assets/') ?>pelanggan/assets/vendor/swiper/swiper-bundle.min.js"></script>
  <script src="<?= base_url('assets/') ?>pelanggan/assets/vendor/php-email-form/validate.js"></script>
 
+ <script src="<?= base_url('assets/') ?>admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+ <script src="<?= base_url('assets/') ?>admin/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+
  <!-- Template Main JS File -->
  <script src="<?= base_url('assets/') ?>pelanggan/assets/js/main.js"></script>
  <script>

@@ -72,6 +72,7 @@ class User_model extends CI_Model
         $this->db->where('fk_role', 3);
         return $this->db->get()->num_rows();
     }
+    
 
     public function sumpemesanan()
     {

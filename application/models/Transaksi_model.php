@@ -112,18 +112,53 @@ class Transaksi_model extends CI_Model
         $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
         return $this->db->get($this->table . " as A")->result_array(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
     }
+    public function sumtrans_view_by_date($date)
+    {
+        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->where('A.tgl_pesanan LIKE', $date . '%');
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
+        return $this->db->get($this->table . " as A")->num_rows(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
+    }
+    public function sumtrans_view_by_month($date)
+    {
+        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->where('A.tgl_pesanan LIKE', $date . '%');
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
+        return $this->db->get($this->table . " as A")->num_rows(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
+    }
+    public function sumtrans_view_by_year($date)
+    {
+        $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
+        $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
+        $this->db->join('produk D', 'D.id_produk = C.id_produk');
+        $this->db->where('A.tgl_pesanan LIKE', $date . '%');
+        $this->db->group_by("A.id_transaksi");
+        $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
+        return $this->db->get($this->table . " as A")->num_rows(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
+    }
 
-    public function view_by_date($date)
+    public function view_by_date($date, $date2)
     {
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
         $this->db->join('detail_transaksi C', 'A.id_transaksi=C.id_transaksi');
         $this->db->join('produk D', 'D.id_produk=C.id_produk');
-        $this->db->where('DATE(tgl_pesanan)', $date);
+        $this->db->where('DATE(tgl_pesanan) >=', $date);
+        $this->db->where('DATE(tgl_pesanan) <=', $date2);
         $this->db->group_by("A.id_transaksi");
         $this->db->select("A.*, B.*, C.*, D.*,GROUP_CONCAT(D.nama_produk) as nama_produk, sum(C.ket_jumlah) as ket_jumlah");
         $this->db->order_by('C.id_detail', 'ASC'); // Tambahkan where tanggal nya
         return $this->db->get($this->table . " as A ")->result(); // Tampilkan data transaksi sesuai tanggal yang diinput oleh user pada filter
     }
+
     public function view_by_month($month)
     {
         $this->db->join('pelanggan B', 'A.id_pelanggan=B.id_pelanggan');
@@ -191,6 +226,25 @@ class Transaksi_model extends CI_Model
     {
         $this->db->select_sum('total_harga');
         return $this->db->get($this->table . " as A")->result();
+    }
+    public function sumhargahari($date)
+    {
+        $this->db->select_sum('total_harga');
+        $this->db->where('A.tgl_pesanan LIKE', '%' . $date . '%');
+        return $this->db->get($this->table . " as A")->result();
+    }
+    public function sumhargabulan($date)
+    {
+        $this->db->select_sum('total_harga');
+        $this->db->where('A.tgl_pesanan LIKE', '%' . $date . '%');
+        return $this->db->get($this->table . " as A")->result();
+    }
+    public function sumcshari($date)
+    {
+        $this->db->select('count(id_pelanggan)');
+        $this->db->distinct();
+        $this->db->where('A.tgl_pesanan LIKE', '%' . $date . '%');
+        return $this->db->get($this->table . " as A")->num_rows();
     }
     public function sumhargaproses()
     {

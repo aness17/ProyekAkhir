@@ -40,23 +40,39 @@ class Admin extends CI_Controller
     public function index()
     {
         $tgl = date('Y-m-d');
+        $month = date('m');
+        $year = date('Y');
         $ci = get_instance();
         if ($ci->session->userdata('id_role') == '2') {
             redirect('pemilik/');
         } elseif ($ci->session->userdata('id_role') == '1') {
             $trans = $this->Transaksi_model->trans_view_by_date($tgl);
+            $transaksiperhari = $this->Transaksi_model->sumtrans_view_by_date($tgl);
+            $transaksiperbulan = $this->Transaksi_model->sumtrans_view_by_month($month);
+            $transaksipertahun = $this->Transaksi_model->sumtrans_view_by_year($year);
             $datacs = $this->User_model->sumcs();
+            $datacshari = $this->Transaksi_model->sumcshari($tgl);
+            $dataumkm = $this->Umkm_model->sumumkm();
             $dataproduk = $this->Produk_model->sumProduk();
             $datatrans = $this->Transaksi_model->selecttrans();
             $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
+            $pendapatanperhari = $this->Transaksi_model->sumhargahari($tgl)[0]->total_harga;
+            $pendapatanperbulan = $this->Transaksi_model->sumhargabulan($month)[0]->total_harga;
             $bestSeller = $this->DetailTransaksi_model->bestSeller();
 
             $data = [
                 'datacs' => $datacs,
+                'datacshari' => $datacshari,
+                'dataumkm' => $dataumkm,
                 'dataproduk' => $dataproduk,
                 'datatrans' => $datatrans,
                 'pendapatan' => $pendapatan,
+                'pendapatanperhari' => $pendapatanperhari,
+                'pendapatanperbulan' => $pendapatanperbulan,
                 'trans' => $trans,
+                'transaksiperhari' => $transaksiperhari,
+                'transaksiperbulan' => $transaksiperbulan,
+                'transaksipertahun' => $transaksipertahun,
                 'bestSeller' => $bestSeller
             ];
             $this->load->view('templates/admin/header');
@@ -102,10 +118,11 @@ class Admin extends CI_Controller
 
                 if ($filter == '1') { // Jika filter nya 1 (per tanggal)
                     $tgl = $_POST['tanggal'];
+                    $tgl2 = $_POST['tanggal2'];
 
-                    $ket = 'Data Transaksi Tanggal ' . date('d-m-y', strtotime($tgl));
+                    $ket = 'Data Transaksi Tanggal ' . date('d-m-y', strtotime($tgl)) . ' - ' .  date('d-m-y', strtotime($tgl2));
                     // $url_cetak = 'transaksi/cetak?filter=1&tanggal=' . $tgl;
-                    $transaksi = $this->Transaksi_model->view_by_date($tgl); // Panggil fungsi view_by_date yang ada di TransaksiModel
+                    $transaksi = $this->Transaksi_model->view_by_date($tgl, $tgl2); // Panggil fungsi view_by_date yang ada di TransaksiModel
                 } else if ($filter == '2') { // Jika filter nya 2 (per bulan)
                     $bulan = $_POST['bulan'];
                     $arr = explode('-', $bulan);
@@ -227,6 +244,7 @@ class Admin extends CI_Controller
             foreach ($pengujian as $p) {
                 $item = array(
                     "nama_produk" => $p['item'] . " , " . $p["val"],
+                    "val" => $this->Transaksi_model->getB($p["val"])["jumlah"],
                     "sc" => $p["sc"],
                     "c" => $p["c"],
                     "benchmark" => ($this->Transaksi_model->getB($p["val"])["jumlah"] / count($this->Transaksi_model->selectAll())) * 100,
