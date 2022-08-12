@@ -37,7 +37,7 @@ class Auth extends CI_Controller
             redirect('pemilik/');
         } else {
             $data["produk"] = $this->Produk_model->selectAll();
-            $data["bestSeller"] = $this->DetailTransaksi_model->bestSeller();
+            $data["bestSeller"] = $this->DetailTransaksi_model->bestSeller(date('m'));
             if ($this->session->userdata('id_role') == 3) {
                 $this->load->view('templates/user/header2', $data);
             } else {

@@ -17,7 +17,7 @@
       <div class="row">
 
         <!-- Sales Card -->
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
               <h5 class="card-title">Total Transaksi</h5>
@@ -34,7 +34,7 @@
           </div>
         </div><!-- End Sales Card -->
 
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card revenue-card">
             <div class="card-body">
               <h5 class="card-title">Transaksi Perhari </h5>
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div><!-- End Revenue Card -->
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card revenue-card">
             <div class="card-body">
               <h5 class="card-title">Transaksi Perbulan </h5>
@@ -64,7 +64,7 @@
             </div>
           </div>
         </div><!-- End Revenue Card -->
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card revenue-card">
             <div class="card-body">
               <h5 class="card-title">Transaksi Pertahun </h5>
@@ -80,7 +80,7 @@
           </div>
         </div><!-- End Revenue Card -->
 
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
               <h5 class="card-title">Produk</h5>
@@ -99,7 +99,7 @@
         </div><!-- End Sales Card -->
 
         <!-- Sales Card -->
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
               <h5 class="card-title">Total Pelanggan</h5>
@@ -114,7 +114,7 @@
             </div>
           </div>
         </div><!-- End Sales Card -->
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
               <h5 class="card-title">Pelanggan Perhari</h5>
@@ -129,7 +129,7 @@
             </div>
           </div>
         </div><!-- End Sales Card -->
-        <div class="col-xxl-4 col-md-3">
+        <div class="col-xxl-3 col-md-3">
           <div class="card info-card sales-card">
             <div class="card-body">
               <h5 class="card-title">UMKM</h5>

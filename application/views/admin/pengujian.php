@@ -24,6 +24,7 @@
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">X</th>
                                 <th scope="col">Y</th>
+                                <th scope="col">SC</th>
                                 <th scope="col">Confidence</th>
                                 <th scope="col">Bencmark</th>
                                 <th scope="col">Lift Ratio</th>
@@ -36,8 +37,9 @@
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
                                     <td><?= $p["nama_produk"] ?></td>
+                                    <td><?= $p["x"] ?></td>
+                                    <td><?= $p["y"] ?></td>
                                     <td><?= $p["sc"] ?></td>
-                                    <td><?= $p["val"] ?></td>
                                     <td><?= $p["c"] ?></td>
                                     <td><?= $p["benchmark"] ?></td>
                                     <td><?= $p["ratio"] ?></td>

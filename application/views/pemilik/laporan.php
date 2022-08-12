@@ -22,40 +22,40 @@
                                     <br>
                                     <div class="form-group mb-3">
                                         <h5 class="card-title">Filter Berdasarkan</span></h5>
-                                        <select name="filter" id="filter">
+                                        <select name="filter" id="filter" class="form-control">
                                             <option value="1">Tanggal</option>
                                             <option value="2">Bulan</option>
                                             <option value="3">Tahun</option>
                                         </select>
                                     </div>
-                                    <div class="row">
+                                    <div class="row flex-row" id="form-tanggal">
                                         <div class="col-lg-3">
-                                            <div id="form-tanggal">
+                                            <div>
                                                 <h5 class="card-title">Dari Tanggal</span></h5>
-                                                <input type="date" name="tanggal" id="tanggal" class="input-tanggal" />
+                                                <input type="date" name="tanggal" id="tanggal" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
-                                            <div id="form-tanggal">
+                                            <div>
                                                 <h5 class="card-title">Sampai Tanggal</span></h5>
-                                                <input type="date" name="tanggal" id="tanggal" class="input-tanggal" />
+                                                <input type="date" name="tanggal2" id="tanggal" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" id="form-bulan">
                                         <div class="col-lg">
-                                            <div id="form-bulan">
+                                            <div>
                                                 <h5 class="card-title">Bulan</h5>
-                                                <input type="month" name="bulan" id="bulan" class="input-bulan" />
+                                                <input type="month" name="bulan" id="bulan" class="form-control" />
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" id="form-tahun">
                                         <div class="col-lg">
-                                            <div id="form-tahun">
-                                                <label>Tahun</label><br>
-                                                <select name="tahun" id="tahun">
+                                            <div>
+                                                <h5 class="card-title">Tahun</h5>
+                                                <select name="tahun" id="tahun" class="form-control">
                                                     <option value="">Pilih</option>
                                                     <?php
                                                     foreach ($option_tahun as $data) { // Ambil data tahun dari model yang dikirim dari controller
@@ -83,12 +83,12 @@
                             <i class="bi bi-file-earmark-pdf-fill"></i> </a>
                     </div>
 
-
                     <table class="table table datatable">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Kode Transaksi</th>
+                                <th scope="col">Nama Pelanggan</th>
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Jumlah Produk</th>
                                 <th scope="col">Tanggal Pesanan</th>
@@ -110,6 +110,7 @@
                                     echo "<tr style='text-align: center;'>";
                                     echo "<td>" . $no . "</td>";
                                     echo "<td>" . $data->id_transaksi . "</td>";
+                                    echo "<td>" . $data->nama_pelanggan . "</td>";
                                     echo "<td>" . $data->nama_produk . "</td>";
                                     echo "<td>" . $data->ket_jumlah . "</td>";
 
@@ -187,7 +188,7 @@
 
 
                                 if (q == '1') { // Jika filter nya 1 (per tanggal)
-                                    formtanggal.style.display = "block"
+                                    formtanggal.style.display = "flex"
                                 } else if (q == '2') { // Jika filter nya 2 (per bulan)
                                     formbulan.style.display = "block"
                                 } else if (q == '3') { // Jika filternya 3 (per tahun)
@@ -224,6 +225,7 @@
 
             </div>
         </div>
+
 
         <!-- Top Selling -->
 

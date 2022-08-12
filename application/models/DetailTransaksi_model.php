@@ -30,10 +30,20 @@ class DetailTransaksi_model extends CI_Model
         return $this->db->get($this->table)->row_array();
     }
 
-    public function bestSeller()
+    public function getFrekuensi($nama)
+    {
+        $this->db->where("produk.nama_produk", $nama);
+        $this->db->select("count(*) as jumlah");
+        $this->db->join("produk", "produk.id_produk = detail_transaksi.id_produk");
+        return $this->db->get($this->table)->row_array();
+    }
+
+    public function bestSeller($date)
     {
         $this->db->select("sum(ket_jumlah) as ket_jumlah, produk.*");
         $this->db->join("produk", "produk.id_produk = detail_transaksi.id_produk");
+        $this->db->join("transaksi", "transaksi.id_transaksi = detail_transaksi.id_transaksi");
+        $this->db->where('transaksi.tgl_pesanan like', '%' . $date . '%');
         $this->db->group_by("id_produk");
         $this->db->order_by("ket_jumlah", "desc");
         $this->db->limit(3);

@@ -58,7 +58,7 @@ class Admin extends CI_Controller
             $pendapatan = $this->Transaksi_model->sumharga()[0]->total_harga;
             $pendapatanperhari = $this->Transaksi_model->sumhargahari($tgl)[0]->total_harga;
             $pendapatanperbulan = $this->Transaksi_model->sumhargabulan($month)[0]->total_harga;
-            $bestSeller = $this->DetailTransaksi_model->bestSeller();
+            $bestSeller = $this->DetailTransaksi_model->bestSeller($month);
 
             $data = [
                 'datacs' => $datacs,
@@ -250,6 +250,8 @@ class Admin extends CI_Controller
                     "benchmark" => ($this->Transaksi_model->getB($p["val"])["jumlah"] / count($this->Transaksi_model->selectAll())) * 100,
                 );
                 $item["ratio"] = $item["benchmark"] > 0 ? $item["c"] / $item["benchmark"]  : 0;
+                $item["x"] = $this->DetailTransaksi_model->getFrekuensi($p["item"])["jumlah"];
+                $item["y"] = $this->DetailTransaksi_model->getFrekuensi($p["val"])["jumlah"];
                 $result[] = $item;
             }
             // echo "<pre>";
