@@ -18,7 +18,7 @@
                                 <div class="col"><img src="<?= base_url('produk/') . $keranjangs['foto_produk'] ?>" alt="" class="img-fluid" style="height:200px; object-fit:cover; object-position:center;"></div>
                                 <div class="col">
                                     <h3><?= $keranjangs['nama_produk'] ?></h3>
-                                    <h3>Rp<?= $keranjangs['harga_produk'] ?></h3>
+                                    <h3>Rp<?= number_format($keranjangs['harga_produk'], 0, ",", "."); ?></h3>
                                     <form action="<?= base_url('auth/ubah_keranjang') ?>" method="post">
                                         <input type="hidden" name="id" value="<?= $keranjangs["id_keranjang"] ?>">
                                         <input type="number" name="jumlah" min="0" value="<?= $keranjangs['ket_jumlah'] ?>" class="form-control my-3">
@@ -48,10 +48,22 @@
                     <?php endforeach; ?>
                 </div><!-- End Service Item -->
             </div>
+            <hr>
             <?php if (count($keranjang) > 0) : ?>
                 <div class="row">
-                    <div class="col">
-                        <a href="<?= base_url('auth/checkout') ?>" class="btn btn-primary">Checkout</a>
+                    <div class="col-sm-4"></div>
+                    <?php $total = 0;
+                    $total_harga = 0;
+                    foreach ($keranjang as $k) {
+                        $total += intval($k["ket_jumlah"]);
+                        $total_harga += intval($k["ket_jumlah"] * $k['harga_produk']);
+                    }
+                    ?>
+                    <div class="col-sm-4 ">
+                        <h3>Total (<?= $total ?> produk) : Rp<?= number_format($total_harga, 0, ",", "."); ?></h3>
+                    </div>
+                    <div class="col-sm-4">
+                        <a style="align-items: flex-end;width: 300px;" href="<?= base_url('auth/checkout') ?>" class="btn btn-success btn-lg">Checkout</a>
                     </div>
                 </div>
             <?php else : ?>
