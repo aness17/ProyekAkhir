@@ -75,6 +75,7 @@ class Admin extends CI_Controller
                 'transaksipertahun' => $transaksipertahun,
                 'bestSeller' => $bestSeller
             ];
+
             $this->load->view('templates/admin/header');
             $this->load->view('templates/admin/sidebar');
             $this->load->view('admin/index', $data);
