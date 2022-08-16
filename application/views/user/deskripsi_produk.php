@@ -4,7 +4,7 @@
 <main id="main">
     <div class="section-header" style="padding-bottom: 0;">
         <div class="d-flex justify-content-evenly">
-            <h2>Deskripsi Produk</h2>
+            <h2 style="font-family: monospace;">Deskripsi Produk</h2>
 
         </div>
     </div>

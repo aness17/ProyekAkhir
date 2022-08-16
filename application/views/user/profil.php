@@ -5,7 +5,7 @@
     <div class="section-header" style="padding-bottom: 0;">
         <div class="d-flex justify-content-evenly">
             <div></div>
-            <h2>Profil</h2>
+            <h2 style="font-family: monospace;">Profil</h2>
             <?php
             // foreach ($pelanggan as $p) :
 

@@ -17,6 +17,12 @@ class Keranjang_model extends CI_Model
         $this->db->join('produk', 'produk.id_produk = keranjang.id_produk');
         return $this->db->get($this->table)->result_array();
     }
+    public function selectjumlah()
+    {
+        $this->db->where('keranjang.id_pelanggan', $this->session->userdata('id'));
+        $this->db->join('produk', 'produk.id_produk = keranjang.id_produk');
+        return $this->db->get($this->table)->num_rows();
+    }
     public function delete($id)
     {
         $this->db->where($this->primary, $id);

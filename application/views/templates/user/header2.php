@@ -68,7 +68,7 @@
                     <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span></a>
                     </li>
 
-                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span></a>
+                    <li class="dropdown"><a href="<?= base_url('auth/kategori_produk') ?>"><span>Produk</span></a>
 
                     </li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/riwayat') ?>">Riwayat Pesanan</a></li>

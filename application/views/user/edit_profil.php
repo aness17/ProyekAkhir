@@ -2,7 +2,7 @@
 
 </section>
 <main id="main">
-    <section id="services" class="services" style="padding-bottom: 0;">
+    <section id="services" class="services" style="padding: 10px 0 !important;">
         <div class="container" data-aos="fade-up">
             <div class="row justify-content-center gy-5">
                 <div class="col-xl-8 col-md-12" data-aos="zoom-in" data-aos-delay="200">

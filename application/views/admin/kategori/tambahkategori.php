@@ -20,7 +20,11 @@
                     <input type="text" name="namakategori" class="form-control" id="namakategori">
                     <?= form_error('namakategori', '<small class="form-text text-danger">', '</small>'); ?>
                 </div>
+                <div class="col-12">
+                    <label for="inputPassword4" class="form-label">Foto Kategori</label>
+                    <input type="file" name="fotokategori" class="form-control" id="fotokategori" required>
 
+                </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>

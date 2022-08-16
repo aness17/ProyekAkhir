@@ -5,31 +5,17 @@
     <div class="section-header">
         <div class="d-flex justify-content-evenly">
             <div></div>
-            <h2 style="font-family: cursive;">Produk</h2>
+            <h2 style="font-family: monospace;">Produk <?= $kat ?></h2>
             <?php if ($this->session->userdata('id_role') == 3) : ?>
                 <a href="<?= base_url('auth/keranjang') ?>">
                     <i class="bi bi-basket-fill text-dark" style="font-size: 32px;"></i>
+                    <span class="badge bg-primary badge-number"><?= $jumlahkeranjang ?></span>
                 </a>
             <?php else : ?>
                 <div></div>
             <?php endif; ?>
         </div>
     </div>
-    <section id="features" class="features" style="padding: 10px 0 !important;">
-        <div class="container" data-aos="fade-up">
-            <ul class="nav nav-tabs row gy-4 d-flex">
-                <?php
-                $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
-                foreach ($kategori->result_array() as $kategoris) : ?>
-                    <li class="nav-item col-6 col-md-4 col-lg-2">
-                        <a class="nav-link" href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
-
-                    </li><!-- End Tab 1 Nav -->
-
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </section>
     <section id="features" class="features" style="padding: 10px 0 !important;">
         <div class="container aos-init aos-animate" data-aos="fade-up">
             <form action="" method="post">
@@ -47,7 +33,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </section>
     <section id="services" class="services">

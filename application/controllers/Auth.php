@@ -174,106 +174,160 @@ class Auth extends CI_Controller
 
     public function profil()
     {
-        $id = $this->session->userdata('id');
+        $ci = get_instance();
 
-        $pelanggan = $this->User_model->getpelangganById($id);
-        $data = [
-            'pelanggan' => $pelanggan
-        ];
-
-        $data["produk"] = $this->Produk_model->selectAll();
-        if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2', $data);
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
         } else {
-            $this->load->view('templates/user/header', $data);
-        }
-        $this->load->view('user/profil', $data);
-        $this->load->view('templates/user/footer');
-    }
-    public function edit_profil($id)
-    {
-        $pelanggan = $this->User_model->getpelangganById($id);
-        $data = [
-            'pelanggan' => $pelanggan
-        ];
-        $this->form_validation->set_rules('nama', 'Nama Pelanggan', 'required');
-        $this->form_validation->set_rules('nohp', 'No. Telp', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+            $id = $this->session->userdata('id');
 
-        if ($this->form_validation->run() == true) {
-            $db = [
-
-                'nama_pelanggan' => $this->input->post('nama'),
-                'nohp_pelanggan' => $this->input->post('nohp'),
-                'alamat_pelanggan' => $this->input->post('alamat')
+            $pelanggan = $this->User_model->getpelangganById($id);
+            $data = [
+                'pelanggan' => $pelanggan
             ];
 
-            if ($this->User_model->update($db, $id) > 0) {
-                $this->session->set_flashdata('message', $this->flasher('success', 'Profil Anda telah diperbarui'));
-                echo "berhasil";
-                redirect('auth/profil', $data);
-            } else {
-                echo "gagal";
-                $this->session->set_flashdata('message', $this->flasher('danger', 'Profil Anda gagal diperbarui'));
-                redirect('auth/edit_profil', $data);
-            }
-        } else {
             $data["produk"] = $this->Produk_model->selectAll();
             if ($this->session->userdata('id_role') == 3) {
                 $this->load->view('templates/user/header2', $data);
             } else {
                 $this->load->view('templates/user/header', $data);
             }
-            $this->load->view('user/edit_profil', $data);
+            $this->load->view('user/profil', $data);
             $this->load->view('templates/user/footer');
+        }
+    }
+    public function edit_profil($id)
+    {
+        $ci = get_instance();
+
+        if (!$ci->session->userdata('id')) {
+            redirect('auth/login');
+        } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
+        } else {
+            $pelanggan = $this->User_model->getpelangganById($id);
+            $data = [
+                'pelanggan' => $pelanggan
+            ];
+            $this->form_validation->set_rules('nama', 'Nama Pelanggan', 'required');
+            $this->form_validation->set_rules('nohp', 'No. Telp', 'required');
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+
+            if ($this->form_validation->run() == true) {
+                $db = [
+                    'nama_pelanggan' => $this->input->post('nama'),
+                    'nohp_pelanggan' => $this->input->post('nohp'),
+                    'alamat_pelanggan' => $this->input->post('alamat')
+                ];
+
+                if ($this->User_model->update($db, $id) > 0) {
+                    $this->session->set_flashdata('message', $this->flasher('success', 'Profil Anda telah diperbarui'));
+                    echo "berhasil";
+                    redirect('auth/profil', $data);
+                } else {
+                    echo "gagal";
+                    $this->session->set_flashdata('message', $this->flasher('danger', 'Profil Anda gagal diperbarui'));
+                    redirect('auth/edit_profil', $data);
+                }
+            } else {
+                $data["produk"] = $this->Produk_model->selectAll();
+                if ($this->session->userdata('id_role') == 3) {
+                    $this->load->view('templates/user/header2', $data);
+                } else {
+                    $this->load->view('templates/user/header', $data);
+                }
+                $this->load->view('user/edit_profil', $data);
+                $this->load->view('templates/user/footer');
+            }
         }
     }
 
     public function produk($kategori = "")
     {
-        $kat = urldecode($kategori);
+        $ci = get_instance();
 
-        if ($kategori == "") {
-            $produk = $this->Produk_model->selectAll();
+        if ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
         } else {
-            $produk = $this->Produk_model->selectproduk($kat);
-        }
-        if ($this->input->post()) {
-            $harga = $this->input->post('harga');
-            $harga2 = $this->input->post('harga2');
+            $kat = urldecode($kategori);
+            $jumlahkeranjang = $this->Keranjang_model->selectjumlah();
 
-            $produk = $this->Produk_model->selectharga($harga, $harga2);
-        }
+            if ($kategori == "") {
+                $produk = $this->Produk_model->selectAll();
+            } else {
+                $produk = $this->Produk_model->selectproduk($kat);
+            }
+            if ($this->input->post()) {
+                $harga = $this->input->post('harga');
+                $harga2 = $this->input->post('harga2');
 
-        $data = [
-            'produk' => $produk
-        ];
+                $produk = $this->Produk_model->selectharga($harga, $harga2);
+            }
 
-        if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2', $data);
-        } else {
-            $this->load->view('templates/user/header', $data);
+            $data = [
+                'produk' => $produk,
+                'kat' => $kat,
+                'jumlahkeranjang' => $jumlahkeranjang
+            ];
+
+            if ($this->session->userdata('id_role') == 3) {
+                $this->load->view('templates/user/header2', $data);
+            } else {
+                $this->load->view('templates/user/header', $data);
+            }
+            $this->load->view('user/produk', $data);
+            $this->load->view('templates/user/footer');
         }
-        $this->load->view('user/produk', $data);
-        $this->load->view('templates/user/footer');
     }
 
     public function deskripsi_produk($id)
     {
-        $detail = $this->Produk_model->getProdukById($id);
-        $produk = $this->Produk_model->selectAll();
-        $transaksi = $this->Transaksi_model->selectAll();
-        $data = [
-            'detail' => $detail,
-            "produk" => $produk
-        ];
-        if ($this->session->userdata('id_role') == 3) {
-            $this->load->view('templates/user/header2', $data);
+        $ci = get_instance();
+
+        if ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
         } else {
-            $this->load->view('templates/user/header', $data);
+            $detail = $this->Produk_model->getProdukById($id);
+            $produk = $this->Produk_model->selectAll();
+            $transaksi = $this->Transaksi_model->selectAll();
+            $data = [
+                'detail' => $detail,
+                "produk" => $produk
+            ];
+            if ($this->session->userdata('id_role') == 3) {
+                $this->load->view('templates/user/header2', $data);
+            } else {
+                $this->load->view('templates/user/header', $data);
+            }
+            $this->load->view('user/deskripsi_produk', $data);
+            $this->load->view('templates/user/footer');
         }
-        $this->load->view('user/deskripsi_produk', $data);
-        $this->load->view('templates/user/footer');
+    }
+    public function kategori_produk()
+    {
+        $ci = get_instance();
+
+        if ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
+            echo "Akses di blokir";
+        } else {
+            $produk = $this->Produk_model->selectAll();
+            $transaksi = $this->Transaksi_model->selectAll();
+            $jumlahkeranjang = $this->Keranjang_model->selectjumlah();
+
+            $data = [
+                "produk" => $produk,
+                'jumlahkeranjang' => $jumlahkeranjang
+            ];
+            if ($this->session->userdata('id_role') == 3) {
+                $this->load->view('templates/user/header2', $data);
+            } else {
+                $this->load->view('templates/user/header', $data);
+            }
+            $this->load->view('user/kategori_produk', $data);
+            $this->load->view('templates/user/footer');
+        }
     }
 
     public function keranjang()
@@ -345,7 +399,7 @@ class Auth extends CI_Controller
                 "id_pelanggan" => $this->session->userdata('id')
             ];
             $this->Keranjang_model->create($data);
-            echo "<script>location.href='" . base_url('auth/produk') . "';alert('Anda telah berhasil memasukkan produk ke keranjang');</script>";
+            echo "<script>location.href='" . base_url('auth/kategori_produk') . "';alert('Anda telah berhasil memasukkan produk ke keranjang');</script>";
         }
     }
 
@@ -440,6 +494,7 @@ class Auth extends CI_Controller
     }
     public function alamat()
     {
+
         $data["produk"] = $this->Produk_model->selectAll();
 
         if ($this->session->userdata('id_role') == 3) {

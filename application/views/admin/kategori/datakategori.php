@@ -28,6 +28,7 @@
                             <tr style="text-align: center;">
                                 <th scope="col">No</th>
                                 <th scope="col">Nama Kategori</th>
+                                <th scope="col">Foto Kategori</th>
                                 <th scope="col">AKSI</th>
                             </tr>
                         </thead>
@@ -38,6 +39,7 @@
                                 <tr style="text-align: center;">
                                     <td><?= $no; ?></td>
                                     <td><?= $kategoris['nama_kategori'] ?></td>
+                                    <td><img class="img-fluid" src="<?= base_url('kategori/') . $kategoris['foto_kategori'] ?>" alt="" style="width:75px ;"></td>
                                     <td class="text-center">
                                         <a href="<?= base_url('kategori/edit/' . $kategoris['id_kategori']) ?>" type="button" class="bi bi-pencil-square" style="color:limegreen">
                                         </a>

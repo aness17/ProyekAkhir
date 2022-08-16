@@ -131,7 +131,6 @@
         <div class="card info-card sales-card">
           <div class="card-body">
             <h5 class="card-title">UMKM</h5>
-
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-person-fill"></i>
@@ -197,6 +196,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
+            <h5 class="card-title">Penjualan Tahun </h5>
             <canvas id="myChart" width="400" height="100"></canvas>
           </div>
         </div>

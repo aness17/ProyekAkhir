@@ -68,14 +68,7 @@
                 <ul>
                     <li class="dropdown"><a href="<?= base_url('') ?>"><span>Home</span></a>
                     </li>
-                    <li class="dropdown"><a href="<?= base_url('auth/produk') ?>"><span>Produk</span> </a>
-                        <!-- <ul>
-                            <?php
-                            $kategori = $this->db->query("SELECT * FROM kategori order by nama_kategori ASC");
-                            foreach ($kategori->result_array() as $kategoris) : ?>
-                                <li><a href="<?= base_url('auth/produk/' . $kategoris['nama_kategori']) ?>"><?= $kategoris['nama_kategori'] ?></a>
-                                </li> <?php endforeach; ?>
-                        </ul> -->
+                    <li class="dropdown"><a href="<?= base_url('auth/kategori_produk') ?>"><span>Produk</span> </a>
                     </li>
                     <li><a class="nav-link scrollto" href="<?= base_url('auth/tentang') ?>">Tentang</a></li>
                     <div class="md-form">

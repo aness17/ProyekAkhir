@@ -76,7 +76,7 @@
         <div class="container" data-aos="fade-up">
             <div class="section-header">
                 <div class="d-flex justify-content-evenly">
-                    <h2>Alamat</h2>
+                    <h2 style="font-family: monospace;">Alamat</h2>
                 </div>
             </div>
 
