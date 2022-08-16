@@ -479,14 +479,32 @@ class Auth extends CI_Controller
         } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
             echo "Akses di blokir";
         } else {
-            $riwayat = $this->DetailTransaksi_model->riwayat();
+            $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
+
+            if ($this->form_validation->run() == true) { // Cek apakah user telah memilih filter dan klik tombol tampilkan
+
+                $tgl = $_POST['tanggal'];
+                $id = $ci->session->userdata('id');
+
+                // $url_cetak = 'transaksi/cetak?filter=1&tanggal=' . $tgl;
+                $transaksi = $this->DetailTransaksi_model->riwayat_user($tgl, $id); // Panggil fungsi view_by_date yang ada di TransaksiModel
+
+            } else { // Jika user tidak mengklik tombol tampilkan
+                $ket = 'Semua Data Transaksi';
+                // var_dump($ket);
+                // die;
+                // $url_cetak = 'transaksi/cetak';
+                $transaksi = $this->DetailTransaksi_model->riwayat(); // Panggil fungsi view_all yang ada di TransaksiModel
+            }
+
+            $data['transaksi'] = $transaksi;
+
+            // $riwayat = $this->DetailTransaksi_model->riwayat();
             $data["produk"] = $this->Produk_model->selectAll();
 
             $this->load->view('templates/user/header2', $data);
 
-            $data = [
-                'riwayat' => $riwayat
-            ];
+            $data['transaksi'] = $transaksi;
 
             $this->load->view('user/riwayat_pesanan', $data);
             $this->load->view('templates/user/footer');

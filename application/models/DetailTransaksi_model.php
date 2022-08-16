@@ -60,6 +60,17 @@ class DetailTransaksi_model extends CI_Model
         $this->db->order_by('transaksi.tgl_pesanan', 'DESC');
         return $this->db->get($this->table)->result_array();
     }
+    public function riwayat_user($date)
+    {
+        $this->db->where('transaksi.id_pelanggan', $this->session->userdata('id'));
+        $this->db->join('transaksi', 'detail_transaksi.id_transaksi = transaksi.id_transaksi');
+        $this->db->join('produk', 'produk.id_produk = detail_transaksi.id_produk');
+        $this->db->where('DATE(tgl_pesanan) like ', $date);
+        $this->db->group_by("detail_transaksi.id_transaksi");
+        $this->db->select("detail_transaksi.*, transaksi.*, produk.*,GROUP_CONCAT(produk.nama_produk) as nama_produk, sum(detail_transaksi.ket_jumlah) as ket_jumlah");
+        $this->db->order_by('transaksi.tgl_pesanan', 'DESC');
+        return $this->db->get($this->table)->result_array();
+    }
     public function sekect()
     {
         // $this->db->join('transaksi', 'detail_transaksi.id_transaksi = transaksi.id_transaksi');

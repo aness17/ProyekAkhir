@@ -10,6 +10,21 @@
             </div>
             <div class="row gy-5">
                 <div class="col-12">
+                    <div>
+                        <form action="" method="post">
+                            <div class="row" id="form-bulan">
+                                <div class="col-lg-2">
+                                    <div>
+                                        <input type="date" name="tanggal" id="tanggal" />
+                                        <?= form_error('tanggal', '<small class="form-text text-danger">', '</small>'); ?>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" id="tombol">Cek</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <table class="table tables-responsive datatable">
                         <thead>
                             <tr>
@@ -23,7 +38,7 @@
                         <tbody class="list">
                             <?php $no = 1;
                             // $user = $this->db->query("SELECT * FROM user where fk_role = '2'");
-                            foreach ($riwayat as $r) : ?>
+                            foreach ($transaksi as $r) : ?>
                                 <tr>
                                     <td><?= $no++; ?></td>
                                     <td><?= $r['nama_produk'] ?></td>
@@ -33,6 +48,7 @@
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>

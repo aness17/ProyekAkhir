@@ -80,7 +80,7 @@
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title"><?php echo $ket; ?></span></h5>
                         <a id="cetak" type="button" class="btn" style="font-size:25px;">
-                            <i class="bi bi-file-earmark-pdf-fill"></i> </a>
+                            Text to PDF <i class="bi bi-file-earmark-pdf-fill"></i> </a>
                     </div>
 
                     <table class="table table datatable">
