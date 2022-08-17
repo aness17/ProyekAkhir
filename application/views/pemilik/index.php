@@ -250,16 +250,7 @@
     const item = async (tahun) => {
       //kelompok
       let transaksi = await fetchData(`<?= base_url() ?>/pemilik/transaksiperbulan/${tahun}`);
-      // var chart = new Chartist.Pie('#animating-donut', {
-      //   series: penjualankelompok_bar.map((s) => parseInt(s.jumlah)),
-      //   labels: penjualankelompok_bar.map((s) => s.nama_stock)
-      // }, {
-      //   donut: true,
-      //   showLabel: false,
-      //   plugins: [
-      //     Chartist.plugins.tooltip()
-      //   ]
-      // });
+
       var data = {
         series: transaksi.map((s) => parseInt(s.jumlah)),
         labels: transaksi.map((s) => s.tgl)

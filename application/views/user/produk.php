@@ -20,16 +20,15 @@
         <div class="col-2">
             <section id="features" class="features" style="padding: 10px 0 !important;">
                 <div class="container aos-init aos-animate" data-aos="fade-up">
-                    <h3 style="font-family: monospace;">Filter Harga</h3>
-
+                    <h3 style="font-family: monospace;font-size: xx-large;">Harga</h3>
                     <form action="" method="post">
                         <div class="row flex-column align-items-end" id="form-tanggal">
                             <div class="col-lg-12">
-                                <h5 class="card-title">Min. Harga</h5>
+                                <h5 style="font-family: monospace;font-size: large;" class="card-title">Min. Harga</h5>
                                 <input type="number" value="0" min="0" name="harga" id="harga" class="form-control">
                             </div>
                             <div class="col-lg-12 mt-3">
-                                <h5 class="card-title">Max. Harga</h5>
+                                <h5 style="font-family: monospace;font-size: large;" class="card-title">Max. Harga</h5>
                                 <input type="number" value="0" min="0" name="harga2" id="harga2" class="form-control">
                             </div>
                             <div class="col mt-3">
