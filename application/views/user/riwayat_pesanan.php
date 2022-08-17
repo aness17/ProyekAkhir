@@ -12,16 +12,12 @@
                 <div class="col-12">
                     <div>
                         <form action="" method="post">
-                            <div class="row" id="form-bulan">
-                                <div class="col-lg-2">
-                                    <div>
-                                        <input type="date" name="tanggal" id="tanggal" />
-                                        <?= form_error('tanggal', '<small class="form-text text-danger">', '</small>'); ?>
-                                    </div>
+                            <div class="row d-flex flex-row justify-content-end " id="form-bulan">
+                                <div style="max-width:fit-content ;">
+                                    <input type="date" name="tanggal" id="tanggal" />
+                                    <?= form_error('tanggal', '<small class="form-text text-danger">', '</small>'); ?>
                                 </div>
-                                <div class="col">
-                                    <button type="submit" id="tombol">Cek</button>
-                                </div>
+                                <button style="max-width: fit-content;" type="submit" id="tombol">Cek</button>
                             </div>
                         </form>
                     </div>

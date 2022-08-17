@@ -62,6 +62,7 @@ class Pemilik extends CI_Controller
             $pendapatanperhari = $this->Transaksi_model->sumhargahari($tgl)[0]->total_harga;
             $pendapatanperbulan = $this->Transaksi_model->sumhargabulan($month)[0]->total_harga;
             $bestSeller = $this->DetailTransaksi_model->bestSeller($month);
+            $tahun = $this->Transaksi_model->tahun();
 
             $data = [
                 'datacs' => $datacs,
@@ -76,7 +77,8 @@ class Pemilik extends CI_Controller
                 'transaksiperhari' => $transaksiperhari,
                 'transaksiperbulan' => $transaksiperbulan,
                 'transaksipertahun' => $transaksipertahun,
-                'bestSeller' => $bestSeller
+                'bestSeller' => $bestSeller,
+                'tahun' => $tahun
             ];
             $this->load->view('templates/pemilik/header');
             $this->load->view('templates/pemilik/sidebar');
@@ -87,10 +89,10 @@ class Pemilik extends CI_Controller
         }
     }
 
-    public function transaksiperbulan()
+    public function transaksiperbulan($tahun)
     {
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($this->Transaksi_model->getTransaksiPerBulan());
+        echo json_encode($this->Transaksi_model->getTransaksiPerBulan($tahun));
     }
 
     public function laporan()

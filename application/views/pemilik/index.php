@@ -197,6 +197,12 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Penjualan Tahun </h5>
+            <select id="tahun" class="ml-3">
+              <option value="-">Semua Tahun</option>
+              <?php foreach ($tahun as $r) : ?>
+                <option value="<?= $r['tahun'] ?>"><?= $r['tahun'] ?></option>
+              <?php endforeach; ?>
+            </select>
             <canvas id="myChart" width="400" height="100"></canvas>
           </div>
         </div>
@@ -241,9 +247,9 @@
       })
     }
 
-    const item = async () => {
+    const item = async (tahun) => {
       //kelompok
-      let transaksi = await fetchData(`<?= base_url() ?>/pemilik/transaksiperbulan`);
+      let transaksi = await fetchData(`<?= base_url() ?>/pemilik/transaksiperbulan/${tahun}`);
       // var chart = new Chartist.Pie('#animating-donut', {
       //   series: penjualankelompok_bar.map((s) => parseInt(s.jumlah)),
       //   labels: penjualankelompok_bar.map((s) => s.nama_stock)
@@ -259,6 +265,7 @@
         labels: transaksi.map((s) => s.tgl)
       };
       const ctx = document.getElementById('myChart').getContext('2d');
+      //tarok sini
 
       const myChart = new Chart(ctx, {
         type: 'bar',
@@ -280,8 +287,10 @@
         }
       });
     }
-
-    item();
+    document.getElementById('tahun').addEventListener('change', (e) => {
+      item(e.target.value);
+    });
+    item('-');
   </script>
 
 </main><!-- End #main -->

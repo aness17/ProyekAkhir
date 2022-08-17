@@ -25,8 +25,11 @@ class Transaksi_model extends CI_Model
         $this->db->select_max('id_transaksi');
         return $this->db->get($this->table)->row_array();
     }
-    public function getTransaksiPerBulan()
+    public function getTransaksiPerBulan($tahun)
     {
+        if ($tahun != '-') {
+            $this->db->where('year(tgl_pesanan)', $tahun);
+        }
         $this->db->select('concat(month(tgl_pesanan)," - ",year(tgl_pesanan)) as tgl, count(*) as jumlah');
         $this->db->group_by("tgl");
         return $this->db->get($this->table)->result_array();
@@ -256,5 +259,11 @@ class Transaksi_model extends CI_Model
         $this->db->Order_by('A.id_transaksi', "DESC");
         $this->db->limit(1);
         return $this->db->get($this->table . " as A")->result_array();
+    }
+    public function tahun()
+    {
+        $this->db->select('year(tgl_pesanan) as tahun');
+        $this->db->group_by('tahun');
+        return $this->db->get($this->table)->result_array();
     }
 }

@@ -393,12 +393,21 @@ class Auth extends CI_Controller
         } elseif ($ci->session->userdata('id') == '1'  || $ci->session->userdata('id_role') == '2') {
             echo "Akses di blokir";
         } else {
-            $data = [
-                "id_produk" => $this->input->post("id"),
-                "ket_jumlah" => $this->input->post("jumlah"),
-                "id_pelanggan" => $this->session->userdata('id')
-            ];
-            $this->Keranjang_model->create($data);
+            $cek = $this->db->query('select * from keranjang where id_produk = "' . $this->input->post("id") . '" and id_pelanggan = "' . $this->session->userdata('id') . '"')->row_array();
+            if ($cek != null) {
+                $data = [
+                    "id_keranjang" => $cek['id_keranjang'],
+                    "ket_jumlah" => intval($this->input->post("jumlah")) + intval($cek['ket_jumlah'])
+                ];
+                $this->Keranjang_model->update($data);
+            } else {
+                $data = [
+                    "id_produk" => $this->input->post("id"),
+                    "ket_jumlah" => $this->input->post("jumlah"),
+                    "id_pelanggan" => $this->session->userdata('id')
+                ];
+                $this->Keranjang_model->create($data);
+            }
             echo "<script>location.href='" . base_url('auth/kategori_produk') . "';alert('Anda telah berhasil memasukkan produk ke keranjang');</script>";
         }
     }
